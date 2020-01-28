@@ -43,7 +43,7 @@ const GameView: React.FC = () => {
 
   return (
     <div className="game">
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} tabIndex={1}></canvas>
     </div>
   );
 };
