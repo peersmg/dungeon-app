@@ -1,3 +1,5 @@
+import Vector2D from "../../Utils/Vector2D";
+
 class Canvas {
   private canvasElement: HTMLCanvasElement | null = null;
   private canvasCtx: CanvasRenderingContext2D | null = null;
@@ -25,11 +27,11 @@ class Canvas {
     }
   }
 
-  drawText(text: string, x: number, y: number) {
+  drawText(text: string, pos: Vector2D) {
     if (this.canvasCtx) {
       this.canvasCtx.textAlign = "start";
       this.canvasCtx.textBaseline = "top";
-      this.canvasCtx.fillText(text, x, y);
+      this.canvasCtx.fillText(text, pos.x, pos.y);
     }
   }
 

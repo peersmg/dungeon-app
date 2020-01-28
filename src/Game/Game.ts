@@ -1,5 +1,6 @@
 import View from "./Objects/View";
 import Canvas from "./components/Canvas/Canvas";
+import Vector2D from "./Utils/Vector2D";
 
 class Game {
   canvas!: Canvas;
@@ -19,7 +20,7 @@ class Game {
     this.canvas.setFillStyle("black");
     this.canvas.setFont("bold 16px Arial");
 
-    this.canvas.drawText("Fps: " + 1000 / this.deltaTime, 5, 5);
+    this.canvas.drawText("Fps: " + 1000 / this.deltaTime, new Vector2D({ x: 0, y: 0 }));
 
     console.log(this.gameView.x);
   }
