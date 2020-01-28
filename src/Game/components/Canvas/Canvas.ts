@@ -30,8 +30,10 @@ class Canvas {
     }
   }
 
-  drawText(text: string, pos: Vector2D) {
+  drawText(text: string, pos: Vector2D, color: string = "white") {
     if (this.canvasCtx) {
+      this.setFillStyle(color);
+      this.setFont("bold 24px Arial");
       this.canvasCtx.textAlign = "start";
       this.canvasCtx.textBaseline = "top";
       this.canvasCtx.fillText(text, pos.x, pos.y);
@@ -67,6 +69,13 @@ class Canvas {
   setFillStyle(fillStyle: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = fillStyle;
+    }
+  }
+
+  drawBackgound(color: string) {
+    if (this.canvasCtx && this.canvasElement) {
+      this.canvasCtx.fillStyle = color;
+      this.canvasCtx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
   }
 
