@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "../Button/Button"
 
 type MenuProps = {
     text: String;
@@ -7,7 +8,7 @@ type MenuProps = {
 const Menu: React.FC<MenuProps> = (props) => {
     return (
       <div className="Menu">
-        {props.text}
+        <Button>{props.text}</Button>
       </div>
     );
   }
