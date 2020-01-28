@@ -1,8 +1,19 @@
 import React from 'react';
 
-const Button: React.FC = (props) => {
+interface ButtonProp {
+  buttonCallback?: (() => void);
+}
+
+const Button: React.FC<ButtonProp> = (props) => {
+
+  function buttonClicked() {
+    if(props.buttonCallback) {
+      props.buttonCallback();
+    }
+  }
+
     return (
-    <button>{props.children}</button>
+    <button onClick={buttonClicked}>{props.children}</button>
     );
   }
   
