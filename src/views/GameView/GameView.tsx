@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Canvas from "../../Game/components/Canvas/Canvas";
 import Game from "../../Game/Game";
 
 const GameView: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [gameRef, setGameRef] = useState<Game>(new Game());
-
-  let canvasCtx: CanvasRenderingContext2D | null = null;
-  let canvasElement: HTMLCanvasElement | null = null;
+  const [gameRef] = useState<Game>(new Game());
 
   useEffect(() => {
-    setupCanvas();
+    let canvasComponent = new Canvas();
 
-    if (canvasCtx && canvasElement) {
-      gameRef.begin(canvasCtx, canvasElement);
+    if (canvasComponent) {
+      gameRef.begin(canvasComponent);
       requestAnimationFrame(updateGame);
     }
+    // eslint-disable-next-line
   }, []);
 
   function updateGame() {
@@ -23,29 +21,7 @@ const GameView: React.FC = () => {
     requestAnimationFrame(updateGame);
   }
 
-  function setupCanvas() {
-    if (canvasRef.current) {
-      canvasElement = canvasRef.current;
-      canvasCtx = canvasElement.getContext("2d");
-      setupCanvasStyling(canvasElement);
-    }
-  }
-
-  function setupCanvasStyling(canvasElement: HTMLCanvasElement) {
-    canvasElement.style.position = "absolute";
-
-    canvasElement.style.left = "0px";
-    canvasElement.style.top = "0px";
-    canvasElement.style.padding = "0px";
-    canvasElement.width = window.innerWidth;
-    canvasElement.height = window.innerHeight;
-  }
-
-  return (
-    <div className="game">
-      <canvas ref={canvasRef} tabIndex={1}></canvas>
-    </div>
-  );
+  return <div id="game" className="game"></div>;
 };
 
 export default GameView;
