@@ -20,7 +20,7 @@ class Game {
     this.canvas.setFillStyle("black");
     this.canvas.setFont("bold 16px Arial");
 
-    this.canvas.drawText("Fps: " + 1000 / this.deltaTime, new Vector2D({ x: 0, y: 0 }));
+    this.canvas.drawText("Fps: " + 1000 / this.deltaTime, new Vector2D({ x: 5, y: 5 }));
 
     console.log(this.gameView.x);
   }

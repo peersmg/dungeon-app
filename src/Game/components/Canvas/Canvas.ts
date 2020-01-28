@@ -12,18 +12,21 @@ class Canvas {
 
       this.canvasCtx = this.canvasElement.getContext("2d");
 
-      this.setupCanvasStyling();
+      this.refreshCanvasStyling();
+
+      window.addEventListener("resize", () => {
+        this.onDocumentResize();
+      });
     }
+  }
+
+  onDocumentResize() {
+    this.refreshCanvasStyling();
   }
 
   clearCanvas() {
     if (this.canvasElement) {
-      this.canvasCtx?.clearRect(
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      );
+      this.canvasCtx?.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
   }
 
@@ -67,7 +70,7 @@ class Canvas {
     }
   }
 
-  private setupCanvasStyling() {
+  private refreshCanvasStyling() {
     if (this.canvasElement) {
       this.canvasElement.style.position = "absolute";
 
