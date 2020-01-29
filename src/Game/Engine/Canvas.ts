@@ -5,6 +5,8 @@ class Canvas {
   private dpr: number = 1;
   private userScale: number = 0;
 
+  private containerElement: HTMLElement | null = null;
+
   constructor() {
     this.canvasCtx = this.generateCanvas();
 
@@ -22,20 +24,22 @@ class Canvas {
     let canvasElement = document.createElement("canvas");
 
     if (canvasElement) {
-      document.getElementById("game")?.appendChild(canvasElement);
-      this.refreshCanvasStyling();
+      this.containerElement = document.getElementById("game");
+      this.containerElement?.appendChild(canvasElement);
     }
 
-    this.dpr = window.devicePixelRatio || 1;
-    let xSize = window.innerWidth;
-    let ySize = window.innerHeight;
-    console.log("Pixel ratio: " + this.dpr);
+    if (this.containerElement) {
+      this.dpr = window.devicePixelRatio || 1;
+      let xSize = this.containerElement?.clientWidth;
+      let ySize = this.containerElement?.clientHeight;
+      console.log("Pixel ratio: " + this.dpr);
 
-    canvasElement.width = xSize * this.dpr;
-    canvasElement.height = ySize * this.dpr;
+      canvasElement.width = xSize * this.dpr;
+      canvasElement.height = ySize * this.dpr;
 
-    canvasElement.style.width = xSize + "px";
-    canvasElement.style.height = ySize + "px";
+      canvasElement.style.width = xSize + "px";
+      canvasElement.style.height = ySize + "px";
+    }
 
     let canvasCtx = canvasElement.getContext("2d");
 
@@ -45,10 +49,10 @@ class Canvas {
   }
 
   refreshCanvasSize() {
-    if (this.canvasCtx) {
+    if (this.canvasCtx && this.containerElement) {
       this.dpr = window.devicePixelRatio || 1;
-      let xSize = window.innerWidth;
-      let ySize = window.innerHeight;
+      let xSize = this.containerElement.clientWidth;
+      let ySize = this.containerElement.clientHeight;
       console.log("Pixel ratio: " + this.dpr);
 
       this.canvasCtx.canvas.width = xSize * this.dpr;
@@ -144,11 +148,10 @@ class Canvas {
 
   private refreshCanvasStyling() {
     if (this.canvasCtx) {
-      this.canvasCtx.canvas.style.position = "absolute";
-
-      this.canvasCtx.canvas.style.left = "0px";
-      this.canvasCtx.canvas.style.top = "0px";
-      this.canvasCtx.canvas.style.padding = "0px";
+      //this.canvasCtx.canvas.style.position = "absolute";
+      //this.canvasCtx.canvas.style.left = "0px";
+      //this.canvasCtx.canvas.style.top = "0px";
+      //this.canvasCtx.canvas.style.padding = "0px";
     }
   }
 }

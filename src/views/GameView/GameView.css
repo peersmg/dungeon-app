@@ -1,0 +1,30 @@
+.game-view {
+  height: 100%;
+}
+
+.game-header {
+  position: absolute;
+  top: 0px;
+  color: white;
+  height: calc(5%);
+  width: 100%;
+  text-align: center;
+  line-height: normal;
+}
+
+.game-footer {
+  position: absolute;
+  bottom: 0px;
+  height: calc(5%);
+  color: white;
+  width: 100%;
+  text-align: center;
+  line-height: normal;
+}
+
+.game-body {
+  position: absolute;
+  top: calc(5%);
+  bottom: calc(5%);
+  width: 100%;
+}
