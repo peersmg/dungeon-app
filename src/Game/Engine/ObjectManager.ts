@@ -1,7 +1,7 @@
 import GameObject from "./GameObject";
 
 class ObjectManager {
-  objects: Array<GameObject> = new Array();
+  objects: GameObject[] = [];
   private static instance: ObjectManager;
 
   private constructor() {}

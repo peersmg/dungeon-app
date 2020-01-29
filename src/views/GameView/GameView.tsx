@@ -21,7 +21,7 @@ const GameView: React.FC = () => {
     requestAnimationFrame(updateGame);
   }
 
-  return <div id="game" className="game"></div>;
+  return <div id="game"></div>;
 };
 
 export default GameView;

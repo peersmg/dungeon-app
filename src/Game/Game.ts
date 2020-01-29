@@ -3,7 +3,6 @@ import Canvas from "./Engine/Canvas";
 import Vector2D from "./Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
 import MovingBoxGO from "./Objects/MovingBoxGO";
-import TransformComponent from "./components/TransformComponent";
 
 class Game {
   canvas!: Canvas;

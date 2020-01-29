@@ -3,7 +3,7 @@ import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Utils/Vector2D";
 
 abstract class GameObject {
-  components: Array<GameComponent> = new Array();
+  components: GameComponent[] = [];
   transform: TransformComponent;
 
   constructor(
