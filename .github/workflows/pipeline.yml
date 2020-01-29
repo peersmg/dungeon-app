@@ -11,5 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install deps
       run: yarn install
+    - name: Test
+      run: yarn test
     - name: Build app
       run: yarn build
