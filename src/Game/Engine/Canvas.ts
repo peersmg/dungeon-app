@@ -3,7 +3,7 @@ import Vector2D from "../Utils/Vector2D";
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;
   private dpr: number = 1;
-  private userScale: number = 1;
+  private userScale: number = 0;
 
   constructor() {
     this.canvasCtx = this.generateCanvas();
@@ -31,9 +31,12 @@ class Canvas {
     canvasElement.width = xSize * this.dpr;
     canvasElement.height = ySize * this.dpr;
 
+    canvasElement.style.width = xSize + "px";
+    canvasElement.style.height = ySize + "px";
+
     let canvasCtx = canvasElement.getContext("2d");
 
-    canvasCtx?.scale(this.userScale, this.userScale);
+    canvasCtx?.scale(this.dpr + this.userScale, this.dpr + this.userScale);
 
     return canvasCtx;
   }
@@ -47,8 +50,13 @@ class Canvas {
 
       this.canvasCtx.canvas.width = xSize * this.dpr;
       this.canvasCtx.canvas.height = ySize * this.dpr;
+      this.canvasCtx.canvas.style.width = xSize + "px";
+      this.canvasCtx.canvas.style.height = ySize + "px";
 
-      this.canvasCtx.scale(this.userScale, this.userScale);
+      this.canvasCtx.scale(
+        this.dpr + this.userScale,
+        this.dpr + this.userScale
+      );
     }
   }
 
@@ -93,7 +101,7 @@ class Canvas {
 
   getCanvasWidth() {
     if (this.canvasCtx) {
-      return window.innerWidth / this.userScale;
+      return window.innerWidth;
     } else {
       return 0;
     }
@@ -101,7 +109,7 @@ class Canvas {
 
   getCanvasHeight() {
     if (this.canvasCtx) {
-      return window.innerHeight / this.userScale;
+      return window.innerHeight;
     } else {
       return 0;
     }
