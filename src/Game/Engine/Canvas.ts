@@ -1,4 +1,4 @@
-import Vector2D from "../../Utils/Vector2D";
+import Vector2D from "../Utils/Vector2D";
 
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;
@@ -85,6 +85,10 @@ class Canvas {
 
   drawBox(pos: Vector2D, size: Vector2D) {
     this.canvasCtx?.fillRect(pos.x, pos.y, size.x, size.y);
+  }
+
+  getContext() {
+    return this.canvasCtx;
   }
 
   getCanvasWidth() {

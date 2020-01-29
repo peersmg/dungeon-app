@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Canvas from "../../Game/components/Canvas/Canvas";
+import Canvas from "../../Game/Engine/Canvas";
 import Game from "../../Game/Game";
 
 const GameView: React.FC = () => {

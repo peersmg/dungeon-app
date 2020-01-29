@@ -2,9 +2,7 @@ class Vector2D {
   x: number;
   y: number;
 
-  constructor(params: Vector2D = {} as Vector2D) {
-    let { x = 0, y = 0 } = params;
-
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
