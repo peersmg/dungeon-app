@@ -15,17 +15,19 @@ class Game {
 
   tick() {
     this.calcDeltatime();
-    this.clearCanvas();
+    this.canvas.clearCanvas();
     this.canvas.drawBackgound("black");
 
     let fps = 1000 / this.deltaTime;
-    this.canvas.drawText("Fps: " + Math.round(fps * 100) / 100, new Vector2D({ x: 5, y: 5 }));
+    this.canvas.drawText(
+      "FPS: " + Math.round(fps * 100) / 100,
+      new Vector2D({ x: this.canvas.getCanvasWidth() / 2, y: 0 })
+    );
 
-    console.log(this.gameView.x);
-  }
-
-  private clearCanvas() {
-    this.canvas.clearCanvas();
+    this.canvas.drawBox(
+      new Vector2D({ x: 100, y: 100 }),
+      new Vector2D({ x: 500, y: 500 })
+    );
   }
 
   private calcDeltatime() {

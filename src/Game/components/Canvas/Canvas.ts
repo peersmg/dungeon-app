@@ -1,32 +1,78 @@
 import Vector2D from "../../Utils/Vector2D";
 
 class Canvas {
-  private canvasElement: HTMLCanvasElement | null = null;
   private canvasCtx: CanvasRenderingContext2D | null = null;
+  private dpr: number = 1;
+  private userScale: number = 0;
 
   constructor() {
-    this.canvasElement = document.createElement("canvas");
+    this.canvasCtx = this.generateCanvas();
 
-    if (this.canvasElement) {
-      document.getElementById("game")?.appendChild(this.canvasElement);
-
-      this.canvasCtx = this.canvasElement.getContext("2d");
-
-      this.refreshCanvasStyling();
-
+    if (this.canvasCtx) {
       window.addEventListener("resize", () => {
         this.onDocumentResize();
       });
     }
   }
 
+  generateCanvas() {
+    let canvasElement = document.createElement("canvas");
+
+    if (canvasElement) {
+      document.getElementById("game")?.appendChild(canvasElement);
+      this.refreshCanvasStyling();
+    }
+
+    this.dpr = window.devicePixelRatio || 1;
+    let xSize = window.innerWidth;
+    let ySize = window.innerHeight;
+    console.log("Pixel ratio: " + this.dpr);
+
+    canvasElement.width = xSize * this.dpr;
+    canvasElement.height = ySize * this.dpr;
+
+    let canvasCtx = canvasElement.getContext("2d");
+
+    canvasCtx?.scale(this.dpr + this.userScale, this.dpr + this.userScale);
+
+    return canvasCtx;
+  }
+
+  refreshCanvasSize() {
+    if (this.canvasCtx) {
+      this.dpr = window.devicePixelRatio || 1;
+      let xSize = window.innerWidth;
+      let ySize = window.innerHeight;
+      console.log("Pixel ratio: " + this.dpr);
+
+      this.canvasCtx.canvas.width = xSize * this.dpr;
+      this.canvasCtx.canvas.height = ySize * this.dpr;
+
+      this.canvasCtx.scale(
+        this.dpr + this.userScale,
+        this.dpr + this.userScale
+      );
+    }
+  }
+
+  setUserScale(scale: number) {
+    this.userScale = scale;
+    this.canvasCtx?.resetTransform();
+    this.canvasCtx?.scale(this.dpr + scale, this.dpr + scale);
+  }
+
   onDocumentResize() {
-    this.refreshCanvasStyling();
+    this.refreshCanvasSize();
   }
 
   clearCanvas() {
-    if (this.canvasElement) {
-      this.canvasCtx?.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+    if (this.canvasCtx) {
+      this.canvasCtx.clearRect(
+        0,
+        0,
+        this.canvasCtx.canvas.width,
+        this.canvasCtx.canvas.height
+      );
     }
   }
 
@@ -40,24 +86,24 @@ class Canvas {
     }
   }
 
+  drawBox(pos: Vector2D, size: Vector2D) {
+    this.canvasCtx?.fillRect(pos.x, pos.y, size.x, size.y);
+  }
+
   getCanvasWidth() {
-    if (this.canvasElement) {
-      return this.canvasElement.width;
+    if (this.canvasCtx) {
+      return window.innerWidth / (this.dpr + this.userScale);
     } else {
       return 0;
     }
   }
 
   getCanvasHeight() {
-    if (this.canvasElement) {
-      return this.canvasElement.height;
+    if (this.canvasCtx) {
+      return window.innerHeight / (this.dpr + this.userScale);
     } else {
       return 0;
     }
-  }
-
-  getElement() {
-    return this.canvasElement;
   }
 
   setFont(font: string) {
@@ -73,21 +119,24 @@ class Canvas {
   }
 
   drawBackgound(color: string) {
-    if (this.canvasCtx && this.canvasElement) {
+    if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
-      this.canvasCtx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+      this.canvasCtx.fillRect(
+        0,
+        0,
+        this.canvasCtx.canvas.width,
+        this.canvasCtx.canvas.height
+      );
     }
   }
 
   private refreshCanvasStyling() {
-    if (this.canvasElement) {
-      this.canvasElement.style.position = "absolute";
+    if (this.canvasCtx) {
+      this.canvasCtx.canvas.style.position = "absolute";
 
-      this.canvasElement.style.left = "0px";
-      this.canvasElement.style.top = "0px";
-      this.canvasElement.style.padding = "0px";
-      this.canvasElement.width = window.innerWidth;
-      this.canvasElement.height = window.innerHeight;
+      this.canvasCtx.canvas.style.left = "0px";
+      this.canvasCtx.canvas.style.top = "0px";
+      this.canvasCtx.canvas.style.padding = "0px";
     }
   }
 }
