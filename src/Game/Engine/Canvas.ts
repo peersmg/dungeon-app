@@ -12,6 +12,9 @@ class Canvas {
       window.addEventListener("resize", () => {
         this.onDocumentResize();
       });
+      window.addEventListener("orientationchange", () => {
+        this.onDocumentResize();
+      });
     }
   }
 
