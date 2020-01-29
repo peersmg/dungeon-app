@@ -12,7 +12,7 @@ class MovingBoxGO extends GameObject {
   }
   start(): void {
     this.addComponent(
-      new BoxRenderComponent(this, new Vector2D(100, 100), "blue")
+      new BoxRenderComponent(this, new Vector2D(10, 10), "blue")
     );
   }
 

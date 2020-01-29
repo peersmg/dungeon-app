@@ -13,17 +13,19 @@ class Game {
 
   begin(canvas: Canvas) {
     this.canvas = canvas;
-    ObjectManager.getInstance().addObject(
-      new MovingBoxGO(new Vector2D(100, 100))
-    );
+    let y = 0;
+    let x = 0;
+    for (let i = 0; i < 5000; i++) {
+      ObjectManager.getInstance().addObject(
+        new MovingBoxGO(new Vector2D(x * 15, 100 + y * 15))
+      );
 
-    ObjectManager.getInstance().addObject(
-      new MovingBoxGO(new Vector2D(300, 100))
-    );
-
-    ObjectManager.getInstance().addObject(
-      new MovingBoxGO(new Vector2D(700, 100))
-    );
+      x++;
+      if (x > 100) {
+        y++;
+        x = 0;
+      }
+    }
   }
 
   tick() {
