@@ -14,6 +14,6 @@ jobs:
     - name: Unit Tests
       run: CI=true yarn test
     - name: Integration Tests
-      run: yarn test:cy
+      run: yarn start & yarn test:cy
     - name: Build app
       run: yarn build
