@@ -1,12 +1,13 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
+import { MapTile, tileMapper } from "../Utils/TileTypes";
 
 class BoxGridRenderComponent extends GameComponent {
   private _position: Vector2D;
-  private _mapGrid: (0 | 1)[][] = [[]];
+  private _mapGrid: MapTile[][] = [[]];
 
-  constructor(gameObject: GameObject, mapGrid: (0 | 1)[][]) {
+  constructor(gameObject: GameObject, mapGrid: MapTile[][]) {
     super(gameObject);
 
     if (this.gameObject) {
@@ -27,7 +28,7 @@ class BoxGridRenderComponent extends GameComponent {
   draw(renderContext: CanvasRenderingContext2D): void {
     for (let x = 0; x < this._mapGrid[0].length; x++) {
       for (let y = 0; y < this._mapGrid.length; y++) {
-        renderContext.fillStyle = this._mapGrid[y][x] === 0 ? "blue" : "white";
+        renderContext.fillStyle = tileMapper(this._mapGrid[y][x]);
         renderContext.fillRect(this._position.x + x * 70, this._position.y + y * 70, 50, 50);
       }
     }
@@ -41,7 +42,7 @@ class BoxGridRenderComponent extends GameComponent {
     return this._position;
   }
 
-  public set mapGrid(newMapGrid: (0 | 1)[][]) {
+  public set mapGrid(newMapGrid: MapTile[][]) {
     this._mapGrid = newMapGrid;
   }
 
@@ -49,7 +50,7 @@ class BoxGridRenderComponent extends GameComponent {
     return this._mapGrid;
   }
 
-  public setTile(value: 0 | 1, x: number, y: number) {
+  public setTile(value: MapTile, x: number, y: number) {
     this.mapGrid[y][x] = value;
   }
 }

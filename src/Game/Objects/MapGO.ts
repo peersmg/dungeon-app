@@ -2,11 +2,12 @@ import GameObject from "../Engine/GameObject";
 import Vector2D from "../Engine/Utils/Vector2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import BoxGridRenderComponent from "../Engine/components/BoxGridRenderComponent";
+import { MapTile } from "../Engine/Utils/TileTypes";
 
 class MapGO extends GameObject {
   time: number = 0;
   startPos: Vector2D;
-  map: (0 | 1)[][] = [
+  map: MapTile[][] = [
     [1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 1],
@@ -28,7 +29,7 @@ class MapGO extends GameObject {
     this.boxGrid = new BoxGridRenderComponent(this, this.map);
     this.addComponent(this.boxGrid);
 
-    this.boxGrid.setTile(0, 0, 2);
+    this.boxGrid.setTile(2, 4, 2);
   }
 }
 
