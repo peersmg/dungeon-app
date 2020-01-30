@@ -1,11 +1,9 @@
 /// <reference types="Cypress" />
 
 describe("Menu options", function() {
-  it("should show game when begin button clicked", function() {
+  it("should show begin game button on menu", function() {
     cy.visit("http://localhost:3000/");
 
-    cy.contains("Begin Game").click();
-
-    cy.contains("Dungeon Game!");
+    cy.contains("Begin Game");
   });
 });
