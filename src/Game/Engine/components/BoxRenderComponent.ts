@@ -14,7 +14,6 @@ class BoxRenderComponent extends GameComponent {
 
     if (this.gameObject) {
       this.position = this.gameObject.transform.getPosition();
-      console.log("Using transform position");
     } else {
       this.position = new Vector2D(0, 0);
     }
