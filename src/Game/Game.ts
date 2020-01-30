@@ -47,6 +47,11 @@ class Game {
     );
   }
 
+  stop() {
+    // Remove singletons
+    ObjectManager.destroy();
+  }
+
   private calcDeltatime() {
     let now = Date.now();
     this.deltaTime = now - this.lastUpdate;

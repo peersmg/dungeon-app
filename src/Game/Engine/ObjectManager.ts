@@ -2,7 +2,7 @@ import GameObject from "./GameObject";
 
 class ObjectManager {
   objects: GameObject[] = [];
-  private static instance: ObjectManager;
+  private static instance: ObjectManager | null;
 
   private constructor() {}
 
@@ -12,6 +12,10 @@ class ObjectManager {
     }
 
     return ObjectManager.instance;
+  }
+
+  public static destroy() {
+    ObjectManager.instance = null;
   }
 
   addObject(newObject: GameObject) {

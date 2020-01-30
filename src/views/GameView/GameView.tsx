@@ -5,14 +5,20 @@ import "./GameView.css";
 
 const GameView: React.FC = () => {
   const [gameRef] = useState<Game>(new Game());
+  const [requestFrame, setRequestFrame] = useState<number>(-1);
 
   useEffect(() => {
     let canvasComponent = new Canvas();
 
     if (canvasComponent) {
       gameRef.begin(canvasComponent);
-      requestAnimationFrame(updateGame);
+      setRequestFrame(requestAnimationFrame(updateGame));
     }
+
+    return function cleanup() {
+      cancelAnimationFrame(requestFrame);
+      gameRef.stop();
+    };
     // eslint-disable-next-line
   }, []);
 
