@@ -3,6 +3,8 @@ import Canvas from "./Engine/Canvas";
 import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
 import MovingBoxGO from "./Objects/MovingBoxGO";
+import dataStore from "../reducers/store";
+import { updateFps } from "../reducers/Actions";
 
 class Game {
   canvas!: Canvas;
@@ -10,6 +12,7 @@ class Game {
   lastUpdate: number = Date.now();
   deltaTime: number = 0;
   gameView: View = new View(0, 0);
+  deltaTimeHistory: number[] = [];
 
   begin(canvas: Canvas) {
     this.canvas = canvas;
@@ -30,6 +33,11 @@ class Game {
 
   tick() {
     this.calcDeltatime();
+
+    let fps = this.calcFps();
+
+    dataStore.dispatch(updateFps(fps));
+
     this.canvas.clearCanvas();
     this.canvas.drawBackgound("black");
 
@@ -39,12 +47,18 @@ class Game {
     if (curCanvasCtx) {
       ObjectManager.getInstance().drawAll(curCanvasCtx);
     }
+  }
 
-    let fps = 1000 / this.deltaTime;
-    this.canvas.drawText(
-      "FPS: " + Math.round(fps * 100) / 100,
-      new Vector2D(this.canvas.getCanvasWidth() / 2, 0)
-    );
+  private calcFps() {
+    const now = performance.now();
+    while (
+      this.deltaTimeHistory.length > 0 &&
+      this.deltaTimeHistory[0] <= now - 1000
+    ) {
+      this.deltaTimeHistory.shift();
+    }
+    this.deltaTimeHistory.push(now);
+    return this.deltaTimeHistory.length;
   }
 
   stop() {
