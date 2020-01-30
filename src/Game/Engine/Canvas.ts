@@ -1,4 +1,4 @@
-import Vector2D from "../Utils/Vector2D";
+import Vector2D from "./Utils/Vector2D";
 
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;

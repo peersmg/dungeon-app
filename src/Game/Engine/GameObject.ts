@@ -1,6 +1,6 @@
 import GameComponent from "./GameComponent";
-import TransformComponent from "../components/TransformComponent";
-import Vector2D from "../Utils/Vector2D";
+import TransformComponent from "./components/TransformComponent";
+import Vector2D from "./Utils/Vector2D";
 
 abstract class GameObject {
   components: GameComponent[] = [];

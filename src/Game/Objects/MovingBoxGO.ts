@@ -1,7 +1,7 @@
 import GameObject from "../Engine/GameObject";
-import BoxRenderComponent from "../components/BoxRenderComponent";
-import Vector2D from "../Utils/Vector2D";
-import TransformComponent from "../components/TransformComponent";
+import BoxRenderComponent from "../Engine/components/BoxRenderComponent";
+import Vector2D from "../Engine/Utils/Vector2D";
+import TransformComponent from "../Engine/components/TransformComponent";
 
 class MovingBoxGO extends GameObject {
   time: number = 0;

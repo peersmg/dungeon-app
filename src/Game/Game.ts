@@ -1,6 +1,6 @@
 import View from "./Engine/View";
 import Canvas from "./Engine/Canvas";
-import Vector2D from "./Utils/Vector2D";
+import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
 import MovingBoxGO from "./Objects/MovingBoxGO";
 
