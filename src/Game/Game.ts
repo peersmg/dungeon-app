@@ -2,9 +2,9 @@ import View from "./Engine/View";
 import Canvas from "./Engine/Canvas";
 import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
-import MovingBoxGO from "./Objects/MovingBoxGO";
 import dataStore from "../reducers/store";
 import { updateFps } from "../reducers/Actions";
+import MapGO from "./Objects/MapGO";
 
 class Game {
   canvas!: Canvas;
@@ -16,19 +16,7 @@ class Game {
 
   begin(canvas: Canvas) {
     this.canvas = canvas;
-    let y = 0;
-    let x = 0;
-    for (let i = 0; i < 5000; i++) {
-      ObjectManager.getInstance().addObject(
-        new MovingBoxGO(new Vector2D(x * 15, 100 + y * 15))
-      );
-
-      x++;
-      if (x > 100) {
-        y++;
-        x = 0;
-      }
-    }
+    ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
   }
 
   tick() {
@@ -51,10 +39,7 @@ class Game {
 
   private calcFps() {
     const now = performance.now();
-    while (
-      this.deltaTimeHistory.length > 0 &&
-      this.deltaTimeHistory[0] <= now - 1000
-    ) {
+    while (this.deltaTimeHistory.length > 0 && this.deltaTimeHistory[0] <= now - 1000) {
       this.deltaTimeHistory.shift();
     }
     this.deltaTimeHistory.push(now);

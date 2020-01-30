@@ -7,13 +7,11 @@ class MovingBoxGO extends GameObject {
   time: number = 0;
   startPos: Vector2D;
   constructor(startPos: Vector2D = new Vector2D(0, 0)) {
-    super(new TransformComponent(null, startPos));
+    super(new TransformComponent(startPos));
     this.startPos = startPos;
   }
   start(): void {
-    this.addComponent(
-      new BoxRenderComponent(this, new Vector2D(10, 10), "blue")
-    );
+    this.addComponent(new BoxRenderComponent(this, new Vector2D(10, 10), "blue"));
   }
 
   update(deltaTime: number) {

@@ -7,11 +7,7 @@ abstract class GameObject {
   transform: TransformComponent;
 
   constructor(
-    transform: TransformComponent = new TransformComponent(
-      null,
-      new Vector2D(0, 0),
-      new Vector2D(1, 1)
-    )
+    transform: TransformComponent = new TransformComponent(new Vector2D(0, 0), new Vector2D(1, 1))
   ) {
     this.transform = transform;
   }
