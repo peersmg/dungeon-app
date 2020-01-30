@@ -1,5 +1,6 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
+import Canvas from "../Canvas";
 
 class TransformComponent extends GameComponent {
   private position: Vector2D;
@@ -9,6 +10,8 @@ class TransformComponent extends GameComponent {
     this.position = position;
     this.scale = scale;
   }
+
+  start(canvas: Canvas) {}
 
   getPosition() {
     return this.position;

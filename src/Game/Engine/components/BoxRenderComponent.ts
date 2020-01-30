@@ -1,6 +1,8 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
+import Canvas from "../Canvas";
+import Box2D from "../Utils/Box2D";
 
 class BoxRenderComponent extends GameComponent {
   private color: string;
@@ -17,6 +19,11 @@ class BoxRenderComponent extends GameComponent {
     } else {
       this.position = new Vector2D(0, 0);
     }
+  }
+
+  start(canvas: Canvas): void {
+    let box = new Box2D(this.position, this.size, this.color);
+    canvas.addBox(box);
   }
 
   update(): void {
@@ -39,16 +46,6 @@ class BoxRenderComponent extends GameComponent {
 
   setSize(newSize: Vector2D) {
     this.size = newSize;
-  }
-
-  draw(renderContext: CanvasRenderingContext2D): void {
-    renderContext.fillStyle = this.color;
-    renderContext.fillRect(
-      this.position.x,
-      this.position.y,
-      this.size.x,
-      this.size.y
-    );
   }
 }
 

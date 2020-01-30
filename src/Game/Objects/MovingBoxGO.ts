@@ -2,6 +2,7 @@ import GameObject from "../Engine/GameObject";
 import BoxRenderComponent from "../Engine/components/BoxRenderComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import TransformComponent from "../Engine/components/TransformComponent";
+import Canvas from "../Engine/Canvas";
 
 class MovingBoxGO extends GameObject {
   time: number = 0;
@@ -10,8 +11,8 @@ class MovingBoxGO extends GameObject {
     super(new TransformComponent(startPos));
     this.startPos = startPos;
   }
-  start(): void {
-    this.addComponent(new BoxRenderComponent(this, new Vector2D(10, 10), "blue"));
+  start(canvas: Canvas): void {
+    this.addComponent(canvas, new BoxRenderComponent(this, new Vector2D(10, 10), "blue"));
   }
 
   update(deltaTime: number) {

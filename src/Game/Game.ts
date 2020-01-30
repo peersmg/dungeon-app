@@ -16,6 +16,7 @@ class Game {
 
   begin(canvas: Canvas) {
     this.canvas = canvas;
+    ObjectManager.getInstance().canvas = canvas;
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
   }
 
@@ -28,13 +29,9 @@ class Game {
 
     this.canvas.clearCanvas();
     this.canvas.drawBackgound("black");
+    this.canvas.render();
 
     ObjectManager.getInstance().updateAll(this.deltaTime);
-
-    let curCanvasCtx = this.canvas.getContext();
-    if (curCanvasCtx) {
-      ObjectManager.getInstance().drawAll(curCanvasCtx);
-    }
   }
 
   private calcFps() {

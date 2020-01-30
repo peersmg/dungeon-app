@@ -1,4 +1,5 @@
 import Vector2D from "./Utils/Vector2D";
+import Box2D from "./Utils/Box2D";
 
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;
@@ -6,6 +7,8 @@ class Canvas {
   private userScale: number = 0;
 
   private containerElement: HTMLElement | null = null;
+
+  private boxes: Box2D[] = [];
 
   constructor() {
     this.canvasCtx = this.generateCanvas();
@@ -18,6 +21,19 @@ class Canvas {
         this.onDocumentResize();
       });
     }
+  }
+
+  render() {
+    if (this.boxes) {
+      this.boxes.forEach(box => {
+        this.setFillStyle(box.color);
+        this.drawBox(box.position, box.size);
+      });
+    }
+  }
+
+  public addBox(newBox: Box2D) {
+    this.boxes.push(newBox);
   }
 
   generateCanvas() {
@@ -60,10 +76,7 @@ class Canvas {
       this.canvasCtx.canvas.style.width = xSize + "px";
       this.canvasCtx.canvas.style.height = ySize + "px";
 
-      this.canvasCtx.scale(
-        this.dpr + this.userScale,
-        this.dpr + this.userScale
-      );
+      this.canvasCtx.scale(this.dpr + this.userScale, this.dpr + this.userScale);
     }
   }
 
@@ -79,12 +92,7 @@ class Canvas {
 
   clearCanvas() {
     if (this.canvasCtx) {
-      this.canvasCtx.clearRect(
-        0,
-        0,
-        this.canvasCtx.canvas.width,
-        this.canvasCtx.canvas.height
-      );
+      this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
   }
 
@@ -98,7 +106,7 @@ class Canvas {
     }
   }
 
-  drawBox(pos: Vector2D, size: Vector2D) {
+  private drawBox(pos: Vector2D, size: Vector2D) {
     this.canvasCtx?.fillRect(pos.x, pos.y, size.x, size.y);
   }
 
@@ -137,21 +145,7 @@ class Canvas {
   drawBackgound(color: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
-      this.canvasCtx.fillRect(
-        0,
-        0,
-        this.canvasCtx.canvas.width,
-        this.canvasCtx.canvas.height
-      );
-    }
-  }
-
-  private refreshCanvasStyling() {
-    if (this.canvasCtx) {
-      //this.canvasCtx.canvas.style.position = "absolute";
-      //this.canvasCtx.canvas.style.left = "0px";
-      //this.canvasCtx.canvas.style.top = "0px";
-      //this.canvasCtx.canvas.style.padding = "0px";
+      this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
   }
 }

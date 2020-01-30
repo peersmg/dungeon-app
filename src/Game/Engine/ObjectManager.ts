@@ -1,7 +1,9 @@
 import GameObject from "./GameObject";
+import Canvas from "./Canvas";
 
 class ObjectManager {
-  objects: GameObject[] = [];
+  private objects: GameObject[] = [];
+  private _canvas: Canvas | null = null;
   private static instance: ObjectManager | null;
 
   private constructor() {}
@@ -18,14 +20,14 @@ class ObjectManager {
     ObjectManager.instance = null;
   }
 
-  addObject(newObject: GameObject) {
-    if (newObject) {
-      newObject.start();
+  public addObject(newObject: GameObject) {
+    if (newObject && this.canvas) {
+      newObject.start(this.canvas);
       this.objects.push(newObject);
     }
   }
 
-  updateAll(deltaTime: number) {
+  public updateAll(deltaTime: number) {
     if (this.objects) {
       this.objects.forEach(object => {
         object.update(deltaTime);
@@ -33,12 +35,12 @@ class ObjectManager {
     }
   }
 
-  drawAll(canvasContext: CanvasRenderingContext2D) {
-    if (this.objects) {
-      this.objects.forEach(object => {
-        object.draw(canvasContext);
-      });
-    }
+  public get canvas() {
+    return this._canvas;
+  }
+
+  public set canvas(newCanvas: Canvas | null) {
+    this._canvas = newCanvas;
   }
 }
 export default ObjectManager;

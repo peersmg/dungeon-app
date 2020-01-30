@@ -1,6 +1,7 @@
 import GameComponent from "./GameComponent";
 import TransformComponent from "./components/TransformComponent";
 import Vector2D from "./Utils/Vector2D";
+import Canvas from "./Canvas";
 
 abstract class GameObject {
   components: GameComponent[] = [];
@@ -12,7 +13,7 @@ abstract class GameObject {
     this.transform = transform;
   }
 
-  abstract start(): void;
+  abstract start(canvas: Canvas): void;
 
   update(deltaTime: number): void {
     this.components.forEach(component => {
@@ -20,14 +21,9 @@ abstract class GameObject {
     });
   }
 
-  addComponent(newComponent: GameComponent): void {
+  addComponent(canvas: Canvas, newComponent: GameComponent): void {
+    newComponent.start(canvas);
     this.components.push(newComponent);
-  }
-
-  draw(renderContext: CanvasRenderingContext2D): void {
-    this.components.forEach(component => {
-      component.draw(renderContext);
-    });
   }
 }
 
