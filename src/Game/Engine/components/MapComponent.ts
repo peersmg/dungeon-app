@@ -84,8 +84,6 @@ class MapComponent extends GameComponent {
         ? tileMapper(this.mapContent[x][y].environentUnit)
         : entityMapper(this.mapContent[x][y].entity.entityType);
 
-    //ObjectManager.getInst().add(new Player(this))
-
     let box: Box2D = new Box2D(pos, new Vector2D(50, 50), col);
 
     this.mapContent[x][y] = { ...this.mapContent[x][y], renderObject: box };
