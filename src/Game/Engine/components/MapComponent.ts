@@ -4,8 +4,8 @@ import GameObject from "../GameObject";
 import {
   Environment,
   tileMapper,
-  EntityType,
-  TileContent
+  TileContent,
+  entityMapper
 } from "../Utils/TileTypes";
 import Canvas from "../Canvas";
 import Box2D from "../Utils/Box2D";
@@ -33,8 +33,15 @@ class MapComponent extends GameComponent {
           this._position.x + x * 70,
           this._position.y + y * 70
         );
-        let col = tileMapper(this.mapContent[y][x].environentUnit);
+
+        let col =
+          this.mapContent[y][x].entity === 0
+            ? tileMapper(this.mapContent[y][x].environentUnit)
+            : entityMapper(this.mapContent[y][x].entity);
+
         let box: Box2D = new Box2D(pos, new Vector2D(50, 50), col);
+
+        this.mapContent[y][x] = { ...this.mapContent[x][y], object: box };
 
         canvas.addBox(box);
       }

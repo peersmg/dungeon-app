@@ -7,6 +7,7 @@ import Canvas from "../Engine/Canvas";
 
 const EMPTY_WALL: TileContent = { environentUnit: 0, entity: 0, object: null };
 const EMPTY_FLOOR: TileContent = { environentUnit: 1, entity: 0, object: null };
+const PLAYER: TileContent = { environentUnit: 1, entity: 1, object: null };
 
 class MapGO extends GameObject {
   time: number = 0;
@@ -14,7 +15,7 @@ class MapGO extends GameObject {
 
   map: TileContent[][] = [
     [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL],
-    [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL],
+    [EMPTY_WALL, PLAYER, EMPTY_FLOOR, EMPTY_WALL],
     [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL],
     [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL]
   ];
@@ -29,8 +30,6 @@ class MapGO extends GameObject {
   start(canvas: Canvas): void {
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
-
-    this.boxGrid.setTile(2, 4, 2);
   }
 }
 
