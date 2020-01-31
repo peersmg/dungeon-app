@@ -4,6 +4,7 @@ import TransformComponent from "../Engine/components/TransformComponent";
 import MapComponent from "../Engine/components/MapComponent";
 import { TileContent } from "../Engine/Utils/TileTypes";
 import Canvas from "../Engine/Canvas";
+import InputManager from "../Engine/InputManager";
 
 const EMPTY_WALL: TileContent = {
   environentUnit: 0,
@@ -44,14 +45,16 @@ class MapGO extends GameObject {
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
 
-    document.addEventListener("keypress", (e: KeyboardEvent) => {
-      //You have yout key code here
-      this.keyPressed(e);
-    });
+    InputManager.getInstance().subscribeToEvent(
+      "keydown",
+      (e: KeyboardEvent) => {
+        this.keyPressed(e);
+      }
+    );
   }
 
   private keyPressed(e: KeyboardEvent) {
-    if (e.key == "d") {
+    if (e.key === "d") {
       this.boxGrid?.moveEntity(
         new Vector2D(this.playerPos.y, this.playerPos.x),
         new Vector2D(this.playerPos.y, this.playerPos.x + 1)
@@ -59,7 +62,7 @@ class MapGO extends GameObject {
       this.playerPos.x++;
     }
 
-    if (e.key == "a") {
+    if (e.key === "a") {
       this.boxGrid?.moveEntity(
         new Vector2D(this.playerPos.y, this.playerPos.x),
         new Vector2D(this.playerPos.y, this.playerPos.x - 1)
@@ -67,7 +70,7 @@ class MapGO extends GameObject {
       this.playerPos.x--;
     }
 
-    if (e.key == "s") {
+    if (e.key === "s") {
       this.boxGrid?.moveEntity(
         new Vector2D(this.playerPos.y, this.playerPos.x),
         new Vector2D(this.playerPos.y + 1, this.playerPos.x)
@@ -75,7 +78,7 @@ class MapGO extends GameObject {
       this.playerPos.y++;
     }
 
-    if (e.key == "w") {
+    if (e.key === "w") {
       this.boxGrid?.moveEntity(
         new Vector2D(this.playerPos.y, this.playerPos.x),
         new Vector2D(this.playerPos.y - 1, this.playerPos.x)

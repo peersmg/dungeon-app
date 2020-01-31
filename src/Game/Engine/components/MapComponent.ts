@@ -1,12 +1,7 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
-import {
-  Entity,
-  tileMapper,
-  TileContent,
-  entityMapper
-} from "../Utils/TileTypes";
+import { tileMapper, TileContent, entityMapper } from "../Utils/TileTypes";
 import Canvas from "../Canvas";
 import Box2D from "../Utils/Box2D";
 
