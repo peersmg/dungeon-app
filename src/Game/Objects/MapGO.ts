@@ -5,13 +5,26 @@ import MapComponent from "../Engine/components/MapComponent";
 import { TileContent } from "../Engine/Utils/TileTypes";
 import Canvas from "../Engine/Canvas";
 
-const EMPTY_WALL: TileContent = { environentUnit: 0, entity: 0, object: null };
-const EMPTY_FLOOR: TileContent = { environentUnit: 1, entity: 0, object: null };
-const PLAYER: TileContent = { environentUnit: 1, entity: 1, object: null };
+const EMPTY_WALL: TileContent = {
+  environentUnit: 0,
+  entity: { entityType: 0, entityObject: null },
+  renderObject: null
+};
+const EMPTY_FLOOR: TileContent = {
+  environentUnit: 1,
+  entity: { entityType: 0, entityObject: null },
+  renderObject: null
+};
+const PLAYER: TileContent = {
+  environentUnit: 1,
+  entity: { entityType: 1, entityObject: null },
+  renderObject: null
+};
 
 class MapGO extends GameObject {
   time: number = 0;
   startPos: Vector2D;
+  playerPos: Vector2D = new Vector2D(1, 1);
 
   map: TileContent[][] = [
     [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL],
@@ -30,6 +43,45 @@ class MapGO extends GameObject {
   start(canvas: Canvas): void {
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
+
+    document.addEventListener("keypress", (e: KeyboardEvent) => {
+      //You have yout key code here
+      this.keyPressed(e);
+    });
+  }
+
+  private keyPressed(e: KeyboardEvent) {
+    if (e.key == "d") {
+      this.boxGrid?.moveEntity(
+        new Vector2D(this.playerPos.y, this.playerPos.x),
+        new Vector2D(this.playerPos.y, this.playerPos.x + 1)
+      );
+      this.playerPos.x++;
+    }
+
+    if (e.key == "a") {
+      this.boxGrid?.moveEntity(
+        new Vector2D(this.playerPos.y, this.playerPos.x),
+        new Vector2D(this.playerPos.y, this.playerPos.x - 1)
+      );
+      this.playerPos.x--;
+    }
+
+    if (e.key == "s") {
+      this.boxGrid?.moveEntity(
+        new Vector2D(this.playerPos.y, this.playerPos.x),
+        new Vector2D(this.playerPos.y + 1, this.playerPos.x)
+      );
+      this.playerPos.y++;
+    }
+
+    if (e.key == "w") {
+      this.boxGrid?.moveEntity(
+        new Vector2D(this.playerPos.y, this.playerPos.x),
+        new Vector2D(this.playerPos.y - 1, this.playerPos.x)
+      );
+      this.playerPos.y--;
+    }
   }
 }
 

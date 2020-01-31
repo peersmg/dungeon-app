@@ -31,7 +31,9 @@ class Box2D {
     return this._color;
   }
 
-  public set color(newColor: string) {}
+  public set color(newColor: string) {
+    this._color = newColor;
+  }
 }
 
 export default Box2D;

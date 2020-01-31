@@ -36,6 +36,13 @@ class Canvas {
     this.boxes.push(newBox);
   }
 
+  public removeBox(boxToRemove: Box2D | null) {
+    if (boxToRemove) {
+      let num = this.boxes.indexOf(boxToRemove);
+      this.boxes.splice(num, 1);
+    }
+  }
+
   generateCanvas() {
     let canvasElement = document.createElement("canvas");
 
@@ -76,7 +83,10 @@ class Canvas {
       this.canvasCtx.canvas.style.width = xSize + "px";
       this.canvasCtx.canvas.style.height = ySize + "px";
 
-      this.canvasCtx.scale(this.dpr + this.userScale, this.dpr + this.userScale);
+      this.canvasCtx.scale(
+        this.dpr + this.userScale,
+        this.dpr + this.userScale
+      );
     }
   }
 
@@ -92,7 +102,12 @@ class Canvas {
 
   clearCanvas() {
     if (this.canvasCtx) {
-      this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
+      this.canvasCtx.clearRect(
+        0,
+        0,
+        this.canvasCtx.canvas.width,
+        this.canvasCtx.canvas.height
+      );
     }
   }
 
@@ -145,7 +160,12 @@ class Canvas {
   drawBackgound(color: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
-      this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
+      this.canvasCtx.fillRect(
+        0,
+        0,
+        this.canvasCtx.canvas.width,
+        this.canvasCtx.canvas.height
+      );
     }
   }
 }

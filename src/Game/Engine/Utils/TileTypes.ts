@@ -1,9 +1,15 @@
 import Box2D from "./Box2D";
+import GameObject from "../GameObject";
+
+export type Entity = {
+  entityType: EntityType;
+  entityObject: GameObject | null;
+};
 
 export type TileContent = {
   environentUnit: Environment;
-  entity: EntityType;
-  object: Box2D | null;
+  entity: Entity;
+  renderObject: Box2D | null;
 };
 
 export type Environment = 0 | 1 | 2;
