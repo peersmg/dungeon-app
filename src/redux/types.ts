@@ -13,7 +13,7 @@ export interface GameMap {
 
 export const mapGameState = (state: GameState) => {
   return {
-    gameStats: state.stats
+    state
   };
 };
 

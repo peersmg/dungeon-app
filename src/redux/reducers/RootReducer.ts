@@ -10,7 +10,7 @@ const rootReducer = (state: GameState = initState, action: ActionTypes) => {
   if (action.type === "UPDATE_FPS") {
     return {
       ...state,
-      gameStats: { ...state.stats, FPS: action.payload }
+      stats: { ...state.stats, FPS: action.payload }
     };
   }
   return state;

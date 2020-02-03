@@ -4,13 +4,17 @@ import Vector2D from "./Utils/Vector2D";
 import Canvas from "./Canvas";
 
 abstract class GameObject {
-  components: GameComponent[] = [];
+  private static objectCount: number = 0;
+  private _id: number;
+  private components: GameComponent[] = [];
   transform: TransformComponent;
 
   constructor(
     transform: TransformComponent = new TransformComponent(new Vector2D(0, 0), new Vector2D(1, 1))
   ) {
     this.transform = transform;
+    this._id = GameObject.objectCount;
+    GameObject.objectCount++;
   }
 
   abstract start(canvas: Canvas): void;
@@ -24,6 +28,10 @@ abstract class GameObject {
   addComponent(canvas: Canvas, newComponent: GameComponent): void {
     newComponent.start(canvas);
     this.components.push(newComponent);
+  }
+
+  public get id() {
+    return this._id;
   }
 }
 
