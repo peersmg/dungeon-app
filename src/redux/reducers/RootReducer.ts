@@ -7,11 +7,19 @@ const initState: GameState = {
 };
 
 const rootReducer = (state: GameState = initState, action: ActionTypes) => {
-  if (action.type === "UPDATE_FPS") {
-    return {
-      ...state,
-      stats: { ...state.stats, FPS: action.payload }
-    };
+  switch (action.type) {
+    case "UPDATE_FPS":
+      return {
+        ...state,
+        stats: { ...state.stats, FPS: action.payload }
+      };
+    case "ADD_ENTITY":
+      return {
+        ...state,
+        map: { ...state.map, entities: [...state.map.entities, action.payload] }
+      };
+    default:
+      break;
   }
   return state;
 };

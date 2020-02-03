@@ -5,6 +5,7 @@ import MapComponent from "../Engine/components/MapComponent";
 import { TileContent } from "../TileTypes";
 import Canvas from "../Engine/Canvas";
 import InputManager from "../Engine/InputManager";
+import DataStoreService from "../service/DataStoreService";
 
 const EMPTY_WALL: TileContent = {
   environentUnit: 0,
@@ -40,6 +41,8 @@ class MapGO extends GameObject {
     super(new TransformComponent(startPos));
     this.startPos = startPos;
     console.log("My id: " + this.id);
+    let dataStore = new DataStoreService();
+    dataStore.addEntity({ objectId: this.id, mapCoord: new Vector2D(0, 0) });
   }
 
   start(canvas: Canvas): void {

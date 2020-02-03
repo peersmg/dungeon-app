@@ -6,8 +6,13 @@ export interface GameStats {
   FPS: number;
 }
 
+export interface GameEntity {
+  objectId: number;
+  mapCoord: Vector2D;
+}
+
 export interface GameMap {
-  entities: { objectId: number; mapCoord: Vector2D }[];
+  entities: GameEntity[];
   environment: Environment[][];
 }
 
