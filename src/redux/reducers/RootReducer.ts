@@ -1,15 +1,16 @@
-import { GameState } from "./types";
-import { ActionTypes } from "./Actions";
+import { GameState } from "../types";
+import { ActionTypes } from "../Actions";
 
 const initState: GameState = {
-  gameStats: { FPS: 12 }
+  stats: { FPS: 12 },
+  map: { entities: [], environment: [] }
 };
 
 const rootReducer = (state: GameState = initState, action: ActionTypes) => {
   if (action.type === "UPDATE_FPS") {
     return {
       ...state,
-      gameStats: { ...state.gameStats, FPS: action.payload }
+      gameStats: { ...state.stats, FPS: action.payload }
     };
   }
   return state;

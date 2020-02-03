@@ -1,5 +1,5 @@
-import Box2D from "./Box2D";
-import GameObject from "../GameObject";
+import Box2D from "./Engine/Utils/Box2D";
+import GameObject from "./Engine/GameObject";
 
 export type Entity = {
   entityType: EntityType;

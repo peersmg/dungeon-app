@@ -2,7 +2,7 @@ import GameObject from "../Engine/GameObject";
 import Vector2D from "../Engine/Utils/Vector2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import MapComponent from "../Engine/components/MapComponent";
-import { TileContent } from "../Engine/Utils/TileTypes";
+import { TileContent } from "../TileTypes";
 import Canvas from "../Engine/Canvas";
 import InputManager from "../Engine/InputManager";
 

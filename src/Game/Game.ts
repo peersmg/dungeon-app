@@ -2,8 +2,8 @@ import View from "./Engine/View";
 import Canvas from "./Engine/Canvas";
 import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
-import dataStore from "../reducers/store";
-import { updateFps } from "../reducers/Actions";
+import dataStore from "../redux/store";
+import { updateFps } from "../redux/Actions";
 import MapGO from "./Objects/MapGO";
 import InputManager from "./Engine/InputManager";
 
