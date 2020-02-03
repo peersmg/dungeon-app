@@ -52,19 +52,18 @@ class MapComponent extends GameComponent {
 
     // Move render object to new location
     if (this.mapContent[currentPos.x][currentPos.y].renderObject) {
-      this.mapContent[currentPos.x][
-        currentPos.y
-      ].renderObject!.position = this.getMapPos(newPos.y, newPos.x);
+      this.mapContent[currentPos.x][currentPos.y].renderObject!.position = this.getMapPos(
+        newPos.y,
+        newPos.x
+      );
 
-      this.mapContent[newPos.x][newPos.y].renderObject = this.mapContent[
-        currentPos.x
-      ][currentPos.y].renderObject;
+      this.mapContent[newPos.x][newPos.y].renderObject = this.mapContent[currentPos.x][
+        currentPos.y
+      ].renderObject;
     }
 
     // Move current entity to new position
-    this.mapContent[newPos.x][newPos.y].entity = this.mapContent[currentPos.y][
-      currentPos.x
-    ].entity;
+    this.mapContent[newPos.x][newPos.y].entity = this.mapContent[currentPos.x][currentPos.y].entity;
 
     this.mapContent[currentPos.x][currentPos.y].entity = {
       entityType: 0,

@@ -31,7 +31,7 @@ class MapGO extends GameObject {
     [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL],
     [EMPTY_WALL, PLAYER, EMPTY_FLOOR, EMPTY_WALL],
     [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL],
-    [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL]
+    [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL]
   ];
 
   boxGrid: MapComponent | null = null;
@@ -43,18 +43,15 @@ class MapGO extends GameObject {
 
   start(canvas: Canvas): void {
     for (let i = 0; i < 100; i++) {
-      this.map.push([EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL]);
+      this.map.push([EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL]);
     }
 
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
 
-    InputManager.getInstance().subscribeToEvent(
-      "keydown",
-      (e: KeyboardEvent) => {
-        this.keyPressed(e);
-      }
-    );
+    InputManager.getInstance().subscribeToEvent("keydown", (e: KeyboardEvent) => {
+      this.keyPressed(e);
+    });
   }
 
   private keyPressed(e: KeyboardEvent) {
