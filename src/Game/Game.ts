@@ -18,7 +18,6 @@ class Game {
   begin(canvas: Canvas) {
     this.canvas = canvas;
     ObjectManager.getInstance().canvas = canvas;
-    InputManager.getInstance().registerEvents();
 
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
   }
@@ -39,10 +38,7 @@ class Game {
 
   private calcFps() {
     const now = performance.now();
-    while (
-      this.deltaTimeHistory.length > 0 &&
-      this.deltaTimeHistory[0] <= now - 1000
-    ) {
+    while (this.deltaTimeHistory.length > 0 && this.deltaTimeHistory[0] <= now - 1000) {
       this.deltaTimeHistory.shift();
     }
     this.deltaTimeHistory.push(now);

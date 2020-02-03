@@ -1,10 +1,10 @@
-type InputEvents = "keydown" | "keyup";
+type InputEvent = "keydown" | "keyup" | "keypress";
 type CallbackType = (e: KeyboardEvent) => void;
 
 class InputManager {
   private static instance: InputManager | null;
 
-  private callbackMap: Map<InputEvents, CallbackType[]> = new Map();
+  private callbackMap: Map<InputEvent, CallbackType[]> = new Map();
 
   private constructor() {}
 
@@ -16,13 +16,9 @@ class InputManager {
     return InputManager.instance;
   }
 
-  public registerEvents() {
-    document.addEventListener("keydown", (e: KeyboardEvent) => {
-      this.keyDown(e);
-    });
-
-    document.addEventListener("keyup", (e: KeyboardEvent) => {
-      this.keyUp(e);
+  public registerEvent(eventType: InputEvent) {
+    document.addEventListener(eventType, (e: KeyboardEvent) => {
+      this.keyEvent(eventType, e);
     });
   }
 
@@ -30,20 +26,20 @@ class InputManager {
     InputManager.instance = null;
   }
 
-  public subscribeToEvent(event: "keydown" | "keyup", callback: CallbackType) {
-    if (this.callbackMap.has(event)) {
-      this.callbackMap.set(event, [...this.callbackMap.get(event)!, callback]);
+  public subscribeToEvent(eventType: InputEvent, callback: CallbackType) {
+    if (this.callbackMap.has(eventType)) {
+      this.callbackMap.set(eventType, [...this.callbackMap.get(eventType)!, callback]);
     } else {
-      this.callbackMap.set(event, [callback]);
+      this.registerEvent(eventType);
+      this.callbackMap.set(eventType, [callback]);
     }
   }
 
-  private keyDown(e: KeyboardEvent) {
-    this.callbackMap.get("keydown")?.forEach(callback => {
+  private keyEvent(eventType: InputEvent, e: KeyboardEvent) {
+    this.callbackMap.get(eventType)?.forEach(callback => {
       callback(e);
     });
   }
-  private keyUp(e: KeyboardEvent) {}
 }
 
 export default InputManager;
