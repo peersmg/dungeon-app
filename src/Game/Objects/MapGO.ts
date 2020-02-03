@@ -42,6 +42,10 @@ class MapGO extends GameObject {
   }
 
   start(canvas: Canvas): void {
+    for (let i = 0; i < 100; i++) {
+      this.map.push([EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL]);
+    }
+
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
 
