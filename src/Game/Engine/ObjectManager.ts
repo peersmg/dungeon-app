@@ -2,7 +2,7 @@ import GameObject from "./GameObject";
 import Canvas from "./Canvas";
 
 class ObjectManager {
-  private objects: GameObject[] = [];
+  private objects: Map<number, GameObject> = new Map();
   private _canvas: Canvas | null = null;
   private static instance: ObjectManager | null;
 
@@ -23,7 +23,7 @@ class ObjectManager {
   public addObject(newObject: GameObject) {
     if (newObject && this.canvas) {
       newObject.start(this.canvas);
-      this.objects.push(newObject);
+      this.objects.set(newObject.id, newObject);
     }
   }
 
@@ -41,6 +41,14 @@ class ObjectManager {
 
   public set canvas(newCanvas: Canvas | null) {
     this._canvas = newCanvas;
+  }
+
+  public getObjectWithId(id: number) {
+    if (this.objects.has(id)) {
+      return this.objects.get(id);
+    } else {
+      return null;
+    }
   }
 }
 export default ObjectManager;

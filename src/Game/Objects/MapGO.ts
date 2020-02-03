@@ -39,6 +39,7 @@ class MapGO extends GameObject {
   constructor(startPos: Vector2D = new Vector2D(200, 200)) {
     super(new TransformComponent(startPos));
     this.startPos = startPos;
+    console.log("My id: " + this.id);
   }
 
   start(canvas: Canvas): void {
