@@ -15,7 +15,7 @@ class DataStoreService implements IEntityStore {
       return null;
     }
   }
-  updateEntity(id: number, newState: GameEntity): void {
+  updateEntity(updatedEntity: GameEntity): void {
     throw new Error("Method not implemented.");
   }
   removeEntity(id: number): void {
