@@ -18,6 +18,14 @@ const rootReducer = (state: GameState = initState, action: ActionTypes) => {
         ...state,
         map: { ...state.map, entities: [...state.map.entities, action.payload] }
       };
+    case "UPDATE_ENTITY":
+      let newIndex = state.map.entities.findIndex(val => val.objectId == action.payload.objectId);
+      state.map.entities[newIndex] = action.payload;
+      return state;
+    case "REMOVE_ENTITY":
+      let entityIndex = state.map.entities.findIndex(val => val.objectId == action.payload);
+      state.map.entities.slice(entityIndex, 1);
+      return state;
     default:
       break;
   }
