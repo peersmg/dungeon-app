@@ -6,6 +6,8 @@ import dataStore from "../redux/store";
 import { updateFps } from "../redux/Actions";
 import MapGO from "./Objects/MapGO";
 import InputManager from "./Engine/InputManager";
+import PlayerGO from "./Objects/PlayerGO";
+import DataStoreService from "./service/DataStoreService";
 
 class Game {
   canvas!: Canvas;
@@ -19,6 +21,7 @@ class Game {
     this.canvas = canvas;
     ObjectManager.getInstance().canvas = canvas;
 
+    ObjectManager.getInstance().addObject(new PlayerGO(new DataStoreService()));
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
   }
 

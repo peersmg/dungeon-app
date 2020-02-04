@@ -15,7 +15,7 @@ class BoxRenderComponent extends GameComponent {
     this.size = size;
 
     if (this.gameObject) {
-      this.position = this.gameObject.transform.getPosition();
+      this.position = this.gameObject.transform.position;
     } else {
       this.position = new Vector2D(0, 0);
     }
@@ -28,7 +28,7 @@ class BoxRenderComponent extends GameComponent {
 
   update(): void {
     if (this.gameObject) {
-      this.position = this.gameObject.transform.getPosition();
+      this.position = this.gameObject.transform.position;
     }
   }
 

@@ -19,11 +19,11 @@ class MovingBoxGO extends GameObject {
     super.update(deltaTime);
     this.time += deltaTime;
     let updatedPosition = new Vector2D(
-      this.transform.getPosition().x,
-      this.transform.getPosition().y + Math.cos(this.time * 0.01) * 5
+      this.transform.position.x,
+      this.transform.position.y + Math.cos(this.time * 0.01) * 5
     );
 
-    this.transform.setPosition(updatedPosition);
+    this.transform.position = updatedPosition;
   }
 }
 

@@ -30,7 +30,7 @@ class MapGO extends GameObject {
 
   map: TileContent[][] = [
     [EMPTY_WALL, EMPTY_WALL, EMPTY_WALL, EMPTY_WALL],
-    [EMPTY_WALL, PLAYER, EMPTY_FLOOR, EMPTY_WALL],
+    [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL],
     [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL],
     [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL]
   ];
@@ -50,44 +50,44 @@ class MapGO extends GameObject {
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
 
-    InputManager.getInstance().subscribeToEvent("keydown", (e: KeyboardEvent) => {
-      this.keyPressed(e);
-    });
+    // InputManager.getInstance().subscribeToEvent("keydown", (e: KeyboardEvent) => {
+    //   this.keyPressed(e);
+    // });
   }
 
-  private keyPressed(e: KeyboardEvent) {
-    if (e.key === "d") {
-      this.boxGrid?.moveEntity(
-        new Vector2D(this.playerPos.y, this.playerPos.x),
-        new Vector2D(this.playerPos.y, this.playerPos.x + 1)
-      );
-      this.playerPos.x++;
-    }
+  // private keyPressed(e: KeyboardEvent) {
+  //   if (e.key === "d") {
+  //     this.boxGrid?.moveEntity(
+  //       new Vector2D(this.playerPos.y, this.playerPos.x),
+  //       new Vector2D(this.playerPos.y, this.playerPos.x + 1)
+  //     );
+  //     this.playerPos.x++;
+  //   }
 
-    if (e.key === "a") {
-      this.boxGrid?.moveEntity(
-        new Vector2D(this.playerPos.y, this.playerPos.x),
-        new Vector2D(this.playerPos.y, this.playerPos.x - 1)
-      );
-      this.playerPos.x--;
-    }
+  //   if (e.key === "a") {
+  //     this.boxGrid?.moveEntity(
+  //       new Vector2D(this.playerPos.y, this.playerPos.x),
+  //       new Vector2D(this.playerPos.y, this.playerPos.x - 1)
+  //     );
+  //     this.playerPos.x--;
+  //   }
 
-    if (e.key === "s") {
-      this.boxGrid?.moveEntity(
-        new Vector2D(this.playerPos.y, this.playerPos.x),
-        new Vector2D(this.playerPos.y + 1, this.playerPos.x)
-      );
-      this.playerPos.y++;
-    }
+  //   if (e.key === "s") {
+  //     this.boxGrid?.moveEntity(
+  //       new Vector2D(this.playerPos.y, this.playerPos.x),
+  //       new Vector2D(this.playerPos.y + 1, this.playerPos.x)
+  //     );
+  //     this.playerPos.y++;
+  //   }
 
-    if (e.key === "w") {
-      this.boxGrid?.moveEntity(
-        new Vector2D(this.playerPos.y, this.playerPos.x),
-        new Vector2D(this.playerPos.y - 1, this.playerPos.x)
-      );
-      this.playerPos.y--;
-    }
-  }
+  //   if (e.key === "w") {
+  //     this.boxGrid?.moveEntity(
+  //       new Vector2D(this.playerPos.y, this.playerPos.x),
+  //       new Vector2D(this.playerPos.y - 1, this.playerPos.x)
+  //     );
+  //     this.playerPos.y--;
+  //   }
+  // }
 }
 
 export default MapGO;
