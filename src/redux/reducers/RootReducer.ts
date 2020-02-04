@@ -24,7 +24,7 @@ const rootReducer = (state: GameState = initState, action: ActionTypes) => {
       return state;
     case "REMOVE_ENTITY":
       let entityIndex = state.map.entities.findIndex(val => val.objectId === action.payload);
-      state.map.entities.slice(entityIndex, 1);
+      state.map.entities.splice(entityIndex, 1);
       return state;
     default:
       break;

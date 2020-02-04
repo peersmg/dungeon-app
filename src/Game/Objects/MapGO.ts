@@ -4,8 +4,6 @@ import TransformComponent from "../Engine/components/TransformComponent";
 import MapComponent from "../Engine/components/MapComponent";
 import { TileContent } from "../TileTypes";
 import Canvas from "../Engine/Canvas";
-import InputManager from "../Engine/InputManager";
-import DataStoreService from "../service/DataStoreService";
 
 const EMPTY_WALL: TileContent = {
   environentUnit: 0,
@@ -15,11 +13,6 @@ const EMPTY_WALL: TileContent = {
 const EMPTY_FLOOR: TileContent = {
   environentUnit: 1,
   entity: { entityType: 0, entityObject: null },
-  renderObject: null
-};
-const PLAYER: TileContent = {
-  environentUnit: 1,
-  entity: { entityType: 1, entityObject: null },
   renderObject: null
 };
 
@@ -49,45 +42,7 @@ class MapGO extends GameObject {
 
     this.boxGrid = new MapComponent(this, this.map);
     this.addComponent(canvas, this.boxGrid);
-
-    // InputManager.getInstance().subscribeToEvent("keydown", (e: KeyboardEvent) => {
-    //   this.keyPressed(e);
-    // });
   }
-
-  // private keyPressed(e: KeyboardEvent) {
-  //   if (e.key === "d") {
-  //     this.boxGrid?.moveEntity(
-  //       new Vector2D(this.playerPos.y, this.playerPos.x),
-  //       new Vector2D(this.playerPos.y, this.playerPos.x + 1)
-  //     );
-  //     this.playerPos.x++;
-  //   }
-
-  //   if (e.key === "a") {
-  //     this.boxGrid?.moveEntity(
-  //       new Vector2D(this.playerPos.y, this.playerPos.x),
-  //       new Vector2D(this.playerPos.y, this.playerPos.x - 1)
-  //     );
-  //     this.playerPos.x--;
-  //   }
-
-  //   if (e.key === "s") {
-  //     this.boxGrid?.moveEntity(
-  //       new Vector2D(this.playerPos.y, this.playerPos.x),
-  //       new Vector2D(this.playerPos.y + 1, this.playerPos.x)
-  //     );
-  //     this.playerPos.y++;
-  //   }
-
-  //   if (e.key === "w") {
-  //     this.boxGrid?.moveEntity(
-  //       new Vector2D(this.playerPos.y, this.playerPos.x),
-  //       new Vector2D(this.playerPos.y - 1, this.playerPos.x)
-  //     );
-  //     this.playerPos.y--;
-  //   }
-  // }
 }
 
 export default MapGO;

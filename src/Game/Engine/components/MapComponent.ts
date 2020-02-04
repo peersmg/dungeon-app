@@ -5,11 +5,14 @@ import { tileMapper, TileContent, entityMapper } from "../../TileTypes";
 import Canvas from "../Canvas";
 import Box2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
+import { GameEntity } from "../../../redux/types";
+import { cloneDeep } from "lodash";
 
 class MapComponent extends GameComponent {
   private _position: Vector2D;
   private _mapContent: TileContent[][] = [[]];
   private canvas: Canvas | null = null;
+  private oldMap: GameEntity[] | null = null;
 
   constructor(gameObject: GameObject, mapContents: TileContent[][]) {
     super(gameObject);
@@ -46,7 +49,53 @@ class MapComponent extends GameComponent {
     this.updateMap();
   }
 
-  private updateMap() {}
+  private updateMap() {
+    let currentMap: GameEntity[] = cloneDeep(dataStore.getState().map.entities);
+    if (this.oldMap) {
+      let newEntities = currentMap.filter(x => !this.oldMap!.includes(x));
+      let removedEntities = this.oldMap.filter(
+        x => currentMap.findIndex(i => x.objectId === i.objectId) === -1
+      );
+      let modifiedEntities = currentMap.filter(
+        x => this.oldMap?.findIndex(i => !x.mapCoord.equals(i.mapCoord)) !== -1
+      );
+
+      if (removedEntities.length > 0) {
+        console.log(removedEntities);
+      }
+
+      // MODIFIED ENTITIES
+      modifiedEntities.forEach(val => {
+        // remove render object in new location
+        this.removeRenderObj(val.mapCoord.x, val.mapCoord.y);
+
+        // create render object in old location
+        let oldPos = this.oldMap!.find(x => x.objectId === val.objectId)!.mapCoord;
+        let box = this.createRenderObject(oldPos.y, oldPos.x);
+        this.canvas?.addBox(box);
+      });
+
+      // REMOVED ENTITIES
+      removedEntities.forEach(val => {
+        // create render object in location
+        let box = this.createRenderObject(val.mapCoord.y, val.mapCoord.x);
+        this.canvas?.addBox(box);
+      });
+
+      // NEW ENTITIES
+      newEntities.forEach(val => {
+        // remove render object in new location
+        this.removeRenderObj(val.mapCoord.x, val.mapCoord.y);
+      });
+    }
+
+    this.oldMap = cloneDeep(currentMap);
+  }
+
+  private removeRenderObj(x: number, y: number) {
+    this.canvas?.removeBox(this.mapContent[y][x].renderObject);
+    this.mapContent[y][x].renderObject = null;
+  }
 
   public set position(newPos: Vector2D) {
     this._position = newPos;
@@ -55,36 +104,6 @@ class MapComponent extends GameComponent {
   public get position() {
     return this._position;
   }
-
-  // public moveEntity(currentPos: Vector2D, newPos: Vector2D) {
-  //   // Remove render object in new location
-  //   this.canvas?.removeBox(this.mapContent[newPos.x][newPos.y].renderObject);
-  //   this.mapContent[newPos.x][newPos.y].renderObject = null;
-
-  //   // Move render object to new location
-  //   if (this.mapContent[currentPos.x][currentPos.y].renderObject) {
-  //     this.mapContent[currentPos.x][currentPos.y].renderObject!.position = this.getMapPos(
-  //       newPos.y,
-  //       newPos.x
-  //     );
-
-  //     this.mapContent[newPos.x][newPos.y].renderObject = this.mapContent[currentPos.x][
-  //       currentPos.y
-  //     ].renderObject;
-  //   }
-
-  //   // Move current entity to new position
-  //   this.mapContent[newPos.x][newPos.y].entity = this.mapContent[currentPos.x][currentPos.y].entity;
-
-  //   this.mapContent[currentPos.x][currentPos.y].entity = {
-  //     entityType: 0,
-  //     entityObject: null
-  //   };
-
-  //   // Create new render object in old position
-  //   let box = this.createRenderObject(currentPos.x, currentPos.y);
-  //   this.canvas?.addBox(box);
-  // }
 
   private createRenderObject(x: number, y: number) {
     let pos = this.getMapPos(y, x);
