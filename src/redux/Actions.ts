@@ -8,7 +8,7 @@ const REMOVE_ENTITY = "REMOVE_ENTITY";
 
 const SET_MAP = "SET_MAP";
 
-interface UpdateFpsAction {
+export interface UpdateFpsAction {
   type: typeof UPDATE_FPS;
   payload: number;
 }
