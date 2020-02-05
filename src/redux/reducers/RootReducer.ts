@@ -1,4 +1,4 @@
-import { GameState, GameEntity } from "../types";
+import { GameState, GameEntity, GameStats, GameMap } from "../types";
 import { ActionTypes } from "../Actions";
 import { Environment } from "../../Game/TileTypes";
 
@@ -7,62 +7,61 @@ const initState: GameState = {
   map: { entities: [], environment: [] }
 };
 
-function updateFps(state: GameState, action: ActionTypes) {
+function updateFps(gameStats: GameStats, action: ActionTypes) {
+  return { ...gameStats, FPS: action.payload as number };
+}
+
+function addEntity(map: GameMap, action: ActionTypes) {
   return {
-    ...state,
-    stats: { ...state.stats, FPS: action.payload as number }
+    ...map,
+    entities: [...map.entities, action.payload as GameEntity]
   };
 }
 
-function addEntity(state: GameState, action: ActionTypes) {
-  return {
-    ...state,
-    map: {
-      ...state.map,
-      entities: [...state.map.entities, action.payload as GameEntity]
-    }
-  };
-}
-
-function updateEntity(state: GameState, action: ActionTypes) {
-  let newIndex = state.map.entities.findIndex(
+function updateEntity(map: GameMap, action: ActionTypes) {
+  let newIndex = map.entities.findIndex(
     val => val.objectId === (action.payload as GameEntity).objectId
   );
-  state.map.entities[newIndex] = action.payload as GameEntity;
-  return state;
+  map.entities[newIndex] = action.payload as GameEntity;
+  return map;
 }
 
-function removeEntity(state: GameState, action: ActionTypes) {
-  let entityIndex = state.map.entities.findIndex(
-    val => val.objectId === (action.payload as number)
-  );
-  state.map.entities.splice(entityIndex, 1);
-  return state;
+function removeEntity(map: GameMap, action: ActionTypes) {
+  let entityIndex = map.entities.findIndex(val => val.objectId === (action.payload as number));
+  map.entities.splice(entityIndex, 1);
+  return map;
 }
 
-function setMap(state: GameState, action: ActionTypes) {
-  return {
-    ...state,
-    map: { ...state.map, environment: action.payload as Environment[][] }
-  };
+function setMap(map: GameMap, action: ActionTypes) {
+  return { ...map, environment: action.payload as Environment[][] };
+}
+
+function gameStatsReducer(gameStats: GameStats, action: ActionTypes) {
+  switch (action.type) {
+    case "UPDATE_FPS":
+      return updateFps(gameStats, action);
+    default:
+      return gameStats;
+  }
+}
+
+function mapReducer(map: GameMap, action: ActionTypes) {
+  switch (action.type) {
+    case "ADD_ENTITY":
+      return addEntity(map, action);
+    case "UPDATE_ENTITY":
+      return updateEntity(map, action);
+    case "REMOVE_ENTITY":
+      return removeEntity(map, action);
+    case "SET_MAP":
+      return setMap(map, action);
+    default:
+      return map;
+  }
 }
 
 const rootReducer = (state: GameState = initState, action: ActionTypes) => {
-  switch (action.type) {
-    case "UPDATE_FPS":
-      return updateFps(state, action);
-    case "ADD_ENTITY":
-      return addEntity(state, action);
-    case "UPDATE_ENTITY":
-      return updateEntity(state, action);
-    case "REMOVE_ENTITY":
-      return removeEntity(state, action);
-    case "SET_MAP":
-      return setMap(state, action);
-    default:
-      break;
-  }
-  return state;
+  return { stats: gameStatsReducer(state.stats, action), map: mapReducer(state.map, action) };
 };
 
 export default rootReducer;
