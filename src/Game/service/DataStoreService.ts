@@ -1,12 +1,7 @@
 import { IEntityStore } from "./IEntityStore";
 import { GameEntity } from "../../redux/types";
 import dataStore from "../../redux/store";
-import {
-  addEntity,
-  updateEntity,
-  removeEntity,
-  setMap
-} from "../../redux/Actions";
+import { addEntity, updateEntity, removeEntity, setMap } from "../../redux/actions/MapActions";
 import { IMapStore } from "./IMapStore";
 import { Environment } from "../TileTypes";
 
@@ -28,9 +23,7 @@ class DataStoreService implements IEntityStore, IMapStore {
   }
 
   getEntity(id: number): GameEntity | null {
-    let entity = dataStore
-      .getState()
-      .map.entities.find(obj => obj.objectId === id);
+    let entity = dataStore.getState().map.entities.find(obj => obj.objectId === id);
 
     if (entity) {
       return entity;

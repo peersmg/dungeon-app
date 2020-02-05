@@ -1,8 +1,8 @@
 import { createReducer } from "../create-reducer";
 import { GameStats } from "../types";
-import { Actions, StatsTypes, StatsActions } from "../Actions";
+import { StatsActions, StatsTypes } from "../actions/StatsActions";
 
-function updateFps(gameStats: GameStats, action: Actions) {
+function updateFps(gameStats: GameStats, action: StatsActions) {
   return { ...gameStats, FPS: action.payload as number };
 }
 

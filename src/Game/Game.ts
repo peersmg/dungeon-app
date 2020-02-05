@@ -3,11 +3,11 @@ import Canvas from "./Engine/Canvas";
 import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
 import dataStore from "../redux/store";
-import { updateFps } from "../redux/Actions";
 import MapGO from "./Objects/MapGO";
 import InputManager from "./Engine/InputManager";
 import PlayerGO from "./Objects/PlayerGO";
 import DataStoreService from "./service/DataStoreService";
+import { updateFps } from "../redux/actions/StatsActions";
 
 class Game {
   canvas!: Canvas;

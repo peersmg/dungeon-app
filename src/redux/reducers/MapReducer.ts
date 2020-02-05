@@ -1,16 +1,16 @@
 import { GameMap, GameEntity } from "../types";
-import { Actions, MapTypes, MapActions } from "../Actions";
+import { MapTypes, MapActions } from "../actions/MapActions";
 import { Environment } from "../../Game/TileTypes";
 import { createReducer } from "../create-reducer";
 
-function addEntity(map: GameMap, action: Actions) {
+function addEntity(map: GameMap, action: MapActions) {
   return {
     ...map,
     entities: [...map.entities, action.payload as GameEntity]
   };
 }
 
-function updateEntity(map: GameMap, action: Actions) {
+function updateEntity(map: GameMap, action: MapActions) {
   let newIndex = map.entities.findIndex(
     val => val.objectId === (action.payload as GameEntity).objectId
   );
@@ -18,13 +18,13 @@ function updateEntity(map: GameMap, action: Actions) {
   return map;
 }
 
-function removeEntity(map: GameMap, action: Actions) {
+function removeEntity(map: GameMap, action: MapActions) {
   let entityIndex = map.entities.findIndex(val => val.objectId === (action.payload as number));
   map.entities.splice(entityIndex, 1);
   return map;
 }
 
-function setMap(map: GameMap, action: Actions) {
+function setMap(map: GameMap, action: MapActions) {
   return { ...map, environment: action.payload as Environment[][] };
 }
 
