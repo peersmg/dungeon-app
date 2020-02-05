@@ -10,7 +10,7 @@ import { cloneDeep } from "lodash";
 import { IMapStore } from "../../service/IMapStore";
 import DataStoreService from "../../service/DataStoreService";
 
-class MapComponent extends GameComponent {
+class MapRenderComponent extends GameComponent {
   private _position: Vector2D;
   private _mapContent: (Box2D | null)[][] = [[]];
   private canvas: Canvas | null = null;
@@ -45,9 +45,7 @@ class MapComponent extends GameComponent {
           if (
             dataStore
               .getState()
-              .map.entities.findIndex(val =>
-                val.mapCoord.equals(new Vector2D(x, y))
-              ) === -1
+              .map.entities.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
           ) {
             canvas.addBox(this.createRenderObject(y, x));
           }
@@ -85,8 +83,7 @@ class MapComponent extends GameComponent {
         this.removeRenderObj(val.mapCoord.x, val.mapCoord.y);
 
         // create render object in old location
-        let oldPos = this.oldMap!.find(x => x.objectId === val.objectId)!
-          .mapCoord;
+        let oldPos = this.oldMap!.find(x => x.objectId === val.objectId)!.mapCoord;
         let box = this.createRenderObject(oldPos.y, oldPos.x);
         this.canvas?.addBox(box);
       });
@@ -147,4 +144,4 @@ class MapComponent extends GameComponent {
   }
 }
 
-export default MapComponent;
+export default MapRenderComponent;

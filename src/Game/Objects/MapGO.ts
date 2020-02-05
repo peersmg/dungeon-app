@@ -1,7 +1,7 @@
 import GameObject from "../Engine/GameObject";
 import Vector2D from "../Engine/Utils/Vector2D";
 import TransformComponent from "../Engine/components/TransformComponent";
-import MapComponent from "../Engine/components/MapComponent";
+import MapRenderComponent from "../Engine/components/MapRenderComponent";
 import { Environment } from "../TileTypes";
 import Canvas from "../Engine/Canvas";
 import { IMapStore } from "../service/IMapStore";
@@ -20,7 +20,7 @@ class MapGO extends GameObject {
     [EMPTY_WALL, EMPTY_FLOOR, EMPTY_FLOOR, EMPTY_WALL]
   ];
 
-  boxGrid: MapComponent | null = null;
+  boxGrid: MapRenderComponent | null = null;
 
   constructor(startPos: Vector2D = new Vector2D(200, 200)) {
     super(new TransformComponent(startPos));
@@ -33,7 +33,7 @@ class MapGO extends GameObject {
 
     this.mapStore.setMap(this.map);
 
-    this.boxGrid = new MapComponent(this);
+    this.boxGrid = new MapRenderComponent(this);
     this.addComponent(canvas, this.boxGrid);
   }
 }
