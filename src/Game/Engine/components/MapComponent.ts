@@ -1,20 +1,23 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
-import { tileMapper, TileContent, entityMapper } from "../../TileTypes";
+import { tileMapper } from "../../TileTypes";
 import Canvas from "../Canvas";
 import Box2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
 import { GameEntity } from "../../../redux/types";
 import { cloneDeep } from "lodash";
+import { IMapStore } from "../../service/IMapStore";
+import DataStoreService from "../../service/DataStoreService";
 
 class MapComponent extends GameComponent {
   private _position: Vector2D;
-  private _mapContent: TileContent[][] = [[]];
+  private _mapContent: (Box2D | null)[][] = [[]];
   private canvas: Canvas | null = null;
   private oldMap: GameEntity[] | null = null;
+  private mapStore: IMapStore = new DataStoreService();
 
-  constructor(gameObject: GameObject, mapContents: TileContent[][]) {
+  constructor(gameObject: GameObject) {
     super(gameObject);
 
     if (this.gameObject) {
@@ -22,20 +25,32 @@ class MapComponent extends GameComponent {
     } else {
       this._position = new Vector2D(0, 0);
     }
-
-    this.mapContent = mapContents;
   }
 
   start(canvas: Canvas): void {
     this.canvas = canvas;
-    for (let x = 0; x < this.mapContent[0].length; x++) {
-      for (let y = 0; y < this.mapContent.length; y++) {
-        if (
-          dataStore
-            .getState()
-            .map.entities.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
-        ) {
-          canvas.addBox(this.createRenderObject(y, x));
+
+    if (this.mapStore.getMap()) {
+      //Init empty object array
+      for (let x = 0; x < this.mapStore.getMap()!.length; x++) {
+        this.mapContent.push([]);
+        for (let y = 0; y < this.mapStore.getMap()![0].length; y++) {
+          this.mapContent[x].push(null);
+        }
+      }
+
+      // Create map objects
+      for (let x = 0; x < this.mapStore.getMap()![0].length; x++) {
+        for (let y = 0; y < this.mapStore.getMap()!.length; y++) {
+          if (
+            dataStore
+              .getState()
+              .map.entities.findIndex(val =>
+                val.mapCoord.equals(new Vector2D(x, y))
+              ) === -1
+          ) {
+            canvas.addBox(this.createRenderObject(y, x));
+          }
         }
       }
     }
@@ -70,7 +85,8 @@ class MapComponent extends GameComponent {
         this.removeRenderObj(val.mapCoord.x, val.mapCoord.y);
 
         // create render object in old location
-        let oldPos = this.oldMap!.find(x => x.objectId === val.objectId)!.mapCoord;
+        let oldPos = this.oldMap!.find(x => x.objectId === val.objectId)!
+          .mapCoord;
         let box = this.createRenderObject(oldPos.y, oldPos.x);
         this.canvas?.addBox(box);
       });
@@ -93,8 +109,8 @@ class MapComponent extends GameComponent {
   }
 
   private removeRenderObj(x: number, y: number) {
-    this.canvas?.removeBox(this.mapContent[y][x].renderObject);
-    this.mapContent[y][x].renderObject = null;
+    this.canvas?.removeBox(this.mapContent[y][x]);
+    this.mapContent[y][x] = null;
   }
 
   public set position(newPos: Vector2D) {
@@ -106,17 +122,16 @@ class MapComponent extends GameComponent {
   }
 
   private createRenderObject(x: number, y: number) {
-    let pos = this.getMapPos(y, x);
+    if (this.mapStore.getMap()) {
+      let pos = this.getMapPos(y, x);
+      let col = tileMapper(this.mapStore.getMap()![x][y]);
 
-    let col =
-      this.mapContent[x][y].entity.entityType === 0
-        ? tileMapper(this.mapContent[x][y].environentUnit)
-        : entityMapper(this.mapContent[x][y].entity.entityType);
+      let box: Box2D = new Box2D(pos, new Vector2D(50, 50), col);
 
-    let box: Box2D = new Box2D(pos, new Vector2D(50, 50), col);
-
-    this.mapContent[x][y] = { ...this.mapContent[x][y], renderObject: box };
-    return box;
+      this.mapContent[x][y] = box;
+      return box;
+    }
+    return null;
   }
 
   public getMapPos(x: number, y: number) {
@@ -127,7 +142,7 @@ class MapComponent extends GameComponent {
     return this._mapContent;
   }
 
-  public set mapContent(newMapContent: TileContent[][]) {
+  public set mapContent(newMapContent: (Box2D | null)[][]) {
     this._mapContent = newMapContent;
   }
 }

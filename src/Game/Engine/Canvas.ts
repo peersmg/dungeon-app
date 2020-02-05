@@ -32,8 +32,10 @@ class Canvas {
     }
   }
 
-  public addBox(newBox: Box2D) {
-    this.boxes.push(newBox);
+  public addBox(newBox: Box2D | null) {
+    if (newBox) {
+      this.boxes.push(newBox);
+    }
   }
 
   public removeBox(boxToRemove: Box2D | null) {
