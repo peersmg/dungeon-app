@@ -6,18 +6,12 @@ export type Entity = {
 };
 
 export type Environment = 0 | 1 | 2;
-export const tileMapper = (environmentType: Environment) => {
-  switch (environmentType) {
-    case 0:
-      return "blue";
-    case 1:
-      return "white";
-    case 2:
-      return "red";
-    default:
-      return "grey";
-  }
-};
+
+export interface EnvironmentTypes {
+  id: number;
+  color: string;
+  yLevel: number;
+}
 
 export const PLAYER_ENTITY = "purple";
 export const NO_ENTITY = "none";
