@@ -16,7 +16,7 @@ class InputManager {
     return InputManager.instance;
   }
 
-  public registerEvent(eventType: InputEvent) {
+  private registerEvent(eventType: InputEvent) {
     document.addEventListener(eventType, (e: KeyboardEvent) => {
       this.keyEvent(eventType, e);
     });
@@ -26,13 +26,15 @@ class InputManager {
     InputManager.instance = null;
   }
 
-  public subscribeToEvent(eventType: InputEvent, callback: CallbackType) {
-    if (this.callbackMap.has(eventType)) {
-      this.callbackMap.set(eventType, [...this.callbackMap.get(eventType)!, callback]);
-    } else {
-      this.registerEvent(eventType);
-      this.callbackMap.set(eventType, [callback]);
-    }
+  public subscribeToEvent(callback: CallbackType, ...eventType: InputEvent[]) {
+    eventType.forEach(evt => {
+      if (this.callbackMap.has(evt)) {
+        this.callbackMap.set(evt, [...this.callbackMap.get(evt)!, callback]);
+      } else {
+        this.registerEvent(evt);
+        this.callbackMap.set(evt, [callback]);
+      }
+    });
   }
 
   private keyEvent(eventType: InputEvent, e: KeyboardEvent) {
