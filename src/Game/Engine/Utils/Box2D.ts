@@ -3,12 +3,16 @@ import Vector2D from "./Vector2D";
 class Box2D {
   private _position: Vector2D;
   private _size: Vector2D;
-  private _color: string;
+  private _bgColor: string;
+  private _txtColor: string;
+  private _char: string;
 
-  constructor(position: Vector2D, size: Vector2D, color: string) {
+  constructor(position: Vector2D, size: Vector2D, bgCol: string, txtCol: string, char: string) {
     this._position = position;
     this._size = size;
-    this._color = color;
+    this._bgColor = bgCol;
+    this._txtColor = txtCol;
+    this._char = char;
   }
 
   public get position() {
@@ -27,12 +31,28 @@ class Box2D {
     this._size = newSize;
   }
 
-  public get color() {
-    return this._color;
+  public get bgColor() {
+    return this._bgColor;
   }
 
-  public set color(newColor: string) {
-    this._color = newColor;
+  public set bgColor(newBgColor: string) {
+    this._bgColor = newBgColor;
+  }
+
+  public get txtColor() {
+    return this._txtColor;
+  }
+
+  public set txtColor(newTxtColor: string) {
+    this._txtColor = newTxtColor;
+  }
+
+  public get char() {
+    return this._char;
+  }
+
+  public set char(newChar: string) {
+    this._char = newChar;
   }
 }
 

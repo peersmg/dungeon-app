@@ -22,7 +22,7 @@ class BoxRenderComponent extends GameComponent {
   }
 
   start(canvas: Canvas): void {
-    let box = new Box2D(this.position, this.size, this.color);
+    let box = new Box2D(this.position, this.size, this.color, "red", "X");
     canvas.addBox(box);
   }
 

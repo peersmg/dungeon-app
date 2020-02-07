@@ -1,7 +1,7 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
-import { EnvironmentTypes } from "../../TileTypes";
+import { EnvironmentType } from "../../TileTypes";
 import Canvas from "../Canvas";
 import Box2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
@@ -130,17 +130,24 @@ class MapRenderComponent extends GameComponent {
   private createRenderObject(x: number, y: number) {
     if (this.mapStore.getMap()) {
       let pos = this.getMapPos(y, x);
-      let mapTypes: EnvironmentTypes[] = mapJson;
+      let mapTypes: EnvironmentType[] = mapJson;
 
-      let col = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y])?.color;
+      let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
 
-      if (!col) {
-        col = "grey";
+      let box: Box2D | null = null;
+
+      if (envType) {
+        box = new Box2D(
+          pos,
+          new Vector2D(50, 50),
+          envType.backgroundColor,
+          envType.textColor,
+          envType.character
+        );
+
+        this.mapContent[x][y] = box;
       }
 
-      let box: Box2D = new Box2D(pos, new Vector2D(50, 50), col);
-
-      this.mapContent[x][y] = box;
       return box;
     }
     return null;

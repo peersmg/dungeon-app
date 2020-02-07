@@ -7,10 +7,13 @@ export type Entity = {
 
 export type Environment = 0 | 1 | 2;
 
-export interface EnvironmentTypes {
+export interface EnvironmentType {
   id: number;
-  color: string;
+  name: string;
+  backgroundColor: string;
+  textColor: string;
   yLevel: number;
+  character: string;
 }
 
 export const PLAYER_ENTITY = "purple";

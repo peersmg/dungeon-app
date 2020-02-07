@@ -39,8 +39,9 @@ class Canvas {
   public drawBoxes() {
     if (this.boxes) {
       this.boxes.forEach(box => {
-        this.setFillStyle(box.color);
+        this.setFillStyle(box.bgColor);
         this.drawBox(box.position, box.size);
+        this.drawText(box.char, box.position.clone().add(box.size.clone().divide(2)), box.txtColor);
       });
     }
   }
@@ -122,8 +123,8 @@ class Canvas {
     if (this.canvasCtx) {
       this.setFillStyle(color);
       this.setFont("bold 24px Arial");
-      this.canvasCtx.textAlign = "start";
-      this.canvasCtx.textBaseline = "top";
+      this.canvasCtx.textAlign = "center";
+      this.canvasCtx.textBaseline = "middle";
       this.canvasCtx.fillText(text, pos.x, pos.y);
     }
   }

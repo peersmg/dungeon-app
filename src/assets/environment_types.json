@@ -1,5 +1,26 @@
 [
-  { "id": 0, "color": "white", "yLevel": 0 },
-  { "id": 1, "color": "blue", "yLevel": 1 },
-  { "id": 2, "color": "red", "yLevel": -1 }
+  {
+    "id": 0,
+    "name": "Floor",
+    "backgroundColor": "grey",
+    "textColor": "white",
+    "yLevel": 0,
+    "character": "#"
+  },
+  {
+    "id": 1,
+    "name": "Wall",
+    "backgroundColor": "grey",
+    "textColor": "black",
+    "yLevel": 1,
+    "character": "#"
+  },
+  {
+    "id": 2,
+    "name": "Water",
+    "backgroundColor": "grey",
+    "textColor": "blue",
+    "yLevel": -1,
+    "character": "~"
+  }
 ]
