@@ -154,7 +154,7 @@ class MapRenderComponent extends GameComponent {
   }
 
   public getMapPos(x: number, y: number) {
-    return new Vector2D(this._position.x + x * 70, this._position.y + y * 70);
+    return new Vector2D(this._position.x + x * 52, this._position.y + y * 52);
   }
 
   public get mapContent() {

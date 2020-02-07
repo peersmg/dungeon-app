@@ -10,7 +10,7 @@ class PlayerGO extends GameObject {
   entityStore: IEntityStore;
 
   constructor(entityStore: IEntityStore) {
-    super(new TransformComponent(new Vector2D(170, 170)));
+    super(new TransformComponent(new Vector2D(152, 152)));
     this.entityStore = entityStore;
   }
 
@@ -62,7 +62,7 @@ class PlayerGO extends GameObject {
       });
     }
 
-    this.transform.position.add(direction.multiply(70));
+    this.transform.position.add(direction.multiply(52));
   }
 }
 
