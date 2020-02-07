@@ -25,6 +25,15 @@ class Vector2D {
     return this;
   }
 
+  public divide(other: number) {
+    if (other !== 0) {
+      this.x /= other;
+      this.y /= other;
+    }
+
+    return this;
+  }
+
   public equals(other: Vector2D) {
     if (this.x === other.x && this.y === other.y) {
       return true;
@@ -35,6 +44,15 @@ class Vector2D {
 
   public clone() {
     return new Vector2D(this.x, this.y);
+  }
+
+  public normalize() {
+    this.divide(this.magnitude());
+    return this;
+  }
+
+  public magnitude() {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
   public static null: Vector2D = new Vector2D(0, 0);
