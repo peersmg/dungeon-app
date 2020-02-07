@@ -15,8 +15,8 @@ class Camera2D {
   }
 
   public update(canvas: Canvas) {
-    if (this.focusTransform && canvas.getContext()) {
-      this.updateFocus(canvas.getContext()!);
+    if (this.focusTransform && canvas.canvasCtx) {
+      this.updateFocus(canvas.canvasCtx);
     }
 
     if (this._viewPos !== this.targetViewPos) {

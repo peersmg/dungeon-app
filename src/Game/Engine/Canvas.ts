@@ -4,7 +4,7 @@ import Box2D from "./Utils/Box2D";
 import Camera2D from "./Utils/Camera2D";
 
 class Canvas {
-  private canvasCtx: CanvasRenderingContext2D | null = null;
+  private _canvasCtx: CanvasRenderingContext2D | null = null;
   private dpr: number = 1;
   private userScale: number = 0;
 
@@ -15,7 +15,7 @@ class Canvas {
   private boxes: Box2D[] = [];
 
   constructor() {
-    this.canvasCtx = this.generateCanvas();
+    this._canvasCtx = this.generateCanvas();
 
     if (this.canvasCtx) {
       window.addEventListener("resize", () => {
@@ -137,8 +137,8 @@ class Canvas {
     );
   }
 
-  public getContext() {
-    return this.canvasCtx;
+  public get canvasCtx() {
+    return this._canvasCtx;
   }
 
   public getCanvasWidth() {
