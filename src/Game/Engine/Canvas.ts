@@ -1,5 +1,5 @@
 import Vector2D from "./Utils/Vector2D";
-import Box2D from "./Utils/Box2D";
+import Tile2D from "./Utils/Box2D";
 
 import Camera2D from "./Utils/Camera2D";
 
@@ -12,7 +12,7 @@ class Canvas {
 
   //private camera: Vector2D = new Vector2D(0, 0);
   private _camera: Camera2D = new Camera2D();
-  private boxes: Box2D[] = [];
+  private boxes: Tile2D[] = [];
 
   constructor() {
     this._canvasCtx = this.generateCanvas();
@@ -50,13 +50,13 @@ class Canvas {
     }
   }
 
-  public addBox(newBox: Box2D | null) {
+  public addBox(newBox: Tile2D | null) {
     if (newBox) {
       this.boxes.push(newBox);
     }
   }
 
-  public removeBox(boxToRemove: Box2D | null) {
+  public removeBox(boxToRemove: Tile2D | null) {
     if (boxToRemove) {
       let num = this.boxes.indexOf(boxToRemove);
       this.boxes.splice(num, 1);

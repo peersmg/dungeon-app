@@ -1,6 +1,6 @@
 import Vector2D from "./Vector2D";
 
-class Box2D {
+class Tile2D {
   private _position: Vector2D;
   private _size: Vector2D;
   private _bgColor: string;
@@ -56,4 +56,4 @@ class Box2D {
   }
 }
 
-export default Box2D;
+export default Tile2D;

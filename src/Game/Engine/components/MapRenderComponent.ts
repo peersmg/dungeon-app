@@ -3,7 +3,7 @@ import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
 import { EnvironmentType } from "../../TileTypes";
 import Canvas from "../Canvas";
-import Box2D from "../Utils/Box2D";
+import Tile2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
 import { GameEntity } from "../../../redux/types";
 import { cloneDeep } from "lodash";
@@ -13,7 +13,7 @@ import mapJson from "../../../assets/environment_types.json";
 
 class MapRenderComponent extends GameComponent {
   private _position: Vector2D;
-  private _mapContent: (Box2D | null)[][] = [[]];
+  private _mapContent: (Tile2D | null)[][] = [[]];
   private canvas: Canvas | null = null;
   private oldMap: GameEntity[] | null = null;
   private mapStore: IMapStore = new DataStoreService();
@@ -134,10 +134,10 @@ class MapRenderComponent extends GameComponent {
 
       let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
 
-      let box: Box2D | null = null;
+      let box: Tile2D | null = null;
 
       if (envType) {
-        box = new Box2D(
+        box = new Tile2D(
           pos,
           new Vector2D(50, 50),
           envType.backgroundColor,
@@ -161,7 +161,7 @@ class MapRenderComponent extends GameComponent {
     return this._mapContent;
   }
 
-  public set mapContent(newMapContent: (Box2D | null)[][]) {
+  public set mapContent(newMapContent: (Tile2D | null)[][]) {
     this._mapContent = newMapContent;
   }
 }

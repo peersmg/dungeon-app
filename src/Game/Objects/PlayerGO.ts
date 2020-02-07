@@ -3,7 +3,7 @@ import Canvas from "../Engine/Canvas";
 import { IEntityStore } from "../service/IEntityStore";
 import Vector2D from "../Engine/Utils/Vector2D";
 import InputManager from "../Engine/InputManager";
-import Box2D from "../Engine/Utils/Box2D";
+import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 
 class PlayerGO extends GameObject {
@@ -26,7 +26,7 @@ class PlayerGO extends GameObject {
 
     canvas.camera.setFocus(this.transform);
 
-    canvas.addBox(new Box2D(this.transform.position, new Vector2D(50, 50), "grey", "green", "@"));
+    canvas.addBox(new Tile2D(this.transform.position, new Vector2D(50, 50), "grey", "green", "@"));
   }
 
   private keyPressed(e: KeyboardEvent) {
