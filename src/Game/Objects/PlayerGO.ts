@@ -26,7 +26,9 @@ class PlayerGO extends GameObject {
 
     canvas.camera.setFocus(this.transform);
 
-    canvas.addBox(new Tile2D(this.transform.position, new Vector2D(50, 50), "grey", "green", "@"));
+    canvas.addBox(
+      new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@")
+    );
   }
 
   private keyPressed(e: KeyboardEvent) {

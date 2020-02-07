@@ -21,8 +21,8 @@ class Game {
     this.canvas = canvas;
     ObjectManager.getInstance().canvas = canvas;
 
-    ObjectManager.getInstance().addObject(new PlayerGO(new DataStoreService()));
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
+    ObjectManager.getInstance().addObject(new PlayerGO(new DataStoreService()));
   }
 
   tick() {

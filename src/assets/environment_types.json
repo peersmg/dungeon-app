@@ -2,15 +2,15 @@
   {
     "id": 0,
     "name": "Floor",
-    "backgroundColor": "grey",
+    "backgroundColor": "MidnightBlue",
     "textColor": "white",
     "yLevel": 0,
-    "character": "#"
+    "character": "■"
   },
   {
     "id": 1,
     "name": "Wall",
-    "backgroundColor": "grey",
+    "backgroundColor": "MidnightBlue",
     "textColor": "black",
     "yLevel": 1,
     "character": "#"
@@ -18,7 +18,7 @@
   {
     "id": 2,
     "name": "Water",
-    "backgroundColor": "grey",
+    "backgroundColor": "#2C4694",
     "textColor": "blue",
     "yLevel": -1,
     "character": "~"
