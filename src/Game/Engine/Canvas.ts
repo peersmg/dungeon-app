@@ -2,6 +2,7 @@ import Vector2D from "./Utils/Vector2D";
 import Tile2D from "./Utils/Box2D";
 
 import Camera2D from "./Utils/Camera2D";
+import { Color } from "./Utils/Color";
 
 class Canvas {
   private _canvasCtx: CanvasRenderingContext2D | null = null;
@@ -174,7 +175,7 @@ class Canvas {
     }
   }
 
-  private drawBackgound(color: string) {
+  private drawBackgound(color: Color) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
       this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);

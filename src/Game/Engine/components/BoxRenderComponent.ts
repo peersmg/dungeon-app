@@ -3,13 +3,14 @@ import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
 import Canvas from "../Canvas";
 import Tile2D from "../Utils/Box2D";
+import { Color } from "../Utils/Color";
 
 class BoxRenderComponent extends GameComponent {
-  private color: string;
+  private color: Color;
   private position: Vector2D;
   private size: Vector2D;
 
-  constructor(gameObject: GameObject, size: Vector2D, color: string) {
+  constructor(gameObject: GameObject, size: Vector2D, color: Color) {
     super(gameObject);
     this.color = color;
     this.size = size;
@@ -32,7 +33,7 @@ class BoxRenderComponent extends GameComponent {
     }
   }
 
-  setColor(newColor: string) {
+  setColor(newColor: Color) {
     this.color = newColor;
   }
 

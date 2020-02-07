@@ -1,13 +1,14 @@
 import Vector2D from "./Vector2D";
+import { Color } from "./Color";
 
 class Tile2D {
   private _position: Vector2D;
   private _size: Vector2D;
-  private _bgColor: string;
-  private _txtColor: string;
+  private _bgColor: Color;
+  private _txtColor: Color;
   private _char: string;
 
-  constructor(position: Vector2D, size: Vector2D, bgCol: string, txtCol: string, char: string) {
+  constructor(position: Vector2D, size: Vector2D, bgCol: Color, txtCol: Color, char: string) {
     this._position = position;
     this._size = size;
     this._bgColor = bgCol;
@@ -35,7 +36,7 @@ class Tile2D {
     return this._bgColor;
   }
 
-  public set bgColor(newBgColor: string) {
+  public set bgColor(newBgColor: Color) {
     this._bgColor = newBgColor;
   }
 
@@ -43,7 +44,7 @@ class Tile2D {
     return this._txtColor;
   }
 
-  public set txtColor(newTxtColor: string) {
+  public set txtColor(newTxtColor: Color) {
     this._txtColor = newTxtColor;
   }
 

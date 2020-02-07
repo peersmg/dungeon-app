@@ -1,4 +1,5 @@
 import GameObject from "./Engine/GameObject";
+import { Color } from "./Engine/Utils/Color";
 
 export type Entity = {
   entityType: EntityType;
@@ -10,8 +11,8 @@ export type Environment = 0 | 1 | 2;
 export interface EnvironmentType {
   id: number;
   name: string;
-  backgroundColor: string;
-  textColor: string;
+  backgroundColor: Color;
+  textColor: Color;
   yLevel: number;
   character: string;
 }
