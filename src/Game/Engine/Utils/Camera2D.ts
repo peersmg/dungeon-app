@@ -8,6 +8,8 @@ class Camera2D {
   private targetViewPos = new Vector2D(0, 0);
   private focusTransform: TransformComponent | null = null;
 
+  private moveSpeed = 0.1;
+
   public get viewPos() {
     return this._viewPos;
   }
@@ -19,7 +21,7 @@ class Camera2D {
 
     if (this._viewPos !== this.targetViewPos) {
       let directionVec = this.targetViewPos.clone().subtract(this._viewPos);
-      this._viewPos.add(directionVec.multiply(0.1));
+      this._viewPos.add(directionVec.multiply(this.moveSpeed));
     }
   }
 
@@ -48,7 +50,7 @@ class Camera2D {
 
     let camX = lUtil.clamp(this.focusTransform!.position.x - canvasWidth / 2, minX, maxX);
 
-    this.targetViewPos = new Vector2D(camX, this.viewPos.y);
+    this.targetViewPos = new Vector2D(camX, this.targetViewPos.y);
   }
 
   private snapToFocusY(canvasCtx: CanvasRenderingContext2D) {
@@ -59,7 +61,7 @@ class Camera2D {
 
     let camY = lUtil.clamp(this.focusTransform!.position.y - canvasHeight / 2, minY, maxY);
 
-    this.targetViewPos = new Vector2D(this.viewPos.x, camY);
+    this.targetViewPos = new Vector2D(this.targetViewPos.x, camY);
   }
 
   public setFocus(focusTransform: TransformComponent) {
