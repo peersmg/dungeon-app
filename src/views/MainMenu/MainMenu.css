@@ -1,0 +1,40 @@
+.main-menu button {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: transparent;
+  color: white;
+  font-family: monospace;
+  font-size: 34px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.main-menu button:focus {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: transparent;
+  color: white;
+  font-family: monospace;
+  font-size: 34px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  outline: none;
+}
+
+.main-menu button:hover {
+  background-color: transparent;
+  border-width: 1px;
+  border-color: white;
+  color: white;
+  font-family: monospace;
+  font-size: 34px;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+/* .main-menu button:active {
+  background-color: transparent;
+  border-width: 0px;
+  border: none;
+  color: white;
+} */

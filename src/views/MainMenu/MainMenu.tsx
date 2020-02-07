@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Menu from "../../components/Menu/Menu";
-import { useHistory } from "react-router";
+import { MenuOption } from "../../components/Menu/Menu";
+import "./MainMenu.css";
 
 const MainMenu: React.FC = () => {
-  const history = useHistory();
-  function beginSelected() {
-    history.push("/game");
-  }
+  const [menuOptions, setMenuOption] = useState<MenuOption[]>([]);
 
-  return <Menu callback={beginSelected} text="Begin Game" />;
+  useEffect(() => {
+    setMenuOption([]);
+    setMenuOption(menuOptions => [...menuOptions, { text: "Begin Game", mapping: "/game" }]);
+    setMenuOption(menuOptions => [...menuOptions, { text: "Credits", mapping: "/credits" }]);
+    console.log(menuOptions);
+    // eslint-disable-next-line
+  }, []);
+
+  return (
+    <div className="main-menu">
+      <Menu menuSetting={menuOptions} />
+    </div>
+  );
 };
 
 export default MainMenu;
