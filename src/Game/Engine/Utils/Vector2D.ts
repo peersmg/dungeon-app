@@ -13,6 +13,12 @@ class Vector2D {
     return this;
   }
 
+  public subtract(other: Vector2D) {
+    this.x -= other.x;
+    this.y -= other.y;
+    return this;
+  }
+
   public multiply(other: number) {
     this.x *= other;
     this.y *= other;
@@ -25,6 +31,10 @@ class Vector2D {
     } else {
       return false;
     }
+  }
+
+  public clone() {
+    return new Vector2D(this.x, this.y);
   }
 
   public static null: Vector2D = new Vector2D(0, 0);

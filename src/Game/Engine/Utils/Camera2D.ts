@@ -5,6 +5,7 @@ import lUtil from "lodash";
 
 class Camera2D {
   private _viewPos = new Vector2D(0, 0);
+  private targetViewPos = new Vector2D(0, 0);
   private focusTransform: TransformComponent | null = null;
 
   public get viewPos() {
@@ -14,6 +15,11 @@ class Camera2D {
   public update(canvas: Canvas) {
     if (this.focusTransform && canvas.getContext()) {
       this.updateFocus(canvas.getContext()!);
+    }
+
+    if (this._viewPos !== this.targetViewPos) {
+      let directionVec = this.targetViewPos.clone().subtract(this._viewPos);
+      this._viewPos.add(directionVec.multiply(0.1));
     }
   }
 
@@ -42,7 +48,7 @@ class Camera2D {
 
     let camX = lUtil.clamp(this.focusTransform!.position.x - canvasWidth / 2, minX, maxX);
 
-    this._viewPos = new Vector2D(camX, this.viewPos.y);
+    this.targetViewPos = new Vector2D(camX, this.viewPos.y);
   }
 
   private snapToFocusY(canvasCtx: CanvasRenderingContext2D) {
@@ -53,7 +59,7 @@ class Camera2D {
 
     let camY = lUtil.clamp(this.focusTransform!.position.y - canvasHeight / 2, minY, maxY);
 
-    this._viewPos = new Vector2D(this.viewPos.x, camY);
+    this.targetViewPos = new Vector2D(this.viewPos.x, camY);
   }
 
   public setFocus(focusTransform: TransformComponent) {
