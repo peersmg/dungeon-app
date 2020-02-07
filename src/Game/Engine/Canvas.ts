@@ -41,7 +41,11 @@ class Canvas {
       this.boxes.forEach(box => {
         this.setFillStyle(box.bgColor);
         this.drawBox(box.position, box.size);
-        this.drawText(box.char, box.position.clone().add(box.size.clone().divide(2)), box.txtColor);
+        this.drawTextToWorld(
+          box.char,
+          box.position.clone().add(box.size.clone().divide(2)),
+          box.txtColor
+        );
       });
     }
   }
@@ -119,13 +123,13 @@ class Canvas {
     }
   }
 
-  public drawText(text: string, pos: Vector2D, color: string = "white") {
+  public drawTextToWorld(text: string, pos: Vector2D, color: string = "white") {
     if (this.canvasCtx) {
       this.setFillStyle(color);
       this.setFont("bold 24px Arial");
       this.canvasCtx.textAlign = "center";
       this.canvasCtx.textBaseline = "middle";
-      this.canvasCtx.fillText(text, pos.x, pos.y);
+      this.canvasCtx.fillText(text, pos.x - this._camera.viewPos.x, pos.y - this._camera.viewPos.y);
     }
   }
 
