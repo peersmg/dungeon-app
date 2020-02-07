@@ -32,8 +32,6 @@ class Game {
 
     dataStore.dispatch(updateFps(fps));
 
-    this.canvas.clearCanvas();
-    this.canvas.drawBackgound("black");
     this.canvas.render();
 
     ObjectManager.getInstance().updateAll(this.deltaTime);

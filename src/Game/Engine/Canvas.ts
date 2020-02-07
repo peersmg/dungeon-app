@@ -1,5 +1,6 @@
 import Vector2D from "./Utils/Vector2D";
 import Box2D from "./Utils/Box2D";
+import TransformComponent from "./components/TransformComponent";
 
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;
@@ -10,6 +11,7 @@ class Canvas {
 
   private camera: Vector2D = new Vector2D(0, 0);
   private boxes: Box2D[] = [];
+  private focusTransform: TransformComponent | null = null;
 
   constructor() {
     this.canvasCtx = this.generateCanvas();
@@ -24,15 +26,34 @@ class Canvas {
     }
   }
 
-  render() {
+  public render() {
+    this.clearCanvas();
+    this.drawBackgound("black");
+
+    this.drawBoxes();
+    this.updateFocus();
+  }
+
+  private updateFocus() {
+    if (this.focusTransform && this.canvasCtx) {
+      this.camera = new Vector2D(
+        this.focusTransform.position.x - this.canvasCtx.canvas.width / 2,
+        this.focusTransform.position.y - this.canvasCtx.canvas.height / 2
+      );
+    }
+  }
+
+  public setFocus(focusTransform: TransformComponent) {
+    this.focusTransform = focusTransform;
+  }
+
+  public drawBoxes() {
     if (this.boxes) {
       this.boxes.forEach(box => {
         this.setFillStyle(box.color);
         this.drawBox(box.position, box.size);
       });
     }
-
-    this.camera.add(new Vector2D(0.1, 0));
   }
 
   public addBox(newBox: Box2D | null) {
@@ -48,7 +69,7 @@ class Canvas {
     }
   }
 
-  generateCanvas() {
+  private generateCanvas() {
     let canvasElement = document.createElement("canvas");
 
     if (canvasElement) {
@@ -76,7 +97,7 @@ class Canvas {
     return canvasCtx;
   }
 
-  refreshCanvasSize() {
+  private refreshCanvasSize() {
     if (this.canvasCtx && this.containerElement) {
       this.dpr = window.devicePixelRatio || 1;
       let xSize = this.containerElement.clientWidth;
@@ -92,23 +113,23 @@ class Canvas {
     }
   }
 
-  setUserScale(scale: number) {
+  public setUserScale(scale: number) {
     this.userScale = scale;
     this.canvasCtx?.resetTransform();
     this.canvasCtx?.scale(scale, scale);
   }
 
-  onDocumentResize() {
+  public onDocumentResize() {
     this.refreshCanvasSize();
   }
 
-  clearCanvas() {
+  private clearCanvas() {
     if (this.canvasCtx) {
       this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
   }
 
-  drawText(text: string, pos: Vector2D, color: string = "white") {
+  public drawText(text: string, pos: Vector2D, color: string = "white") {
     if (this.canvasCtx) {
       this.setFillStyle(color);
       this.setFont("bold 24px Arial");
@@ -122,11 +143,11 @@ class Canvas {
     this.canvasCtx?.fillRect(pos.x - this.camera.x, pos.y - this.camera.y, size.x, size.y);
   }
 
-  getContext() {
+  public getContext() {
     return this.canvasCtx;
   }
 
-  getCanvasWidth() {
+  public getCanvasWidth() {
     if (this.canvasCtx) {
       return window.innerWidth;
     } else {
@@ -134,7 +155,7 @@ class Canvas {
     }
   }
 
-  getCanvasHeight() {
+  public getCanvasHeight() {
     if (this.canvasCtx) {
       return window.innerHeight;
     } else {
@@ -142,19 +163,19 @@ class Canvas {
     }
   }
 
-  setFont(font: string) {
+  private setFont(font: string) {
     if (this.canvasCtx) {
       this.canvasCtx.font = font;
     }
   }
 
-  setFillStyle(fillStyle: string) {
+  private setFillStyle(fillStyle: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = fillStyle;
     }
   }
 
-  drawBackgound(color: string) {
+  private drawBackgound(color: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
       this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
