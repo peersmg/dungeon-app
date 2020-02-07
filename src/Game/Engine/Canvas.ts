@@ -8,6 +8,7 @@ class Canvas {
 
   private containerElement: HTMLElement | null = null;
 
+  private camera: Vector2D = new Vector2D(0, 0);
   private boxes: Box2D[] = [];
 
   constructor() {
@@ -30,6 +31,8 @@ class Canvas {
         this.drawBox(box.position, box.size);
       });
     }
+
+    this.camera.add(new Vector2D(0.1, 0));
   }
 
   public addBox(newBox: Box2D | null) {
@@ -85,10 +88,7 @@ class Canvas {
       this.canvasCtx.canvas.style.width = xSize + "px";
       this.canvasCtx.canvas.style.height = ySize + "px";
 
-      this.canvasCtx.scale(
-        this.dpr + this.userScale,
-        this.dpr + this.userScale
-      );
+      this.canvasCtx.scale(this.dpr + this.userScale, this.dpr + this.userScale);
     }
   }
 
@@ -104,12 +104,7 @@ class Canvas {
 
   clearCanvas() {
     if (this.canvasCtx) {
-      this.canvasCtx.clearRect(
-        0,
-        0,
-        this.canvasCtx.canvas.width,
-        this.canvasCtx.canvas.height
-      );
+      this.canvasCtx.clearRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
   }
 
@@ -124,7 +119,7 @@ class Canvas {
   }
 
   private drawBox(pos: Vector2D, size: Vector2D) {
-    this.canvasCtx?.fillRect(pos.x, pos.y, size.x, size.y);
+    this.canvasCtx?.fillRect(pos.x - this.camera.x, pos.y - this.camera.y, size.x, size.y);
   }
 
   getContext() {
@@ -162,12 +157,7 @@ class Canvas {
   drawBackgound(color: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = color;
-      this.canvasCtx.fillRect(
-        0,
-        0,
-        this.canvasCtx.canvas.width,
-        this.canvasCtx.canvas.height
-      );
+      this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
   }
 }
