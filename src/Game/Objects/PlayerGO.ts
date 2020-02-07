@@ -24,7 +24,7 @@ class PlayerGO extends GameObject {
       this.keyPressed(e);
     }, "keydown");
 
-    canvas.setFocus(this.transform);
+    canvas.camera.setFocus(this.transform);
 
     canvas.addBox(new Box2D(this.transform.position, new Vector2D(50, 50), "purple"));
   }

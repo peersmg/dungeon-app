@@ -1,6 +1,7 @@
 import Vector2D from "./Utils/Vector2D";
 import Box2D from "./Utils/Box2D";
-import TransformComponent from "./components/TransformComponent";
+
+import Camera2D from "./Utils/Camera2D";
 
 class Canvas {
   private canvasCtx: CanvasRenderingContext2D | null = null;
@@ -9,9 +10,9 @@ class Canvas {
 
   private containerElement: HTMLElement | null = null;
 
-  private camera: Vector2D = new Vector2D(0, 0);
+  //private camera: Vector2D = new Vector2D(0, 0);
+  private _camera: Camera2D = new Camera2D();
   private boxes: Box2D[] = [];
-  private focusTransform: TransformComponent | null = null;
 
   constructor() {
     this.canvasCtx = this.generateCanvas();
@@ -31,20 +32,8 @@ class Canvas {
     this.drawBackgound("black");
 
     this.drawBoxes();
-    this.updateFocus();
-  }
 
-  private updateFocus() {
-    if (this.focusTransform && this.canvasCtx) {
-      this.camera = new Vector2D(
-        this.focusTransform.position.x - this.canvasCtx.canvas.width / 2,
-        this.focusTransform.position.y - this.canvasCtx.canvas.height / 2
-      );
-    }
-  }
-
-  public setFocus(focusTransform: TransformComponent) {
-    this.focusTransform = focusTransform;
+    this._camera.update(this);
   }
 
   public drawBoxes() {
@@ -140,7 +129,12 @@ class Canvas {
   }
 
   private drawBox(pos: Vector2D, size: Vector2D) {
-    this.canvasCtx?.fillRect(pos.x - this.camera.x, pos.y - this.camera.y, size.x, size.y);
+    this.canvasCtx?.fillRect(
+      pos.x - this._camera.viewPos.x,
+      pos.y - this._camera.viewPos.y,
+      size.x,
+      size.y
+    );
   }
 
   public getContext() {
@@ -180,6 +174,10 @@ class Canvas {
       this.canvasCtx.fillStyle = color;
       this.canvasCtx.fillRect(0, 0, this.canvasCtx.canvas.width, this.canvasCtx.canvas.height);
     }
+  }
+
+  public get camera() {
+    return this._camera;
   }
 }
 
