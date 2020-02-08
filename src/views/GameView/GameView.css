@@ -28,3 +28,13 @@
   bottom: calc(5%);
   width: 100%;
 }
+
+.game-health {
+  padding: 10px;
+  float: left;
+}
+
+.game-fps {
+  padding: 10px;
+  float: right;
+}

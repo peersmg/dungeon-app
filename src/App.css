@@ -3,6 +3,9 @@
   background-color: black;
   line-height: 0;
 
+  font-family: monospace;
+  font-size: 34px;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

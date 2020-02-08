@@ -37,7 +37,10 @@ const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
 
   return (
     <div className="game-view">
-      <div className="game-header">Dungeon Game! FPS: {props.state.gameStats.FPS}</div>
+      <div className="game-header">
+        <div className="game-fps">FPS: {props.state.gameStats.FPS}</div>
+        <div className="game-health">Health: {props.state.playerStats.health}</div>
+      </div>
       <div className="game-body" id="game"></div>
       <div className="game-footer">Author: Matthew</div>
     </div>
