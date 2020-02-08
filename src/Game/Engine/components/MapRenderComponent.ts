@@ -1,7 +1,6 @@
 import GameComponent from "../GameComponent";
 import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
-import { EnvironmentType } from "../../TileTypes";
 import Canvas from "../Canvas";
 import Tile2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
@@ -81,9 +80,10 @@ class MapRenderComponent extends GameComponent {
   private createRenderObject(x: number, y: number) {
     if (this.mapStore.getMap()) {
       let pos = this.getMapPos(y, x);
-      let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
+      //let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
 
-      let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
+      //let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
+      let envType = new DataStoreService().getEnvironmentOf(new Vector2D(x, y));
 
       let box: Tile2D | null = null;
 

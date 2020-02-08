@@ -5,13 +5,16 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import InputManager from "../Engine/InputManager";
 import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
+import { IMapStore } from "../service/IMapStore";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
+  mapStore: IMapStore;
 
-  constructor(entityStore: IEntityStore) {
+  constructor(entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(152, 152)));
     this.entityStore = entityStore;
+    this.mapStore = mapStore;
   }
 
   start(canvas: Canvas): void {
@@ -58,13 +61,18 @@ class PlayerGO extends GameObject {
     let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
 
     if (currentMapPos) {
-      this.entityStore.updateEntity({
-        objectId: this.id,
-        mapCoord: currentMapPos.add(direction)
-      });
-    }
+      let targetPos = currentMapPos.clone().add(direction);
+      let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))
+        ?.yLevel;
 
-    this.transform.position.add(direction.multiply(52));
+      if (targetTileY === 0) {
+        this.entityStore.updateEntity({
+          objectId: this.id,
+          mapCoord: targetPos
+        });
+        this.transform.position.add(direction.multiply(52));
+      }
+    }
   }
 }
 
