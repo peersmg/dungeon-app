@@ -6,15 +6,18 @@ import InputManager from "../Engine/InputManager";
 import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
+import { IPlayerStore } from "../service/IPlayerStore";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
+  playerStore: IPlayerStore;
 
-  constructor(entityStore: IEntityStore, mapStore: IMapStore) {
+  constructor(entityStore: IEntityStore, mapStore: IMapStore, playerStore: IPlayerStore) {
     super(new TransformComponent(new Vector2D(152, 152)));
     this.entityStore = entityStore;
     this.mapStore = mapStore;
+    this.playerStore = playerStore;
   }
 
   start(canvas: Canvas): void {
@@ -32,6 +35,8 @@ class PlayerGO extends GameObject {
     canvas.addBox(
       new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@")
     );
+
+    this.playerStore.setHealth(100);
   }
 
   private keyPressed(e: KeyboardEvent) {

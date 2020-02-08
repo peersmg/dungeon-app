@@ -1,13 +1,22 @@
 import { IEntityStore } from "./IEntityStore";
+import { IMapStore } from "./IMapStore";
+import { IPlayerStore } from "./IPlayerStore";
 import { GameEntity } from "../../redux/types";
 import dataStore from "../../redux/store";
 import { addEntity, updateEntity, removeEntity, setMap } from "../../redux/actions/MapActions";
-import { IMapStore } from "./IMapStore";
+import { setHealth } from "../../redux/actions/PlayerStatsActions";
 import { Environment, EnvironmentType } from "../TileTypes";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { isNullOrUndefined } from "util";
 
-class DataStoreService implements IEntityStore, IMapStore {
+class DataStoreService implements IEntityStore, IMapStore, IPlayerStore {
+  setHealth(newHealth: number): void {
+    dataStore.dispatch(setHealth(newHealth));
+  }
+  getHealth(): number {
+    return dataStore.getState().playerStats.health;
+  }
+
   getEntities(): GameEntity[] | null {
     return dataStore.getState().map.entities;
   }
@@ -22,6 +31,7 @@ class DataStoreService implements IEntityStore, IMapStore {
       return null;
     }
   }
+
   getEnvironmentOf(mapPosition: Vector2D): EnvironmentType | null {
     let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
     let envType = null;

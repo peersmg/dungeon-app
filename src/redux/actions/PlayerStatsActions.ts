@@ -8,7 +8,7 @@ export interface SetHealthAction {
   payload: number;
 }
 
-export function updateFps(newHealth: number): PlayerStatsActions {
+export function setHealth(newHealth: number): PlayerStatsActions {
   return {
     type: SET_HEALTH,
     payload: newHealth
