@@ -1,10 +1,13 @@
 import GameObject from "./GameObject";
 import Canvas from "./Canvas";
+import { isNullOrUndefined } from "util";
 
 class ObjectManager {
   private objects: Map<number, GameObject> = new Map();
   private _canvas: Canvas | null = null;
   private static instance: ObjectManager | null;
+
+  private entityCallbacks: (() => void)[] = [];
 
   private constructor() {}
 
@@ -49,6 +52,18 @@ class ObjectManager {
     } else {
       return null;
     }
+  }
+
+  public registerEntityUpdate(callback: () => void) {
+    this.entityCallbacks.push(callback);
+  }
+
+  public updateEntities() {
+    this.entityCallbacks.forEach(callback => {
+      if (!isNullOrUndefined(callback)) {
+        callback();
+      }
+    });
   }
 }
 export default ObjectManager;

@@ -6,4 +6,5 @@ export type Color =
   | "black"
   | "green"
   | "MediumBlue"
-  | "#2C4694";
+  | "#2C4694"
+  | "orange";

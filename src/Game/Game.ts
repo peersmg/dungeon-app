@@ -11,6 +11,7 @@ import { updateFps } from "../redux/actions/StatsActions";
 import envTypesJson from "../assets/environment_types.json";
 import { EnvironmentType } from "./TileTypes";
 import { setEnvironmentTypes } from "../redux/actions/MapActions";
+import EnemyGO from "./Objects/EnemyGO";
 
 class Game {
   canvas!: Canvas;
@@ -30,6 +31,7 @@ class Game {
     ObjectManager.getInstance().addObject(
       new PlayerGO(new DataStoreService(), new DataStoreService(), new DataStoreService())
     );
+    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService()));
   }
 
   tick() {

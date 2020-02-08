@@ -7,6 +7,7 @@ import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import { IPlayerStore } from "../service/IPlayerStore";
+import ObjectManager from "../Engine/ObjectManager";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
@@ -76,6 +77,8 @@ class PlayerGO extends GameObject {
           mapCoord: targetPos
         });
         this.transform.position.add(direction.multiply(52));
+
+        ObjectManager.getInstance().updateEntities();
       }
     }
   }
