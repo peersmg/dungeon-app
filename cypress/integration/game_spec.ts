@@ -6,7 +6,7 @@ describe("Game screen content", function() {
 
     cy.contains("Begin Game").click();
 
-    cy.contains("Dungeon Game!");
+    cy.contains("FPS:");
     cy.contains("Author:");
   });
 });
