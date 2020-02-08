@@ -6,6 +6,10 @@ export interface GameStats {
   FPS: number;
 }
 
+export interface PlayerStats {
+  health: number;
+}
+
 export interface GameEntity {
   objectId: number;
   mapCoord: Vector2D;
@@ -28,6 +32,7 @@ export const connectGameState = connect(mapGameState);
 export type GameStateProp = ConnectedProps<typeof connectGameState>;
 
 export interface GameState {
-  stats: GameStats;
+  gameStats: GameStats;
+  playerStats: PlayerStats;
   map: GameMap;
 }
