@@ -8,6 +8,9 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import { isNullOrUndefined } from "util";
 
 class DataStoreService implements IEntityStore, IMapStore {
+  getEntities(): GameEntity[] | null {
+    return dataStore.getState().map.entities;
+  }
   getEnvironmentType(id: number): EnvironmentType | null {
     let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
 

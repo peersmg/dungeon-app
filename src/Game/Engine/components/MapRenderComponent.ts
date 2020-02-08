@@ -3,7 +3,6 @@ import Vector2D from "../Utils/Vector2D";
 import GameObject from "../GameObject";
 import Canvas from "../Canvas";
 import Tile2D from "../Utils/Box2D";
-import dataStore from "../../../redux/store";
 import { IMapStore } from "../../service/IMapStore";
 import DataStoreService from "../../service/DataStoreService";
 
@@ -39,9 +38,9 @@ class MapRenderComponent extends GameComponent {
       for (let x = 0; x < this.mapStore.getMap()![0].length; x++) {
         for (let y = 0; y < this.mapStore.getMap()!.length; y++) {
           if (
-            dataStore
-              .getState()
-              .map.entities.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
+            this.mapStore
+              .getEntities()
+              ?.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
           ) {
             canvas.addBox(this.createRenderObject(y, x));
           }

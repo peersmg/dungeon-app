@@ -2,8 +2,7 @@ import GameComponent from "../GameComponent";
 import { Environment } from "../../TileTypes";
 
 import mapJson from "../../../assets/default_map.json";
-import dataStore from "../../../redux/store";
-import { setMap } from "../../../redux/actions/MapActions";
+import DataStoreService from "../../service/DataStoreService";
 
 interface LoadedMap {
   map: Environment[][];
@@ -14,7 +13,7 @@ class MapLoadComponent extends GameComponent {
 
   public loadMap() {
     let loadedMap: LoadedMap = mapJson as LoadedMap;
-    dataStore.dispatch(setMap(loadedMap.map));
+    new DataStoreService().setMap(loadedMap.map);
   }
 }
 export default MapLoadComponent;
