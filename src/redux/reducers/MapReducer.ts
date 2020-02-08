@@ -1,6 +1,6 @@
 import { GameMap, GameEntity } from "../types";
 import { MapTypes, MapActions } from "../actions/MapActions";
-import { Environment } from "../../Game/TileTypes";
+import { Environment, EnvironmentType } from "../../Game/TileTypes";
 import { createReducer } from "../create-reducer";
 
 function addEntity(map: GameMap, action: MapActions) {
@@ -28,12 +28,17 @@ function setMap(map: GameMap, action: MapActions) {
   return { ...map, environment: action.payload as Environment[][] };
 }
 
+function setEnvironmentTypes(map: GameMap, action: MapActions) {
+  return { ...map, environmentTypes: action.payload as EnvironmentType[] };
+}
+
 export const mapReducer = createReducer<GameMap, MapTypes, MapActions>(
-  { entities: [], environment: [] },
+  { entities: [], environment: [], environmentTypes: [] },
   {
     ADD_ENTITY: addEntity,
     UPDATE_ENTITY: updateEntity,
     REMOVE_ENTITY: removeEntity,
-    SET_MAP: setMap
+    SET_MAP: setMap,
+    SET_ENVIRONMENT_TYPES: setEnvironmentTypes
   }
 );

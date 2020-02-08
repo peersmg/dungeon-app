@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from "react-redux";
 import Vector2D from "../Game/Engine/Utils/Vector2D";
-import { Environment } from "../Game/TileTypes";
+import { Environment, EnvironmentType } from "../Game/TileTypes";
 
 export interface GameStats {
   FPS: number;
@@ -14,6 +14,7 @@ export interface GameEntity {
 export interface GameMap {
   entities: GameEntity[];
   environment: Environment[][];
+  environmentTypes: EnvironmentType[];
 }
 
 export const mapGameState = (state: GameState) => {

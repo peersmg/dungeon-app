@@ -1,5 +1,5 @@
 import { GameEntity } from "../types";
-import { Environment } from "../../Game/TileTypes";
+import { Environment, EnvironmentType } from "../../Game/TileTypes";
 
 const ADD_ENTITY = "ADD_ENTITY";
 const UPDATE_ENTITY = "UPDATE_ENTITY";
@@ -7,13 +7,21 @@ const REMOVE_ENTITY = "REMOVE_ENTITY";
 
 const SET_MAP = "SET_MAP";
 
+const SET_ENVIRONMENT_TYPES = "SET_ENVIRONMENT_TYPES";
+
 export type MapTypes =
   | typeof ADD_ENTITY
   | typeof UPDATE_ENTITY
   | typeof REMOVE_ENTITY
-  | typeof SET_MAP;
+  | typeof SET_MAP
+  | typeof SET_ENVIRONMENT_TYPES;
 
-export type MapActions = AddEntityAction | UpdateEntityAction | RemoveEntityAction | SetMapAction;
+export type MapActions =
+  | AddEntityAction
+  | UpdateEntityAction
+  | RemoveEntityAction
+  | SetMapAction
+  | SetEnvironmentTypesAction;
 
 interface AddEntityAction {
   type: typeof ADD_ENTITY;
@@ -33,6 +41,11 @@ interface RemoveEntityAction {
 interface SetMapAction {
   type: typeof SET_MAP;
   payload: Environment[][];
+}
+
+interface SetEnvironmentTypesAction {
+  type: typeof SET_ENVIRONMENT_TYPES;
+  payload: EnvironmentType[];
 }
 
 export function addEntity(newEntity: GameEntity): MapActions {
@@ -60,5 +73,12 @@ export function setMap(newMap: Environment[][]): MapActions {
   return {
     type: SET_MAP,
     payload: newMap
+  };
+}
+
+export function setEnvironmentTypes(newEnvironmentTypes: EnvironmentType[]): MapActions {
+  return {
+    type: SET_ENVIRONMENT_TYPES,
+    payload: newEnvironmentTypes
   };
 }

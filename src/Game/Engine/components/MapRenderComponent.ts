@@ -7,8 +7,6 @@ import Tile2D from "../Utils/Box2D";
 import dataStore from "../../../redux/store";
 import { IMapStore } from "../../service/IMapStore";
 import DataStoreService from "../../service/DataStoreService";
-import mapJson from "../../../assets/environment_types.json";
-import { Color } from "../Utils/Color";
 
 class MapRenderComponent extends GameComponent {
   private _position: Vector2D;
@@ -83,7 +81,7 @@ class MapRenderComponent extends GameComponent {
   private createRenderObject(x: number, y: number) {
     if (this.mapStore.getMap()) {
       let pos = this.getMapPos(y, x);
-      let mapTypes: EnvironmentType[] = this.loadEnvJson();
+      let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
 
       let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
 
@@ -104,23 +102,6 @@ class MapRenderComponent extends GameComponent {
       return box;
     }
     return null;
-  }
-
-  private loadEnvJson(): EnvironmentType[] {
-    let envTypes: EnvironmentType[] = [];
-    mapJson.forEach(val => {
-      let envType: EnvironmentType = {
-        id: val.id,
-        name: val.name,
-        backgroundColor: val.backgroundColor as Color,
-        textColor: val.textColor as Color,
-        yLevel: val.yLevel,
-        character: val.character
-      };
-
-      envTypes.push(envType);
-    });
-    return envTypes;
   }
 
   public getMapPos(x: number, y: number) {

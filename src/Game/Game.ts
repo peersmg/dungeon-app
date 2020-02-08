@@ -8,6 +8,9 @@ import InputManager from "./Engine/InputManager";
 import PlayerGO from "./Objects/PlayerGO";
 import DataStoreService from "./service/DataStoreService";
 import { updateFps } from "../redux/actions/StatsActions";
+import envTypesJson from "../assets/environment_types.json";
+import { EnvironmentType } from "./TileTypes";
+import { setEnvironmentTypes } from "../redux/actions/MapActions";
 
 class Game {
   canvas!: Canvas;
@@ -18,6 +21,8 @@ class Game {
   deltaTimeHistory: number[] = [];
 
   begin(canvas: Canvas) {
+    this.loadGame();
+
     this.canvas = canvas;
     ObjectManager.getInstance().canvas = canvas;
 
@@ -37,13 +42,9 @@ class Game {
     ObjectManager.getInstance().updateAll(this.deltaTime);
   }
 
-  private calcFps() {
-    const now = performance.now();
-    while (this.deltaTimeHistory.length > 0 && this.deltaTimeHistory[0] <= now - 1000) {
-      this.deltaTimeHistory.shift();
-    }
-    this.deltaTimeHistory.push(now);
-    return this.deltaTimeHistory.length;
+  private loadGame() {
+    let loadedEnvTypes: EnvironmentType[] = envTypesJson as EnvironmentType[];
+    dataStore.dispatch(setEnvironmentTypes(loadedEnvTypes));
   }
 
   stop() {
@@ -56,6 +57,14 @@ class Game {
     let now = Date.now();
     this.deltaTime = now - this.lastUpdate;
     this.lastUpdate = now;
+  }
+  private calcFps() {
+    const now = performance.now();
+    while (this.deltaTimeHistory.length > 0 && this.deltaTimeHistory[0] <= now - 1000) {
+      this.deltaTimeHistory.shift();
+    }
+    this.deltaTimeHistory.push(now);
+    return this.deltaTimeHistory.length;
   }
 }
 
