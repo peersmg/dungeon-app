@@ -30,6 +30,8 @@ abstract class GameObject {
     this.components.push(newComponent);
   }
 
+  destroy(): void {}
+
   public get id() {
     return this._id;
   }

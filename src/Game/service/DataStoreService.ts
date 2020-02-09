@@ -8,6 +8,12 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import { isNullOrUndefined } from "util";
 
 class DataStoreService implements IEntityStore, IMapStore {
+  getEntityAtLocation(mapLocation: Vector2D) {
+    let entity = dataStore.getState().map.entities.find(val => val.mapCoord.equals(mapLocation));
+
+    return entity ? entity : null;
+  }
+
   getEntities(): GameEntity[] | null {
     return dataStore.getState().map.entities;
   }

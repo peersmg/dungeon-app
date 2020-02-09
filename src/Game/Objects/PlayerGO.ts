@@ -7,6 +7,7 @@ import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
+import { GameEntity } from "../../redux/types";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
@@ -29,15 +30,17 @@ class PlayerGO extends GameObject {
     this.canvas = canvas;
 
     InputManager.getInstance().subscribeToEvent((e: KeyboardEvent) => {
-      this.movePlayer(this.getDirectionFromKey(e));
+      this.playerAction(this.getDirectionFromKey(e));
     }, "keydown");
     InputManager.getInstance().subscribeToMouseEvent((e: MouseEvent) => {
-      this.movePlayer(this.getDirectionFromMouse(e));
+      this.playerAction(this.getDirectionFromMouse(e));
     }, "mouseup");
 
     canvas.camera.setFocus(this.transform);
 
-    canvas.addBox(new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@"));
+    canvas.addBox(
+      new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@")
+    );
   }
 
   private getDirectionFromKey(e: KeyboardEvent) {
@@ -73,12 +76,33 @@ class PlayerGO extends GameObject {
     return null;
   }
 
+  private playerAction(direction: Vector2D | null) {
+    if (direction) {
+      let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
+      let targetPos = currentMapPos?.clone().add(direction);
+      if (targetPos) {
+        let entity = this.entityStore.getEntityAtLocation(targetPos);
+        if (entity) {
+          this.attackEntity(entity);
+        } else {
+          this.movePlayer(direction);
+        }
+      }
+    }
+  }
+
+  private attackEntity(entity: GameEntity) {
+    this.entityStore.removeEntity(entity.objectId);
+    ObjectManager.getInstance().removeObject(entity.objectId);
+  }
+
   private movePlayer(direction: Vector2D | null) {
     let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
 
     if (currentMapPos && direction) {
       let targetPos = currentMapPos.clone().add(direction);
-      let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))?.yLevel;
+      let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))
+        ?.yLevel;
 
       if (targetTileY === 0) {
         this.entityStore.updateEntity({

@@ -8,6 +8,8 @@ import RandomMovementComponent from "../Engine/components/RandomMovementComponen
 
 class EnemyGO extends GameObject {
   entityStore: IEntityStore;
+  canvas: Canvas | null = null;
+  renderTile: Tile2D | null = null;
 
   constructor(entityStore: IEntityStore) {
     super(new TransformComponent(new Vector2D(152, 256)));
@@ -21,11 +23,21 @@ class EnemyGO extends GameObject {
       health: 100
     });
 
-    canvas.addBox(
-      new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "orange", ";")
+    this.canvas = canvas;
+    this.renderTile = new Tile2D(
+      this.transform.position,
+      new Vector2D(50, 50),
+      "#2C4694",
+      "orange",
+      ";"
     );
+    this.canvas.addBox(this.renderTile);
 
     this.addComponent(canvas, new RandomMovementComponent(this));
+  }
+
+  destroy() {
+    this.canvas?.removeBox(this.renderTile);
   }
 }
 

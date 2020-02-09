@@ -65,5 +65,12 @@ class ObjectManager {
       }
     });
   }
+
+  public removeObject(id: number) {
+    if (this.objects.has(id)) {
+      this.objects.get(id)!.destroy();
+      this.objects.delete(id);
+    }
+  }
 }
 export default ObjectManager;
