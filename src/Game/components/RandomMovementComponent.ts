@@ -6,15 +6,40 @@ import ObjectManager from "../Engine/ObjectManager";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IMapStore } from "../service/IMapStore";
 import lUtil from "lodash";
+import { GameEntity } from "../../redux/types";
 
 class RandomMovementComponent extends GameComponent {
+  entity: GameEntity | null = null;
+  entityStore: IEntityStore = new DataStoreService();
   start(canvas: Canvas): void {
     ObjectManager.getInstance().registerEntityUpdate(() => {
       this.entityUpdate();
     });
+
+    this.entityStore = new DataStoreService();
+    if (this.gameObject) {
+      this.entity = this.entityStore.getEntity(this.gameObject.id);
+    }
   }
 
   public entityUpdate() {
+    this.entity = this.entityStore.getEntity(this.gameObject ? this.gameObject.id : null);
+    if (this.gameObject && this.entity) {
+      let otherEnt = this.entityStore.getAdjacentEntity(this.entity.mapCoord);
+      if (otherEnt) {
+        this.attack(otherEnt);
+      } else {
+        this.randMove();
+      }
+    }
+  }
+
+  private attack(entity: GameEntity) {
+    entity.health -= this.entity!.strength;
+    this.entityStore.updateEntity(entity);
+  }
+
+  private randMove() {
     let rand = lUtil.random(4, false);
 
     switch (rand) {

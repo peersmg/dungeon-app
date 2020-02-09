@@ -8,6 +8,23 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import { isNullOrUndefined } from "util";
 
 class DataStoreService implements IEntityStore, IMapStore {
+  getAdjacentEntity(mapLocation: Vector2D): GameEntity | null {
+    let adjEntity = null;
+    dataStore.getState().map.entities.forEach(val => {
+      if (
+        (mapLocation.x + 1 === val.mapCoord.x && mapLocation.y === val.mapCoord.y) ||
+        (mapLocation.x - 1 === val.mapCoord.x && mapLocation.y === val.mapCoord.y) ||
+        (mapLocation.y + 1 === val.mapCoord.y && mapLocation.x === val.mapCoord.x) ||
+        (mapLocation.y - 1 === val.mapCoord.y && mapLocation.x === val.mapCoord.x)
+      ) {
+        console.log("Adjacent!");
+        adjEntity = val;
+      }
+    });
+
+    return adjEntity;
+  }
+
   getEntityAtLocation(mapLocation: Vector2D) {
     let entity = dataStore.getState().map.entities.find(val => val.mapCoord.equals(mapLocation));
 
@@ -64,7 +81,7 @@ class DataStoreService implements IEntityStore, IMapStore {
     dataStore.dispatch(addEntity(newEntity));
   }
 
-  getEntity(id: number): GameEntity | null {
+  getEntity(id: number | null): GameEntity | null {
     let entity = dataStore.getState().map.entities.find(obj => obj.objectId === id);
 
     if (!isNullOrUndefined(entity)) {
