@@ -5,6 +5,7 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import { IEntityStore } from "../service/IEntityStore";
 import Tile2D from "../Engine/Utils/Box2D";
 import RandomMovementComponent from "../Engine/components/RandomMovementComponent";
+import ObjectManager from "../Engine/ObjectManager";
 
 class EnemyGO extends GameObject {
   entityStore: IEntityStore;
@@ -20,7 +21,8 @@ class EnemyGO extends GameObject {
     this.entityStore.addEntity({
       objectId: this.id,
       mapCoord: new Vector2D(1, 3),
-      health: 100
+      health: 100,
+      strength: 5
     });
 
     this.canvas = canvas;
@@ -36,7 +38,16 @@ class EnemyGO extends GameObject {
     this.addComponent(canvas, new RandomMovementComponent(this));
   }
 
+  update() {
+    let ent = this.entityStore.getEntity(this.id);
+    if (ent && ent.health <= 0) {
+      this.entityStore.removeEntity(ent.objectId);
+      ObjectManager.getInstance().removeObject(this.id);
+    }
+  }
+
   destroy() {
+    super.destroy();
     this.canvas?.removeBox(this.renderTile);
   }
 }

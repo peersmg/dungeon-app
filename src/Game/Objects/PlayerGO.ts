@@ -24,7 +24,8 @@ class PlayerGO extends GameObject {
     this.entityStore.addEntity({
       objectId: this.id,
       mapCoord: new Vector2D(1, 1),
-      health: 100
+      health: 100,
+      strength: 20
     });
 
     this.canvas = canvas;
@@ -92,8 +93,9 @@ class PlayerGO extends GameObject {
   }
 
   private attackEntity(entity: GameEntity) {
-    this.entityStore.removeEntity(entity.objectId);
-    ObjectManager.getInstance().removeObject(entity.objectId);
+    entity.health -= this.entityStore.getEntity(this.id)!.strength;
+    this.entityStore.updateEntity(entity);
+    ObjectManager.getInstance().updateEntities();
   }
 
   private movePlayer(direction: Vector2D | null) {

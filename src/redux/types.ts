@@ -10,6 +10,7 @@ export interface GameEntity {
   objectId: number;
   mapCoord: Vector2D;
   health: number;
+  strength: number;
 }
 
 export interface GameMap {
