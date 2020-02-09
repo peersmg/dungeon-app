@@ -6,10 +6,6 @@ export interface GameStats {
   FPS: number;
 }
 
-export interface PlayerStats {
-  health: number;
-}
-
 export interface GameEntity {
   objectId: number;
   mapCoord: Vector2D;
@@ -34,6 +30,5 @@ export type GameStateProp = ConnectedProps<typeof connectGameState>;
 
 export interface GameState {
   gameStats: GameStats;
-  playerStats: PlayerStats;
   map: GameMap;
 }

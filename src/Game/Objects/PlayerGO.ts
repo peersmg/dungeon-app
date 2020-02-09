@@ -6,19 +6,16 @@ import InputManager from "../Engine/InputManager";
 import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../Engine/components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
-import { IPlayerStore } from "../service/IPlayerStore";
 import ObjectManager from "../Engine/ObjectManager";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
-  playerStore: IPlayerStore;
 
-  constructor(entityStore: IEntityStore, mapStore: IMapStore, playerStore: IPlayerStore) {
+  constructor(entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(152, 152)));
     this.entityStore = entityStore;
     this.mapStore = mapStore;
-    this.playerStore = playerStore;
   }
 
   start(canvas: Canvas): void {

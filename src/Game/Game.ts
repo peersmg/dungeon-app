@@ -29,7 +29,7 @@ class Game {
 
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
     ObjectManager.getInstance().addObject(
-      new PlayerGO(new DataStoreService(), new DataStoreService(), new DataStoreService())
+      new PlayerGO(new DataStoreService(), new DataStoreService())
     );
     ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService()));
   }
