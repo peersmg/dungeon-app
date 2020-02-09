@@ -16,7 +16,7 @@ class Camera2D {
 
   public update(canvas: Canvas) {
     if (this.focusTransform && canvas.canvasCtx) {
-      this.updateFocus(canvas.canvasCtx);
+      this.updateFocus(canvas);
     }
 
     if (this._viewPos !== this.targetViewPos) {
@@ -25,25 +25,25 @@ class Camera2D {
     }
   }
 
-  private updateFocus(canvasCtx: CanvasRenderingContext2D) {
+  private updateFocus(canvas: Canvas) {
     let focusCanvasPosX = this.focusTransform!.position.x - this.viewPos.x;
     let focusCanvasPosY = this.focusTransform!.position.y - this.viewPos.y;
 
-    let upperLimitX = canvasCtx.canvas.width * 0.8;
-    let lowerLimitX = canvasCtx.canvas.width * 0.2;
-    let upperLimitY = canvasCtx.canvas.height * 0.8;
-    let lowerLimitY = canvasCtx.canvas.height * 0.2;
+    let upperLimitX = canvas.getCanvasWidth() * 0.8;
+    let lowerLimitX = canvas.getCanvasWidth() * 0.2;
+    let upperLimitY = canvas.getCanvasHeight() * 0.8;
+    let lowerLimitY = canvas.getCanvasHeight() * 0.2;
 
     if (focusCanvasPosX > upperLimitX || focusCanvasPosX < lowerLimitX) {
-      this.snapToFocusX(canvasCtx);
+      this.snapToFocusX(canvas);
     }
     if (focusCanvasPosY > upperLimitY || focusCanvasPosY < lowerLimitY) {
-      this.snapToFocusY(canvasCtx);
+      this.snapToFocusY(canvas);
     }
   }
 
-  private snapToFocusX(canvasCtx: CanvasRenderingContext2D) {
-    let canvasWidth = canvasCtx.canvas.width;
+  private snapToFocusX(canvas: Canvas) {
+    let canvasWidth = canvas.getCanvasWidth();
 
     let minX = 0;
     let maxX = 10000;
@@ -53,8 +53,8 @@ class Camera2D {
     this.targetViewPos = new Vector2D(camX, this.targetViewPos.y);
   }
 
-  private snapToFocusY(canvasCtx: CanvasRenderingContext2D) {
-    let canvasHeight = canvasCtx.canvas.height;
+  private snapToFocusY(canvas: Canvas) {
+    let canvasHeight = canvas.getCanvasHeight();
 
     let minY = 0;
     let maxY = 10000;
