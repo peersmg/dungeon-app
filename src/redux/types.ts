@@ -13,6 +13,7 @@ export interface PlayerStats {
 export interface GameEntity {
   objectId: number;
   mapCoord: Vector2D;
+  health: number;
 }
 
 export interface GameMap {

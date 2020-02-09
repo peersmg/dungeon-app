@@ -17,7 +17,8 @@ class EnemyGO extends GameObject {
   start(canvas: Canvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
-      mapCoord: new Vector2D(1, 3)
+      mapCoord: new Vector2D(1, 3),
+      health: 100
     });
 
     canvas.addBox(

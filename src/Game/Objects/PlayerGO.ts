@@ -24,7 +24,8 @@ class PlayerGO extends GameObject {
   start(canvas: Canvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
-      mapCoord: new Vector2D(1, 1)
+      mapCoord: new Vector2D(1, 1),
+      health: 100
     });
 
     InputManager.getInstance().subscribeToEvent((e: KeyboardEvent) => {
@@ -36,8 +37,6 @@ class PlayerGO extends GameObject {
     canvas.addBox(
       new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@")
     );
-
-    this.playerStore.setHealth(100);
   }
 
   private keyPressed(e: KeyboardEvent) {
@@ -73,7 +72,7 @@ class PlayerGO extends GameObject {
 
       if (targetTileY === 0) {
         this.entityStore.updateEntity({
-          objectId: this.id,
+          ...this.entityStore.getEntity(this.id)!,
           mapCoord: targetPos
         });
         this.transform.position.add(direction.multiply(52));

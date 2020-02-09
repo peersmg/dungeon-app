@@ -2,6 +2,7 @@ import { GameMap, GameEntity } from "../types";
 import { MapTypes, MapActions } from "../actions/MapActions";
 import { Environment, EnvironmentType } from "../../Game/TileTypes";
 import { createReducer } from "../create-reducer";
+import { cloneDeep } from "lodash";
 
 function addEntity(map: GameMap, action: MapActions) {
   return {
@@ -14,8 +15,9 @@ function updateEntity(map: GameMap, action: MapActions) {
   let newIndex = map.entities.findIndex(
     val => val.objectId === (action.payload as GameEntity).objectId
   );
-  map.entities[newIndex] = action.payload as GameEntity;
-  return map;
+  let mapClone = cloneDeep(map);
+  mapClone.entities[newIndex] = action.payload as GameEntity;
+  return mapClone;
 }
 
 function removeEntity(map: GameMap, action: MapActions) {
