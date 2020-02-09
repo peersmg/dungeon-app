@@ -1,10 +1,13 @@
-type InputEvent = "keydown" | "keyup" | "keypress";
-type CallbackType = (e: KeyboardEvent) => void;
+type KeyEventTypes = "keydown" | "keyup" | "keypress";
+type MouseEventTypes = "mouseup";
+type KeyCallbackType = (e: KeyboardEvent) => void;
+type MouseCallbackType = (e: MouseEvent) => void;
 
 class InputManager {
   private static instance: InputManager | null;
 
-  private callbackMap: Map<InputEvent, CallbackType[]> = new Map();
+  private keyCallbackMap: Map<KeyEventTypes, KeyCallbackType[]> = new Map();
+  private mouseCallbackMap: Map<MouseEventTypes, MouseCallbackType[]> = new Map();
 
   private constructor() {}
 
@@ -16,9 +19,15 @@ class InputManager {
     return InputManager.instance;
   }
 
-  private registerEvent(eventType: InputEvent) {
+  private registerKeyEvent(eventType: KeyEventTypes) {
     document.addEventListener(eventType, (e: KeyboardEvent) => {
       this.keyEvent(eventType, e);
+    });
+  }
+
+  private registerMouseEvent(eventType: MouseEventTypes) {
+    document.addEventListener(eventType, (e: MouseEvent) => {
+      this.mouseEvent(eventType, e);
     });
   }
 
@@ -26,19 +35,36 @@ class InputManager {
     InputManager.instance = null;
   }
 
-  public subscribeToEvent(callback: CallbackType, ...eventType: InputEvent[]) {
+  public subscribeToEvent(callback: KeyCallbackType, ...eventType: KeyEventTypes[]) {
     eventType.forEach(evt => {
-      if (this.callbackMap.has(evt)) {
-        this.callbackMap.set(evt, [...this.callbackMap.get(evt)!, callback]);
+      if (this.keyCallbackMap.has(evt)) {
+        this.keyCallbackMap.set(evt, [...this.keyCallbackMap.get(evt)!, callback]);
       } else {
-        this.registerEvent(evt);
-        this.callbackMap.set(evt, [callback]);
+        this.registerKeyEvent(evt);
+        this.keyCallbackMap.set(evt, [callback]);
       }
     });
   }
 
-  private keyEvent(eventType: InputEvent, e: KeyboardEvent) {
-    this.callbackMap.get(eventType)?.forEach(callback => {
+  public subscribeToMouseEvent(callback: MouseCallbackType, ...eventType: MouseEventTypes[]) {
+    eventType.forEach(evt => {
+      if (this.mouseCallbackMap.has(evt)) {
+        this.mouseCallbackMap.set(evt, [...this.mouseCallbackMap.get(evt)!, callback]);
+      } else {
+        this.registerMouseEvent(evt);
+        this.mouseCallbackMap.set(evt, [callback]);
+      }
+    });
+  }
+
+  private keyEvent(eventType: KeyEventTypes, e: KeyboardEvent) {
+    this.keyCallbackMap.get(eventType)?.forEach(callback => {
+      callback(e);
+    });
+  }
+
+  private mouseEvent(eventType: MouseEventTypes, e: MouseEvent) {
+    this.mouseCallbackMap.get(eventType)?.forEach(callback => {
       callback(e);
     });
   }

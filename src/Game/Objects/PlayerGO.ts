@@ -11,6 +11,7 @@ import ObjectManager from "../Engine/ObjectManager";
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
+  canvas!: Canvas;
 
   constructor(entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(152, 152)));
@@ -25,47 +26,59 @@ class PlayerGO extends GameObject {
       health: 100
     });
 
+    this.canvas = canvas;
+
     InputManager.getInstance().subscribeToEvent((e: KeyboardEvent) => {
-      this.keyPressed(e);
+      this.movePlayer(this.getDirectionFromKey(e));
     }, "keydown");
+    InputManager.getInstance().subscribeToMouseEvent((e: MouseEvent) => {
+      this.movePlayer(this.getDirectionFromMouse(e));
+    }, "mouseup");
 
     canvas.camera.setFocus(this.transform);
 
-    canvas.addBox(
-      new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@")
-    );
+    canvas.addBox(new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "green", "@"));
   }
 
-  private keyPressed(e: KeyboardEvent) {
+  private getDirectionFromKey(e: KeyboardEvent) {
     if (e.key === "d" || e.keyCode === 39) {
-      this.movePlayer(new Vector2D(1, 0));
+      return new Vector2D(1, 0);
     }
 
     if (e.key === "a" || e.keyCode === 37) {
-      this.movePlayer(new Vector2D(-1, 0));
+      return new Vector2D(-1, 0);
     }
 
     if (e.key === "s" || e.keyCode === 40) {
-      this.movePlayer(new Vector2D(0, 1));
+      return new Vector2D(0, 1);
     }
 
     if (e.key === "w" || e.keyCode === 38) {
-      this.movePlayer(new Vector2D(0, -1));
+      return new Vector2D(0, -1);
     }
 
-    if (e.key === "x") {
-      console.log("x pressed");
-      this.entityStore.removeEntity(this.id);
-    }
+    return null;
   }
 
-  private movePlayer(direction: Vector2D) {
+  private getDirectionFromMouse(e: MouseEvent) {
+    if (e.x > this.canvas.getCanvasWidth() / 1.5) {
+      return new Vector2D(1, 0);
+    } else if (e.x < this.canvas.getCanvasWidth() / 3) {
+      return new Vector2D(-1, 0);
+    } else if (e.y < this.canvas.getCanvasHeight() / 3) {
+      return new Vector2D(0, -1);
+    } else if (e.y > this.canvas.getCanvasHeight() / 1.5) {
+      return new Vector2D(0, 1);
+    }
+    return null;
+  }
+
+  private movePlayer(direction: Vector2D | null) {
     let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
 
-    if (currentMapPos) {
+    if (currentMapPos && direction) {
       let targetPos = currentMapPos.clone().add(direction);
-      let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))
-        ?.yLevel;
+      let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))?.yLevel;
 
       if (targetTileY === 0) {
         this.entityStore.updateEntity({
