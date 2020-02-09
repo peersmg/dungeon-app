@@ -148,16 +148,16 @@ class Canvas {
   }
 
   public getCanvasWidth() {
-    if (this.canvasCtx) {
-      return window.innerWidth;
+    if (this.containerElement) {
+      return this.containerElement.clientWidth;
     } else {
       return 0;
     }
   }
 
   public getCanvasHeight() {
-    if (this.canvasCtx) {
-      return window.innerHeight;
+    if (this.containerElement) {
+      return this.containerElement.clientHeight;
     } else {
       return 0;
     }
