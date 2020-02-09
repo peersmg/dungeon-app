@@ -1,8 +1,8 @@
-import GameComponent from "../GameComponent";
-import { Environment } from "../../TileTypes";
+import GameComponent from "../Engine/GameComponent";
+import { Environment } from "../TileTypes";
 
-import mapJson from "../../../assets/default_map.json";
-import DataStoreService from "../../service/DataStoreService";
+import mapJson from "../../assets/default_map.json";
+import DataStoreService from "../service/DataStoreService";
 
 interface LoadedMap {
   map: Environment[][];

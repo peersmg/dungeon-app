@@ -1,5 +1,5 @@
 import GameComponent from "./GameComponent";
-import TransformComponent from "./components/TransformComponent";
+import TransformComponent from "../components/TransformComponent";
 import Vector2D from "./Utils/Vector2D";
 import Canvas from "./Canvas";
 

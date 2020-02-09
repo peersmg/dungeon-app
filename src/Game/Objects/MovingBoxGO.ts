@@ -1,7 +1,7 @@
 import GameObject from "../Engine/GameObject";
-import BoxRenderComponent from "../Engine/components/BoxRenderComponent";
+import BoxRenderComponent from "../components/BoxRenderComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
-import TransformComponent from "../Engine/components/TransformComponent";
+import TransformComponent from "../components/TransformComponent";
 import Canvas from "../Engine/Canvas";
 
 class MovingBoxGO extends GameObject {

@@ -1,9 +1,9 @@
 import GameObject from "../Engine/GameObject";
 import Vector2D from "../Engine/Utils/Vector2D";
-import TransformComponent from "../Engine/components/TransformComponent";
-import MapRenderComponent from "../Engine/components/MapRenderComponent";
+import TransformComponent from "../components/TransformComponent";
+import MapRenderComponent from "../components/MapRenderComponent";
 import Canvas from "../Engine/Canvas";
-import MapLoadComponent from "../Engine/components/MapLoadComponent";
+import MapLoadComponent from "../components/MapLoadComponent";
 
 class MapGO extends GameObject {
   boxGrid: MapRenderComponent | null = null;

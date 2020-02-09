@@ -4,7 +4,7 @@ import { IEntityStore } from "../service/IEntityStore";
 import Vector2D from "../Engine/Utils/Vector2D";
 import InputManager from "../Engine/InputManager";
 import Tile2D from "../Engine/Utils/Box2D";
-import TransformComponent from "../Engine/components/TransformComponent";
+import TransformComponent from "../components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
 import { GameEntity } from "../../redux/types";

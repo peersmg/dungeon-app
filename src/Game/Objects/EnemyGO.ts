@@ -1,10 +1,10 @@
 import GameObject from "../Engine/GameObject";
 import Canvas from "../Engine/Canvas";
-import TransformComponent from "../Engine/components/TransformComponent";
+import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IEntityStore } from "../service/IEntityStore";
 import Tile2D from "../Engine/Utils/Box2D";
-import RandomMovementComponent from "../Engine/components/RandomMovementComponent";
+import RandomMovementComponent from "../components/RandomMovementComponent";
 import ObjectManager from "../Engine/ObjectManager";
 
 class EnemyGO extends GameObject {

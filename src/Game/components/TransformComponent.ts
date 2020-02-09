@@ -1,6 +1,6 @@
-import GameComponent from "../GameComponent";
-import Vector2D from "../Utils/Vector2D";
-import Canvas from "../Canvas";
+import GameComponent from "../Engine/GameComponent";
+import Vector2D from "../Engine/Utils/Vector2D";
+import Canvas from "../Engine/Canvas";
 
 class TransformComponent extends GameComponent {
   private _position: Vector2D;

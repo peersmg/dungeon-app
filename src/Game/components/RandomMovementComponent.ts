@@ -1,10 +1,10 @@
-import GameComponent from "../GameComponent";
-import Canvas from "../Canvas";
-import DataStoreService from "../../service/DataStoreService";
-import { IEntityStore } from "../../service/IEntityStore";
-import ObjectManager from "../ObjectManager";
-import Vector2D from "../Utils/Vector2D";
-import { IMapStore } from "../../service/IMapStore";
+import GameComponent from "../Engine/GameComponent";
+import Canvas from "../Engine/Canvas";
+import DataStoreService from "../service/DataStoreService";
+import { IEntityStore } from "../service/IEntityStore";
+import ObjectManager from "../Engine/ObjectManager";
+import Vector2D from "../Engine/Utils/Vector2D";
+import { IMapStore } from "../service/IMapStore";
 import lUtil from "lodash";
 
 class RandomMovementComponent extends GameComponent {

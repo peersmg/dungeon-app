@@ -1,9 +1,9 @@
-import GameComponent from "../GameComponent";
-import Vector2D from "../Utils/Vector2D";
-import GameObject from "../GameObject";
-import Canvas from "../Canvas";
-import Tile2D from "../Utils/Box2D";
-import { Color } from "../Utils/Color";
+import GameComponent from "../Engine/GameComponent";
+import Vector2D from "../Engine/Utils/Vector2D";
+import GameObject from "../Engine/GameObject";
+import Canvas from "../Engine/Canvas";
+import Tile2D from "../Engine/Utils/Box2D";
+import { Color } from "../Engine/Utils/Color";
 
 class BoxRenderComponent extends GameComponent {
   private color: Color;

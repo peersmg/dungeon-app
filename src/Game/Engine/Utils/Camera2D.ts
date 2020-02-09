@@ -1,6 +1,6 @@
 import Vector2D from "./Vector2D";
 import Canvas from "../Canvas";
-import TransformComponent from "../components/TransformComponent";
+import TransformComponent from "../../components/TransformComponent";
 import lUtil from "lodash";
 
 class Camera2D {
