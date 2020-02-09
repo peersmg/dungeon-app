@@ -6,26 +6,28 @@
   position: absolute;
   top: 0px;
   color: white;
-  height: calc(5%);
+  height: max(30px, calc(5%));
   width: 100%;
   text-align: center;
   line-height: normal;
+  font-size: clamp(14px, 2vw, 34px);
 }
 
 .game-footer {
   position: absolute;
   bottom: 0px;
-  height: calc(5%);
+  height: max(30px, calc(5%));
   color: white;
   width: 100%;
   text-align: center;
   line-height: normal;
+  font-size: clamp(14px, 2vw, 34px);
 }
 
 .game-body {
   position: absolute;
-  top: calc(5%);
-  bottom: calc(5%);
+  top: max(30px, calc(5%));
+  bottom: max(30px, calc(5%));
   width: 100%;
 }
 
