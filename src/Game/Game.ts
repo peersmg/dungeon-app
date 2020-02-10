@@ -40,7 +40,10 @@ class Game {
     ObjectManager.getInstance().addObject(new ItemGO(new DataStoreService()));
 
     // ENEMIES
-    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService()));
+    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(1, 3)));
+    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(7, 6)));
+    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(15, 2)));
+    ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(2, 15)));
   }
 
   tick() {

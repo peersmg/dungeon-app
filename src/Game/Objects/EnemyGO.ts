@@ -12,17 +12,19 @@ class EnemyGO extends GameObject {
   entityStore: IEntityStore;
   canvas: Canvas | null = null;
   renderTile: Tile2D | null = null;
+  initMapPos: Vector2D;
 
-  constructor(entityStore: IEntityStore) {
-    super(new TransformComponent(new Vector2D(152, 256)));
+  constructor(entityStore: IEntityStore, initMapPos: Vector2D) {
+    super(new TransformComponent(new Vector2D(100 + initMapPos.x * 52, 100 + initMapPos.y * 52)));
     this.entityStore = entityStore;
+    this.initMapPos = initMapPos;
   }
 
   start(canvas: Canvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
       tag: EntityTag.ENEMY,
-      mapCoord: new Vector2D(1, 3),
+      mapCoord: this.initMapPos,
       health: 100,
       strength: 5
     });
