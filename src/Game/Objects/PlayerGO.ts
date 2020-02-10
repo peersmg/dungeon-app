@@ -84,7 +84,7 @@ class PlayerGO extends GameObject {
       let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
       let targetPos = currentMapPos?.clone().add(direction);
       if (targetPos) {
-        let entity = this.entityStore.getEntityAtLocation(targetPos);
+        let entity = this.entityStore.getEntitiesAtLocation(targetPos);
         if (entity) {
           this.interactWithEntity(entity, direction);
         } else {
@@ -94,18 +94,26 @@ class PlayerGO extends GameObject {
     }
   }
 
-  private interactWithEntity(entity: GameEntity, direction: Vector2D) {
-    switch (entity.tag) {
-      case EntityTag.ENEMY:
-        this.attackEntity(entity);
-        break;
-      case EntityTag.ITEM:
-        this.collectItem(entity.objectId);
-        this.movePlayer(direction);
-        break;
-      default:
-        break;
+  private interactWithEntity(entity: GameEntity[], direction: Vector2D) {
+    let enemyEnt = entity.find(val => val.tag === EntityTag.ENEMY);
+    if (enemyEnt) {
+      this.attackEntity(enemyEnt);
+      return;
     }
+
+    entity.forEach(element => {
+      switch (element.tag) {
+        case EntityTag.ENEMY:
+          this.attackEntity(element);
+          break;
+        case EntityTag.ITEM:
+          this.collectItem(element.objectId);
+          this.movePlayer(direction);
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   private collectItem(id: number) {

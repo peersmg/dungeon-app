@@ -8,8 +8,8 @@ import Vector2D from "../Engine/Utils/Vector2D";
 import { isNullOrUndefined } from "util";
 
 class DataStoreService implements IEntityStore, IMapStore {
-  getAdjacentEntity(mapLocation: Vector2D): GameEntity | null {
-    let adjEntity = null;
+  getAdjacentEntities(mapLocation: Vector2D): GameEntity[] | null {
+    let adjEntity: GameEntity[] = [];
     dataStore.getState().map.entities.forEach(val => {
       if (
         (mapLocation.x + 1 === val.mapCoord.x && mapLocation.y === val.mapCoord.y) ||
@@ -18,17 +18,17 @@ class DataStoreService implements IEntityStore, IMapStore {
         (mapLocation.y - 1 === val.mapCoord.y && mapLocation.x === val.mapCoord.x)
       ) {
         console.log("Adjacent!");
-        adjEntity = val;
+        adjEntity.push(val);
       }
     });
 
     return adjEntity;
   }
 
-  getEntityAtLocation(mapLocation: Vector2D) {
-    let entity = dataStore.getState().map.entities.find(val => val.mapCoord.equals(mapLocation));
+  getEntitiesAtLocation(mapLocation: Vector2D) {
+    let entity = dataStore.getState().map.entities.filter(val => val.mapCoord.equals(mapLocation));
 
-    return entity ? entity : null;
+    return entity.length > 0 ? entity : null;
   }
 
   getEntities(): GameEntity[] | null {

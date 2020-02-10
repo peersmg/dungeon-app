@@ -25,9 +25,11 @@ class RandomMovementComponent extends GameComponent {
   public entityUpdate() {
     this.entity = this.entityStore.getEntity(this.gameObject ? this.gameObject.id : null);
     if (this.gameObject && this.entity) {
-      let otherEnt = this.entityStore.getAdjacentEntity(this.entity.mapCoord);
-      if (otherEnt && otherEnt.tag === EntityTag.PLAYER) {
-        this.attack(otherEnt);
+      let playerEnt = this.entityStore
+        .getAdjacentEntities(this.entity.mapCoord)
+        ?.find(val => val.tag === EntityTag.PLAYER);
+      if (playerEnt) {
+        this.attack(playerEnt);
       } else {
         this.randMove();
       }
