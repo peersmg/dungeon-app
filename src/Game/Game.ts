@@ -12,6 +12,7 @@ import envTypesJson from "../assets/environment_types.json";
 import { EnvironmentType } from "./TileTypes";
 import { setEnvironmentTypes } from "../redux/actions/MapActions";
 import EnemyGO from "./Objects/EnemyGO";
+import ItemGO from "./Objects/ItemGO";
 
 class Game {
   canvas!: Canvas;
@@ -27,10 +28,18 @@ class Game {
     this.canvas = canvas;
     ObjectManager.getInstance().canvas = canvas;
 
+    // MAP
     ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
+
+    // PLAYER
     ObjectManager.getInstance().addObject(
       new PlayerGO(new DataStoreService(), new DataStoreService())
     );
+
+    // ITEMS
+    ObjectManager.getInstance().addObject(new ItemGO(new DataStoreService()));
+
+    // ENEMIES
     ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService()));
   }
 

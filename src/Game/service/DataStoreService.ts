@@ -91,8 +91,10 @@ class DataStoreService implements IEntityStore, IMapStore {
     }
   }
 
-  updateEntity(updatedEntity: GameEntity): void {
-    dataStore.dispatch(updateEntity(updatedEntity));
+  updateEntity(updatedEntity: GameEntity | null): void {
+    if (!isNullOrUndefined(updatedEntity)) {
+      dataStore.dispatch(updateEntity(updatedEntity));
+    }
   }
 
   removeEntity(id: number): void {

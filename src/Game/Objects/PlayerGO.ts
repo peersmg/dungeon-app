@@ -8,6 +8,7 @@ import TransformComponent from "../components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
 import { GameEntity, EntityTag } from "../../redux/types";
+import ICollectable from "../ICollectable";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
@@ -85,12 +86,31 @@ class PlayerGO extends GameObject {
       if (targetPos) {
         let entity = this.entityStore.getEntityAtLocation(targetPos);
         if (entity) {
-          this.attackEntity(entity);
+          this.interactWithEntity(entity, direction);
         } else {
           this.movePlayer(direction);
         }
       }
     }
+  }
+
+  private interactWithEntity(entity: GameEntity, direction: Vector2D) {
+    switch (entity.tag) {
+      case EntityTag.ENEMY:
+        this.attackEntity(entity);
+        break;
+      case EntityTag.ITEM:
+        this.collectItem(entity.objectId);
+        this.movePlayer(direction);
+        break;
+      default:
+        break;
+    }
+  }
+
+  private collectItem(id: number) {
+    let obj = ObjectManager.getInstance().getObjectWithId(id);
+    ((obj as unknown) as ICollectable).collect(this.id);
   }
 
   private attackEntity(entity: GameEntity) {

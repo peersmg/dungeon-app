@@ -5,6 +5,6 @@ export interface IEntityStore {
   getAdjacentEntity(mapLocation: Vector2D): GameEntity | null;
   addEntity(newEntity: GameEntity): void;
   getEntity(id: number | null): GameEntity | null;
-  updateEntity(updatedEntity: GameEntity): void;
+  updateEntity(updatedEntity: GameEntity | null): void;
   removeEntity(id: number): void;
 }

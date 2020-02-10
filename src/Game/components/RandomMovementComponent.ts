@@ -6,7 +6,7 @@ import ObjectManager from "../Engine/ObjectManager";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IMapStore } from "../service/IMapStore";
 import lUtil from "lodash";
-import { GameEntity } from "../../redux/types";
+import { GameEntity, EntityTag } from "../../redux/types";
 
 class RandomMovementComponent extends GameComponent {
   entity: GameEntity | null = null;
@@ -26,7 +26,7 @@ class RandomMovementComponent extends GameComponent {
     this.entity = this.entityStore.getEntity(this.gameObject ? this.gameObject.id : null);
     if (this.gameObject && this.entity) {
       let otherEnt = this.entityStore.getAdjacentEntity(this.entity.mapCoord);
-      if (otherEnt) {
+      if (otherEnt && otherEnt.tag === EntityTag.PLAYER) {
         this.attack(otherEnt);
       } else {
         this.randMove();
