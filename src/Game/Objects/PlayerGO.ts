@@ -7,7 +7,7 @@ import Tile2D from "../Engine/Utils/Box2D";
 import TransformComponent from "../components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
-import { GameEntity } from "../../redux/types";
+import { GameEntity, EntityTag } from "../../redux/types";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
@@ -23,6 +23,7 @@ class PlayerGO extends GameObject {
   start(canvas: Canvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
+      tag: EntityTag.PLAYER,
       mapCoord: new Vector2D(1, 1),
       health: 100,
       strength: 20

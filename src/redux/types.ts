@@ -6,8 +6,15 @@ export interface GameStats {
   FPS: number;
 }
 
+export enum EntityTag {
+  PLAYER,
+  ENEMY,
+  ITEM
+}
+
 export interface GameEntity {
   objectId: number;
+  tag: EntityTag;
   mapCoord: Vector2D;
   health: number;
   strength: number;

@@ -6,6 +6,7 @@ import { IEntityStore } from "../service/IEntityStore";
 import Tile2D from "../Engine/Utils/Box2D";
 import RandomMovementComponent from "../components/RandomMovementComponent";
 import ObjectManager from "../Engine/ObjectManager";
+import { EntityTag } from "../../redux/types";
 
 class EnemyGO extends GameObject {
   entityStore: IEntityStore;
@@ -20,6 +21,7 @@ class EnemyGO extends GameObject {
   start(canvas: Canvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
+      tag: EntityTag.ENEMY,
       mapCoord: new Vector2D(1, 3),
       health: 100,
       strength: 5
