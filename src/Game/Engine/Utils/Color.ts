@@ -7,4 +7,8 @@ export type Color =
   | "green"
   | "MediumBlue"
   | "#2C4694"
-  | "orange";
+  | "orange"
+  | "#1a0000"
+  | "#000500"
+  | "#000200"
+  | "#00030d";

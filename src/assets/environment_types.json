@@ -18,9 +18,25 @@
   {
     "id": 2,
     "name": "Water",
-    "backgroundColor": "#2C4694",
+    "backgroundColor": "#00030d",
     "textColor": "blue",
     "yLevel": -1,
     "character": "~"
+  },
+  {
+    "id": 3,
+    "name": "ShortGrass",
+    "backgroundColor": "#000200",
+    "textColor": "green",
+    "yLevel": 0,
+    "character": "."
+  },
+  {
+    "id": 4,
+    "name": "LongGrass",
+    "backgroundColor": "#000500",
+    "textColor": "green",
+    "yLevel": 0,
+    "character": "\""
   }
 ]

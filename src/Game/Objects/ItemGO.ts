@@ -32,7 +32,7 @@ class ItemGO extends GameObject implements ICollectable {
     this.renderTile = new Tile2D(
       this.transform.position,
       new Vector2D(50, 50),
-      "#2C4694",
+      "#1a0000",
       "red",
       "♥"
     );
