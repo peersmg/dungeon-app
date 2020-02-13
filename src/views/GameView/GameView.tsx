@@ -4,6 +4,7 @@ import "./GameView.css";
 import { GameStateProp, connectGameState } from "../../redux/types";
 import ICanvas from "../../Game/Engine/canvas/ICanvas";
 import Canvas3D from "../../Game/Engine/canvas/Canvas3D";
+import Camera3D from "../../Game/Engine/camera/Camera3D";
 
 const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [gameRef] = useState<Game>(new Game());
@@ -11,7 +12,7 @@ const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
 
   useEffect(() => {
     //let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
-    let canvasComponent: ICanvas = new Canvas3D();
+    let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
     console.log("Setting up game...");
 
     if (canvasComponent) {
