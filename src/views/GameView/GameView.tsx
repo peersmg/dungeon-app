@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Canvas from "../../Game/Engine/Canvas";
 import Game from "../../Game/Game";
 import "./GameView.css";
 import { GameStateProp, connectGameState } from "../../redux/types";
-
-// type Props = GameStatsProp & {
-//   backgroundColor: string;
-// };
+import ICanvas from "../../Game/Engine/canvas/ICanvas";
+import Canvas2D from "../../Game/Engine/canvas/Canvas2D";
 
 const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [gameRef] = useState<Game>(new Game());
   const [requestFrame, setRequestFrame] = useState<number>(-1);
 
   useEffect(() => {
-    let canvasComponent = new Canvas();
+    let canvasComponent: ICanvas = new Canvas2D();
 
     console.log("Setting up game...");
 

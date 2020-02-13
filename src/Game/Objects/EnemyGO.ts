@@ -1,5 +1,4 @@
 import GameObject from "../Engine/GameObject";
-import Canvas from "../Engine/Canvas";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IEntityStore } from "../service/IEntityStore";
@@ -7,10 +6,11 @@ import Tile2D from "../Engine/Utils/Box2D";
 import RandomMovementComponent from "../components/RandomMovementComponent";
 import ObjectManager from "../Engine/ObjectManager";
 import { EntityTag } from "../../redux/types";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class EnemyGO extends GameObject {
   entityStore: IEntityStore;
-  canvas: Canvas | null = null;
+  canvas: ICanvas | null = null;
   renderTile: Tile2D | null = null;
   initMapPos: Vector2D;
 
@@ -20,7 +20,7 @@ class EnemyGO extends GameObject {
     this.initMapPos = initMapPos;
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
       tag: EntityTag.ENEMY,
@@ -37,7 +37,7 @@ class EnemyGO extends GameObject {
       "orange",
       ";"
     );
-    this.canvas.addBox(this.renderTile);
+    this.canvas.addTile(this.renderTile);
 
     this.addComponent(canvas, new RandomMovementComponent(this));
   }
@@ -52,7 +52,7 @@ class EnemyGO extends GameObject {
 
   destroy() {
     super.destroy();
-    this.canvas?.removeBox(this.renderTile);
+    this.canvas?.removeTile(this.renderTile);
   }
 }
 

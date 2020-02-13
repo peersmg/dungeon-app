@@ -1,5 +1,4 @@
 import GameObject from "../Engine/GameObject";
-import Canvas from "../Engine/Canvas";
 import { IEntityStore } from "../service/IEntityStore";
 import Vector2D from "../Engine/Utils/Vector2D";
 import InputManager from "../Engine/InputManager";
@@ -9,11 +8,12 @@ import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
 import { GameEntity, EntityTag } from "../../redux/types";
 import ICollectable from "../ICollectable";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
-  canvas!: Canvas;
+  canvas: ICanvas | null = null;
 
   constructor(entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(152, 152)));
@@ -21,7 +21,7 @@ class PlayerGO extends GameObject {
     this.mapStore = mapStore;
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     this.entityStore.addEntity({
       objectId: this.id,
       tag: EntityTag.PLAYER,
@@ -39,9 +39,9 @@ class PlayerGO extends GameObject {
       this.playerAction(this.getDirectionFromMouse(e));
     }, "mouseup");
 
-    canvas.camera.setFocus(this.transform);
+    canvas.getCamera().setFocus(this.transform);
 
-    canvas.addBox(
+    canvas.addTile(
       new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "white", "@")
     );
   }
@@ -67,14 +67,16 @@ class PlayerGO extends GameObject {
   }
 
   private getDirectionFromMouse(e: MouseEvent) {
-    if (e.x > this.canvas.getCanvasWidth() / 1.5) {
-      return new Vector2D(1, 0);
-    } else if (e.x < this.canvas.getCanvasWidth() / 3) {
-      return new Vector2D(-1, 0);
-    } else if (e.y < this.canvas.getCanvasHeight() / 3) {
-      return new Vector2D(0, -1);
-    } else if (e.y > this.canvas.getCanvasHeight() / 1.5) {
-      return new Vector2D(0, 1);
+    if (this.canvas) {
+      if (e.x > this.canvas.getCanvasWidth() / 1.5) {
+        return new Vector2D(1, 0);
+      } else if (e.x < this.canvas.getCanvasWidth() / 3) {
+        return new Vector2D(-1, 0);
+      } else if (e.y < this.canvas.getCanvasHeight() / 3) {
+        return new Vector2D(0, -1);
+      } else if (e.y > this.canvas.getCanvasHeight() / 1.5) {
+        return new Vector2D(0, 1);
+      }
     }
     return null;
   }

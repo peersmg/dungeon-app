@@ -1,7 +1,7 @@
 import Vector2D from "./Vector2D";
-import Canvas from "../Canvas";
 import TransformComponent from "../../components/TransformComponent";
 import lUtil from "lodash";
+import ICanvas from "../canvas/ICanvas";
 
 class Camera2D {
   private _viewPos = new Vector2D(0, 0);
@@ -14,8 +14,8 @@ class Camera2D {
     return this._viewPos;
   }
 
-  public update(canvas: Canvas) {
-    if (this.focusTransform && canvas.canvasCtx) {
+  public update(canvas: ICanvas) {
+    if (this.focusTransform && canvas) {
       this.updateFocus(canvas);
     }
 
@@ -25,7 +25,7 @@ class Camera2D {
     }
   }
 
-  private updateFocus(canvas: Canvas) {
+  private updateFocus(canvas: ICanvas) {
     let focusCanvasPosX = this.focusTransform!.position.x - this.viewPos.x;
     let focusCanvasPosY = this.focusTransform!.position.y - this.viewPos.y;
 
@@ -42,7 +42,7 @@ class Camera2D {
     }
   }
 
-  private snapToFocusX(canvas: Canvas) {
+  private snapToFocusX(canvas: ICanvas) {
     let canvasWidth = canvas.getCanvasWidth();
 
     let minX = 0;
@@ -53,7 +53,7 @@ class Camera2D {
     this.targetViewPos = new Vector2D(camX, this.targetViewPos.y);
   }
 
-  private snapToFocusY(canvas: Canvas) {
+  private snapToFocusY(canvas: ICanvas) {
     let canvasHeight = canvas.getCanvasHeight();
 
     let minY = 0;

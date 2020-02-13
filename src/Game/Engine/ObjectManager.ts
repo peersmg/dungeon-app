@@ -1,10 +1,10 @@
 import GameObject from "./GameObject";
-import Canvas from "./Canvas";
 import { isNullOrUndefined } from "util";
+import ICanvas from "./canvas/ICanvas";
 
 class ObjectManager {
   private objects: Map<number, GameObject> = new Map();
-  private _canvas: Canvas | null = null;
+  private _canvas: ICanvas | null = null;
   private static instance: ObjectManager | null;
 
   private entityCallbacks: (() => void)[] = [];
@@ -42,7 +42,7 @@ class ObjectManager {
     return this._canvas;
   }
 
-  public set canvas(newCanvas: Canvas | null) {
+  public set canvas(newCanvas: ICanvas | null) {
     this._canvas = newCanvas;
   }
 

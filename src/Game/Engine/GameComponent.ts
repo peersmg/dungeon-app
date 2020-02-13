@@ -1,14 +1,14 @@
 import GameObject from "./GameObject";
-import Canvas from "./Canvas";
+import ICanvas from "./canvas/ICanvas";
 
 abstract class GameComponent {
   gameObject: GameObject | null;
   constructor(gameObject: GameObject | null) {
     this.gameObject = gameObject;
   }
-  abstract start(canvas: Canvas): void;
+  abstract start(canvas: ICanvas): void;
   update(): void {}
-  draw(renderContext: Canvas): void {}
+  draw(): void {}
 }
 
 export default GameComponent;

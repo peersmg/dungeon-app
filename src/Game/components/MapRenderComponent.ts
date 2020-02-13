@@ -1,15 +1,15 @@
 import GameComponent from "../Engine/GameComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import GameObject from "../Engine/GameObject";
-import Canvas from "../Engine/Canvas";
 import Tile2D from "../Engine/Utils/Box2D";
 import { IMapStore } from "../service/IMapStore";
 import DataStoreService from "../service/DataStoreService";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class MapRenderComponent extends GameComponent {
   private _position: Vector2D;
   private _mapContent: (Tile2D | null)[][] = [[]];
-  private canvas: Canvas | null = null;
+  private canvas: ICanvas | null = null;
   private mapStore: IMapStore = new DataStoreService();
 
   constructor(gameObject: GameObject) {
@@ -22,7 +22,7 @@ class MapRenderComponent extends GameComponent {
     }
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     this.canvas = canvas;
 
     if (this.mapStore.getMap()) {
@@ -42,7 +42,7 @@ class MapRenderComponent extends GameComponent {
               .getEntities()
               ?.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
           ) {
-            canvas.addBox(this.createRenderObject(y, x));
+            canvas.addTile(this.createRenderObject(y, x));
           }
         }
       }
@@ -64,7 +64,7 @@ class MapRenderComponent extends GameComponent {
   }
 
   private removeRenderObj(x: number, y: number) {
-    this.canvas?.removeBox(this.mapContent[y][x]);
+    this.canvas?.removeTile(this.mapContent[y][x]);
     this.mapContent[y][x] = null;
   }
 

@@ -1,10 +1,11 @@
-import Vector2D from "./Utils/Vector2D";
-import Tile2D from "./Utils/Box2D";
+import Vector2D from "../Utils/Vector2D";
+import Tile2D from "../Utils/Box2D";
 
-import Camera2D from "./Utils/Camera2D";
-import { Color } from "./Utils/Color";
+import Camera2D from "../Utils/Camera2D";
+import { Color } from "../Utils/Color";
+import ICanvas from "./ICanvas";
 
-class Canvas {
+class Canvas implements ICanvas {
   private _canvasCtx: CanvasRenderingContext2D | null = null;
   private dpr: number = 1;
   private userScale: number = 0;
@@ -37,7 +38,7 @@ class Canvas {
     this._camera.update(this);
   }
 
-  public drawBoxes() {
+  private drawBoxes() {
     if (this.boxes) {
       this.boxes.forEach(box => {
         this.setFillStyle(box.bgColor);
@@ -51,15 +52,15 @@ class Canvas {
     }
   }
 
-  public addBox(newBox: Tile2D | null) {
+  public addTile(newBox: Tile2D | null) {
     if (newBox) {
       this.boxes.push(newBox);
     }
   }
 
-  public removeBox(boxToRemove: Tile2D | null) {
-    if (boxToRemove) {
-      let num = this.boxes.indexOf(boxToRemove);
+  public removeTile(tileToRemove: Tile2D | null) {
+    if (tileToRemove) {
+      let num = this.boxes.indexOf(tileToRemove);
       this.boxes.splice(num, 1);
     }
   }
@@ -114,7 +115,7 @@ class Canvas {
     this.canvasCtx?.scale(scale, scale);
   }
 
-  public onDocumentResize() {
+  private onDocumentResize() {
     this.refreshCanvasSize();
   }
 
@@ -124,7 +125,7 @@ class Canvas {
     }
   }
 
-  public drawTextToWorld(text: string, pos: Vector2D, color: string = "white") {
+  private drawTextToWorld(text: string, pos: Vector2D, color: string = "white") {
     if (this.canvasCtx) {
       this.setFillStyle(color);
       this.setFont("bold 24px Arial");
@@ -143,7 +144,7 @@ class Canvas {
     );
   }
 
-  public get canvasCtx() {
+  private get canvasCtx() {
     return this._canvasCtx;
   }
 
@@ -182,7 +183,7 @@ class Canvas {
     }
   }
 
-  public get camera() {
+  public getCamera() {
     return this._camera;
   }
 }

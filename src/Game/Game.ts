@@ -1,5 +1,4 @@
 import View from "./Engine/View";
-import Canvas from "./Engine/Canvas";
 import Vector2D from "./Engine/Utils/Vector2D";
 import ObjectManager from "../Game/Engine/ObjectManager";
 import dataStore from "../redux/store";
@@ -13,16 +12,17 @@ import { EnvironmentType } from "./TileTypes";
 import { setEnvironmentTypes } from "../redux/actions/MapActions";
 import EnemyGO from "./Objects/EnemyGO";
 import ItemGO from "./Objects/ItemGO";
+import ICanvas from "./Engine/canvas/ICanvas";
 
 class Game {
-  canvas!: Canvas;
+  canvas: ICanvas | null = null;
   gameRunning: Boolean = true;
   lastUpdate: number = Date.now();
   deltaTime: number = 0;
   gameView: View = new View(0, 0);
   deltaTimeHistory: number[] = [];
 
-  begin(canvas: Canvas) {
+  begin(canvas: ICanvas) {
     this.loadGame();
 
     this.canvas = canvas;
@@ -53,7 +53,7 @@ class Game {
 
     dataStore.dispatch(updateFps(fps));
 
-    this.canvas.render();
+    this.canvas?.render();
 
     ObjectManager.getInstance().updateAll(this.deltaTime);
   }

@@ -1,5 +1,4 @@
 import GameObject from "../Engine/GameObject";
-import Canvas from "../Engine/Canvas";
 import { IEntityStore } from "../service/IEntityStore";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
@@ -7,18 +6,19 @@ import { EntityTag } from "../../redux/types";
 import Tile2D from "../Engine/Utils/Box2D";
 import ICollectable from "../ICollectable";
 import ObjectManager from "../Engine/ObjectManager";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class ItemGO extends GameObject implements ICollectable {
   entityStore: IEntityStore;
   renderTile: Tile2D | null = null;
-  canvas: Canvas | null = null;
+  canvas: ICanvas | null = null;
 
   constructor(entityStore: IEntityStore) {
     super(new TransformComponent(new Vector2D(204, 256)));
     this.entityStore = entityStore;
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     this.canvas = canvas;
 
     this.entityStore.addEntity({
@@ -36,7 +36,7 @@ class ItemGO extends GameObject implements ICollectable {
       "red",
       "♥"
     );
-    canvas.addBox(this.renderTile);
+    canvas.addTile(this.renderTile);
   }
 
   collect(collectorId: number) {
@@ -54,7 +54,7 @@ class ItemGO extends GameObject implements ICollectable {
 
   destroy() {
     super.destroy();
-    this.canvas?.removeBox(this.renderTile);
+    this.canvas?.removeTile(this.renderTile);
   }
 }
 

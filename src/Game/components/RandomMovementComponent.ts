@@ -1,5 +1,4 @@
 import GameComponent from "../Engine/GameComponent";
-import Canvas from "../Engine/Canvas";
 import DataStoreService from "../service/DataStoreService";
 import { IEntityStore } from "../service/IEntityStore";
 import ObjectManager from "../Engine/ObjectManager";
@@ -11,7 +10,7 @@ import { GameEntity, EntityTag } from "../../redux/types";
 class RandomMovementComponent extends GameComponent {
   entity: GameEntity | null = null;
   entityStore: IEntityStore = new DataStoreService();
-  start(canvas: Canvas): void {
+  start(): void {
     ObjectManager.getInstance().registerEntityUpdate(() => {
       this.entityUpdate();
     });

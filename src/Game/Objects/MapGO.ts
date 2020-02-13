@@ -2,8 +2,8 @@ import GameObject from "../Engine/GameObject";
 import Vector2D from "../Engine/Utils/Vector2D";
 import TransformComponent from "../components/TransformComponent";
 import MapRenderComponent from "../components/MapRenderComponent";
-import Canvas from "../Engine/Canvas";
 import MapLoadComponent from "../components/MapLoadComponent";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class MapGO extends GameObject {
   boxGrid: MapRenderComponent | null = null;
@@ -12,7 +12,7 @@ class MapGO extends GameObject {
     super(new TransformComponent(startPos));
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     let mapLoadComp = new MapLoadComponent(this);
     this.addComponent(canvas, mapLoadComp);
     mapLoadComp.loadMap();

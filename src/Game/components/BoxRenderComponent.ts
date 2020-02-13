@@ -1,9 +1,9 @@
 import GameComponent from "../Engine/GameComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import GameObject from "../Engine/GameObject";
-import Canvas from "../Engine/Canvas";
 import Tile2D from "../Engine/Utils/Box2D";
 import { Color } from "../Engine/Utils/Color";
+import ICanvas from "../Engine/canvas/ICanvas";
 
 class BoxRenderComponent extends GameComponent {
   private color: Color;
@@ -22,9 +22,9 @@ class BoxRenderComponent extends GameComponent {
     }
   }
 
-  start(canvas: Canvas): void {
+  start(canvas: ICanvas): void {
     let box = new Tile2D(this.position, this.size, this.color, "red", "X");
-    canvas.addBox(box);
+    canvas.addTile(box);
   }
 
   update(): void {
