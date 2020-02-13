@@ -38,8 +38,8 @@ class Canvas3D implements ICanvas {
       let material = new THREE.MeshNormalMaterial();
       let mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(
-        (newBox.position.x / 52) * 0.05,
-        -(newBox.position.y / 52) * 0.05,
+        (newBox.position.x / 52) * 0.05 - 2,
+        -(newBox.position.y / 52) * 0.05 + 2,
         newBox.zLevel * 0.05
       );
       this._scene.add(mesh);
