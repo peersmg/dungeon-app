@@ -23,6 +23,10 @@ class Camera3D implements ICamera {
   setFocus(focusTransform: TransformComponent): void {
     //throw new Error("Method not implemented.");
   }
+
+  public get3DCamera() {
+    return this._camera;
+  }
 }
 
 export default Camera3D;
