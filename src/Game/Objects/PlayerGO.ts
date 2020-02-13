@@ -42,7 +42,7 @@ class PlayerGO extends GameObject {
     canvas.getCamera().setFocus(this.transform);
 
     canvas.addTile(
-      new Tile2D(this.transform.position, new Vector2D(50, 50), "#2C4694", "white", "@")
+      new Tile2D(this.transform.position, new Vector2D(50, 50), 1, "#2C4694", "white", "@")
     );
   }
 
@@ -135,7 +135,7 @@ class PlayerGO extends GameObject {
     if (currentMapPos && direction) {
       let targetPos = currentMapPos.clone().add(direction);
       let targetTileY = this.mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))
-        ?.yLevel;
+        ?.zLevel;
 
       if (targetTileY === 0) {
         this.entityStore.updateEntity({

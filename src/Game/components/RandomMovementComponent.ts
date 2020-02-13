@@ -71,9 +71,9 @@ class RandomMovementComponent extends GameComponent {
 
       if (ent) {
         let targetPos = ent?.mapCoord.clone().add(dir);
-        let targetTileY = mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))?.yLevel;
+        let targetTileZ = mapStore.getEnvironmentOf(new Vector2D(targetPos.y, targetPos.x))?.zLevel;
 
-        if (targetTileY === 0) {
+        if (targetTileZ === 0) {
           entityStore.updateEntity({
             ...ent,
             mapCoord: targetPos

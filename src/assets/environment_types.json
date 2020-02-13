@@ -4,7 +4,7 @@
     "name": "Floor",
     "backgroundColor": "MidnightBlue",
     "textColor": "white",
-    "yLevel": 0,
+    "zLevel": 0,
     "character": "■"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Wall",
     "backgroundColor": "MidnightBlue",
     "textColor": "black",
-    "yLevel": 1,
+    "zLevel": 1,
     "character": "#"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Water",
     "backgroundColor": "#00030d",
     "textColor": "blue",
-    "yLevel": -1,
+    "zLevel": -1,
     "character": "~"
   },
   {
@@ -28,7 +28,7 @@
     "name": "ShortGrass",
     "backgroundColor": "#000200",
     "textColor": "green",
-    "yLevel": 0,
+    "zLevel": 0,
     "character": "."
   },
   {
@@ -36,7 +36,7 @@
     "name": "LongGrass",
     "backgroundColor": "#000500",
     "textColor": "green",
-    "yLevel": 0,
+    "zLevel": 0,
     "character": "\""
   }
 ]

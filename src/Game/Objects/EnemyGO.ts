@@ -33,6 +33,7 @@ class EnemyGO extends GameObject {
     this.renderTile = new Tile2D(
       this.transform.position,
       new Vector2D(50, 50),
+      1,
       "#2C4694",
       "orange",
       ";"

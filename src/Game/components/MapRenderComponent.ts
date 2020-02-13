@@ -90,6 +90,7 @@ class MapRenderComponent extends GameComponent {
         box = new Tile2D(
           pos,
           new Vector2D(50, 50),
+          envType.zLevel,
           envType.backgroundColor,
           envType.textColor,
           envType.character

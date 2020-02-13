@@ -5,7 +5,7 @@ import { Color } from "../Utils/Color";
 import ICanvas from "./ICanvas";
 import ICamera from "../camera/ICamera";
 
-class Canvas implements ICanvas {
+class Canvas2D implements ICanvas {
   private _canvasCtx: CanvasRenderingContext2D | null = null;
   private dpr: number = 1;
   private userScale: number = 0;
@@ -193,4 +193,4 @@ class Canvas implements ICanvas {
   }
 }
 
-export default Canvas;
+export default Canvas2D;

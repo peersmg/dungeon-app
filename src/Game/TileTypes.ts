@@ -13,7 +13,7 @@ export interface EnvironmentType {
   name: string;
   backgroundColor: Color;
   textColor: Color;
-  yLevel: number;
+  zLevel: number;
   character: string;
 }
 

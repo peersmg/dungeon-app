@@ -3,14 +3,23 @@ import { Color } from "./Color";
 
 class Tile2D {
   private _position: Vector2D;
+  private _zLevel: number;
   private _size: Vector2D;
   private _bgColor: Color;
   private _txtColor: Color;
   private _char: string;
 
-  constructor(position: Vector2D, size: Vector2D, bgCol: Color, txtCol: Color, char: string) {
+  constructor(
+    position: Vector2D,
+    size: Vector2D,
+    zLevel: number,
+    bgCol: Color,
+    txtCol: Color,
+    char: string
+  ) {
     this._position = position;
     this._size = size;
+    this._zLevel = zLevel;
     this._bgColor = bgCol;
     this._txtColor = txtCol;
     this._char = char;
@@ -30,6 +39,14 @@ class Tile2D {
 
   public set size(newSize: Vector2D) {
     this._size = newSize;
+  }
+
+  public get zLevel() {
+    return this._zLevel;
+  }
+
+  public set zLevel(newZLevel: number) {
+    this._zLevel = newZLevel;
   }
 
   public get bgColor() {
