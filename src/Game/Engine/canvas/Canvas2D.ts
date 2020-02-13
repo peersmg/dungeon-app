@@ -1,9 +1,9 @@
 import Vector2D from "../Utils/Vector2D";
-import Tile2D from "../Utils/Box2D";
+import Tile2D from "../Utils/Tile2D";
 
-import Camera2D from "../Utils/Camera2D";
 import { Color } from "../Utils/Color";
 import ICanvas from "./ICanvas";
+import ICamera from "../camera/ICamera";
 
 class Canvas implements ICanvas {
   private _canvasCtx: CanvasRenderingContext2D | null = null;
@@ -13,11 +13,12 @@ class Canvas implements ICanvas {
   private containerElement: HTMLElement | null = null;
 
   //private camera: Vector2D = new Vector2D(0, 0);
-  private _camera: Camera2D = new Camera2D();
+  private _camera: ICamera;
   private boxes: Tile2D[] = [];
 
-  constructor() {
+  constructor(camera: ICamera) {
     this._canvasCtx = this.generateCanvas();
+    this._camera = camera;
 
     if (this.canvasCtx) {
       window.addEventListener("resize", () => {
@@ -131,14 +132,18 @@ class Canvas implements ICanvas {
       this.setFont("bold 24px Arial");
       this.canvasCtx.textAlign = "center";
       this.canvasCtx.textBaseline = "middle";
-      this.canvasCtx.fillText(text, pos.x - this._camera.viewPos.x, pos.y - this._camera.viewPos.y);
+      this.canvasCtx.fillText(
+        text,
+        pos.x - this._camera.getViewPos().x,
+        pos.y - this._camera.getViewPos().y
+      );
     }
   }
 
   private drawBox(pos: Vector2D, size: Vector2D) {
     this.canvasCtx?.fillRect(
-      pos.x - this._camera.viewPos.x,
-      pos.y - this._camera.viewPos.y,
+      pos.x - this._camera.getViewPos().x,
+      pos.y - this._camera.getViewPos().y,
       size.x,
       size.y
     );

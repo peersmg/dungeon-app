@@ -3,7 +3,7 @@ import { IEntityStore } from "../service/IEntityStore";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { EntityTag } from "../../redux/types";
-import Tile2D from "../Engine/Utils/Box2D";
+import Tile2D from "../Engine/Utils/Tile2D";
 import ICollectable from "../ICollectable";
 import ObjectManager from "../Engine/ObjectManager";
 import ICanvas from "../Engine/canvas/ICanvas";

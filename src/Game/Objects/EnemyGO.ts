@@ -2,7 +2,7 @@ import GameObject from "../Engine/GameObject";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IEntityStore } from "../service/IEntityStore";
-import Tile2D from "../Engine/Utils/Box2D";
+import Tile2D from "../Engine/Utils/Tile2D";
 import RandomMovementComponent from "../components/RandomMovementComponent";
 import ObjectManager from "../Engine/ObjectManager";
 import { EntityTag } from "../../redux/types";

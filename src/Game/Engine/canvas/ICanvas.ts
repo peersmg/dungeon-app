@@ -1,6 +1,5 @@
-import Tile2D from "../Utils/Box2D";
-import Vector2D from "../Utils/Vector2D";
-import Camera2D from "../Utils/Camera2D";
+import Tile2D from "../Utils/Tile2D";
+import ICamera from "../camera/ICamera";
 
 interface ICanvas {
   render(): void;
@@ -8,7 +7,7 @@ interface ICanvas {
   removeTile(tileToRemove: Tile2D | null): void;
   getCanvasWidth(): number;
   getCanvasHeight(): number;
-  getCamera(): Camera2D;
+  getCamera(): ICamera;
 }
 
 export default ICanvas;

@@ -1,7 +1,7 @@
 import GameComponent from "../Engine/GameComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import GameObject from "../Engine/GameObject";
-import Tile2D from "../Engine/Utils/Box2D";
+import Tile2D from "../Engine/Utils/Tile2D";
 import { Color } from "../Engine/Utils/Color";
 import ICanvas from "../Engine/canvas/ICanvas";
 
