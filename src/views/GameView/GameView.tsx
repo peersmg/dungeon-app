@@ -5,14 +5,16 @@ import { GameStateProp, connectGameState } from "../../redux/types";
 import ICanvas from "../../Game/Engine/canvas/ICanvas";
 import Canvas3D from "../../Game/Engine/canvas/Canvas3D";
 import Camera3D from "../../Game/Engine/camera/Camera3D";
+import Canvas2D from "../../Game/Engine/canvas/Canvas2D";
+import Camera2D from "../../Game/Engine/camera/Camera2D";
 
 const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [gameRef] = useState<Game>(new Game());
   const [requestFrame, setRequestFrame] = useState<number>(-1);
 
   useEffect(() => {
-    //let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
-    let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
+    let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
+    //let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
     console.log("Setting up game...");
 
     if (canvasComponent) {

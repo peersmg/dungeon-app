@@ -1,6 +1,6 @@
 [
   {
-    "id": 0,
+    "id": 3,
     "name": "Floor",
     "backgroundColor": "MidnightBlue",
     "textColor": "white",
@@ -24,7 +24,7 @@
     "character": "~"
   },
   {
-    "id": 3,
+    "id": 0,
     "name": "ShortGrass",
     "backgroundColor": "#000200",
     "textColor": "green",
