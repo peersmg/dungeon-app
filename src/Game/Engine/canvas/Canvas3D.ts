@@ -22,3 +22,5 @@ class Canvas3D implements ICanvas {
     throw new Error("Method not implemented.");
   }
 }
+
+export default Canvas3D;
