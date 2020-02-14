@@ -43,6 +43,11 @@ class Camera3D implements ICamera {
     }
   }
 
+  updateCameraSize(width: number, height: number) {
+    this._camera.aspect = width / height;
+    this._camera.updateProjectionMatrix();
+  }
+
   getViewPos(): Vector2D {
     //throw new Error("Method not implemented.");this._camera.position
     return new Vector2D(this._camera.position.x, this._camera.position.y);

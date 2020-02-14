@@ -45,7 +45,32 @@ class Canvas3D implements ICanvas {
 
       this._containerElement?.appendChild(this._renderer.domElement);
     }
+
+    window.addEventListener("resize", () => {
+      this.onDocumentResize();
+    });
+    window.addEventListener("orientationchange", () => {
+      this.onDocumentResize();
+    });
   }
+
+  private onDocumentResize() {
+    if (this._containerElement) {
+      this._renderer.domElement.width = this._containerElement.clientWidth;
+      this._renderer.domElement.height = this._containerElement.clientHeight;
+
+      (this._camera as Camera3D).updateCameraSize(
+        this._containerElement.clientWidth,
+        this._containerElement.clientHeight
+      );
+
+      this._renderer.setSize(
+        this._containerElement.clientWidth,
+        this._containerElement.clientHeight
+      );
+    }
+  }
+
   remove(): void {
     this._renderer.domElement.remove();
   }
