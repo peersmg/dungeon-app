@@ -2,8 +2,9 @@ import ICanvas from "./ICanvas";
 import ICamera from "../camera/ICamera";
 import * as THREE from "three";
 import Camera3D from "../camera/Camera3D";
-import dataStore from "../../../redux/store";
 import GridRenderer3D from "./GridRenderer3D";
+import Vector2D from "../Utils/Vector2D";
+import { isNullOrUndefined } from "util";
 
 class Canvas3D implements ICanvas {
   private _camera: ICamera;
@@ -12,6 +13,10 @@ class Canvas3D implements ICanvas {
   private _containerElement: HTMLElement | null;
   private _initialised: boolean = false;
   private _gridRender: GridRenderer3D;
+
+  private _xOffset = -1;
+  private _yOffset = 0.5;
+  private _boxSize = 0.05;
 
   constructor(camera: ICamera) {
     this._camera = camera;
@@ -47,16 +52,30 @@ class Canvas3D implements ICanvas {
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
-  public addCube(x: number, y: number, zLevel: number) {
-    let xOffset = -1;
-    let yOffset = 0.5;
-    let boxSize = 0.05;
-
-    let geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
+  public addCube(x: number, y: number, zLevel: number): THREE.Mesh {
+    let geometry = new THREE.BoxGeometry(this._boxSize, this._boxSize, this._boxSize);
     let material = new THREE.MeshNormalMaterial();
     let mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(x * boxSize + xOffset, -y * boxSize + yOffset, zLevel * boxSize);
+
+    let pos = this.gridToWorldPos(new Vector2D(x, y), zLevel);
+    mesh.position.set(pos.x, pos.y, pos.z);
     this._scene.add(mesh);
+
+    return mesh;
+  }
+
+  public removeObject(objectToRemove: THREE.Object3D | null | undefined) {
+    if (!isNullOrUndefined(objectToRemove)) {
+      this._scene.remove(objectToRemove);
+    }
+  }
+
+  public gridToWorldPos(gridPos: Vector2D, zLevel: number): THREE.Vector3 {
+    return new THREE.Vector3(
+      gridPos.x * this._boxSize + this._xOffset,
+      -gridPos.y * this._boxSize + this._yOffset,
+      zLevel * this._boxSize
+    );
   }
 
   getCanvasWidth(): number {
