@@ -29,7 +29,7 @@ class Game {
     ObjectManager.getInstance().canvas = canvas;
 
     // MAP
-    ObjectManager.getInstance().addObject(new MapGO(new Vector2D(100, 100)));
+    ObjectManager.getInstance().addObject(new MapGO(new Vector2D(0, 0)));
 
     // PLAYER
     ObjectManager.getInstance().addObject(
@@ -54,7 +54,6 @@ class Game {
     dataStore.dispatch(updateFps(fps));
 
     this.canvas?.render();
-
     ObjectManager.getInstance().updateAll(this.deltaTime);
   }
 

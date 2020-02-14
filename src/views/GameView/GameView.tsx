@@ -13,8 +13,8 @@ const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [requestFrame, setRequestFrame] = useState<number>(-1);
 
   useEffect(() => {
-    //let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
-    let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
+    let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
+    //let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
     console.log("Setting up game...");
 
     if (canvasComponent) {

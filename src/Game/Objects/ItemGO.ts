@@ -14,7 +14,7 @@ class ItemGO extends GameObject implements ICollectable {
   canvas: ICanvas | null = null;
 
   constructor(entityStore: IEntityStore) {
-    super(new TransformComponent(new Vector2D(204, 256)));
+    super(new TransformComponent(new Vector2D(104, 156)));
     this.entityStore = entityStore;
   }
 
@@ -26,7 +26,12 @@ class ItemGO extends GameObject implements ICollectable {
       tag: EntityTag.ITEM,
       mapCoord: new Vector2D(2, 3),
       health: 100,
-      strength: 5
+      strength: 5,
+      appearance: {
+        backgroundColor: "#1a0000",
+        textColor: "red",
+        character: "♥"
+      }
     });
 
     this.renderTile = new Tile2D(

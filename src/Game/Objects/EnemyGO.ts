@@ -15,7 +15,7 @@ class EnemyGO extends GameObject {
   initMapPos: Vector2D;
 
   constructor(entityStore: IEntityStore, initMapPos: Vector2D) {
-    super(new TransformComponent(new Vector2D(100 + initMapPos.x * 52, 100 + initMapPos.y * 52)));
+    super(new TransformComponent(new Vector2D(initMapPos.x * 52, initMapPos.y * 52)));
     this.entityStore = entityStore;
     this.initMapPos = initMapPos;
   }
@@ -26,7 +26,12 @@ class EnemyGO extends GameObject {
       tag: EntityTag.ENEMY,
       mapCoord: this.initMapPos,
       health: 100,
-      strength: 5
+      strength: 5,
+      appearance: {
+        backgroundColor: "#2C4694",
+        textColor: "orange",
+        character: ";"
+      }
     });
 
     this.canvas = canvas;

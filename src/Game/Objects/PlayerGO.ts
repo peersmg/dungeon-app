@@ -16,7 +16,7 @@ class PlayerGO extends GameObject {
   canvas: ICanvas | null = null;
 
   constructor(entityStore: IEntityStore, mapStore: IMapStore) {
-    super(new TransformComponent(new Vector2D(152, 152)));
+    super(new TransformComponent(new Vector2D(52, 52)));
     this.entityStore = entityStore;
     this.mapStore = mapStore;
   }
@@ -27,7 +27,12 @@ class PlayerGO extends GameObject {
       tag: EntityTag.PLAYER,
       mapCoord: new Vector2D(1, 1),
       health: 100,
-      strength: 20
+      strength: 20,
+      appearance: {
+        backgroundColor: "#2C4694",
+        textColor: "white",
+        character: "@"
+      }
     });
 
     this.canvas = canvas;

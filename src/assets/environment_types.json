@@ -2,41 +2,51 @@
   {
     "id": 3,
     "name": "Floor",
-    "backgroundColor": "MidnightBlue",
-    "textColor": "white",
     "zLevel": 0,
-    "character": "■"
+    "appearance": {
+      "backgroundColor": "MidnightBlue",
+      "textColor": "white",
+      "character": "■"
+    }
   },
   {
     "id": 1,
     "name": "Wall",
-    "backgroundColor": "MidnightBlue",
-    "textColor": "black",
     "zLevel": 1,
-    "character": "#"
+    "appearance": {
+      "backgroundColor": "MidnightBlue",
+      "textColor": "black",
+      "character": "#"
+    }
   },
   {
     "id": 2,
     "name": "Water",
-    "backgroundColor": "#00030d",
-    "textColor": "blue",
     "zLevel": -1,
-    "character": "~"
+    "appearance": {
+      "backgroundColor": "#00030d",
+      "textColor": "blue",
+      "character": "~"
+    }
   },
   {
     "id": 0,
     "name": "ShortGrass",
-    "backgroundColor": "#000200",
-    "textColor": "green",
     "zLevel": 0,
-    "character": "."
+    "appearance": {
+      "backgroundColor": "#000200",
+      "textColor": "green",
+      "character": "."
+    }
   },
   {
     "id": 4,
     "name": "LongGrass",
-    "backgroundColor": "#000500",
-    "textColor": "green",
     "zLevel": 0,
-    "character": "\""
+    "appearance": {
+      "backgroundColor": "#000500",
+      "textColor": "green",
+      "character": "\""
+    }
   }
 ]

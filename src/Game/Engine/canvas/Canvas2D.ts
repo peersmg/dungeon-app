@@ -4,6 +4,7 @@ import Tile2D from "../Utils/Tile2D";
 import { Color } from "../Utils/Color";
 import ICanvas from "./ICanvas";
 import ICamera from "../camera/ICamera";
+import GridRenderer2D from "./GridRenderer2D";
 
 class Canvas2D implements ICanvas {
   private _canvasCtx: CanvasRenderingContext2D | null = null;
@@ -16,9 +17,12 @@ class Canvas2D implements ICanvas {
   private _camera: ICamera;
   private boxes: Tile2D[] = [];
 
+  private gridRender: GridRenderer2D;
+
   constructor(camera: ICamera) {
     this._canvasCtx = this.generateCanvas();
     this._camera = camera;
+    this.gridRender = new GridRenderer2D(this);
 
     if (this.canvasCtx) {
       window.addEventListener("resize", () => {
@@ -34,7 +38,9 @@ class Canvas2D implements ICanvas {
     this.clearCanvas();
     this.drawBackgound("black");
 
-    this.drawBoxes();
+    //this.drawBoxes();
+    this.gridRender.drawBoxes();
+    this.gridRender.drawEntities();
 
     this._camera.update(this);
   }
@@ -55,14 +61,14 @@ class Canvas2D implements ICanvas {
 
   public addTile(newBox: Tile2D | null) {
     if (newBox) {
-      this.boxes.push(newBox);
+      // this.boxes.push(newBox);
     }
   }
 
   public removeTile(tileToRemove: Tile2D | null) {
     if (tileToRemove) {
-      let num = this.boxes.indexOf(tileToRemove);
-      this.boxes.splice(num, 1);
+      // let num = this.boxes.indexOf(tileToRemove);
+      // this.boxes.splice(num, 1);
     }
   }
 
@@ -126,7 +132,7 @@ class Canvas2D implements ICanvas {
     }
   }
 
-  private drawTextToWorld(text: string, pos: Vector2D, color: string = "white") {
+  public drawTextToWorld(text: string, pos: Vector2D, color: string = "white") {
     if (this.canvasCtx) {
       this.setFillStyle(color);
       this.setFont("bold 24px Arial");
@@ -140,7 +146,7 @@ class Canvas2D implements ICanvas {
     }
   }
 
-  private drawBox(pos: Vector2D, size: Vector2D) {
+  public drawBox(pos: Vector2D, size: Vector2D) {
     this.canvasCtx?.fillRect(
       pos.x - this._camera.getViewPos().x,
       pos.y - this._camera.getViewPos().y,
@@ -175,7 +181,7 @@ class Canvas2D implements ICanvas {
     }
   }
 
-  private setFillStyle(fillStyle: string) {
+  public setFillStyle(fillStyle: string) {
     if (this.canvasCtx) {
       this.canvasCtx.fillStyle = fillStyle;
     }

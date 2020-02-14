@@ -91,9 +91,9 @@ class MapRenderComponent extends GameComponent {
           pos,
           new Vector2D(50, 50),
           envType.zLevel,
-          envType.backgroundColor,
-          envType.textColor,
-          envType.character
+          envType.appearance.backgroundColor,
+          envType.appearance.textColor,
+          envType.appearance.character
         );
 
         this.mapContent[x][y] = box;

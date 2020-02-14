@@ -6,15 +6,19 @@ export type Entity = {
   entityObject: GameObject | null;
 };
 
+export type Appearance2D = {
+  backgroundColor: Color;
+  textColor: Color;
+  character: string;
+};
+
 export type Environment = 0 | 1 | 2;
 
 export interface EnvironmentType {
   id: number;
   name: string;
-  backgroundColor: Color;
-  textColor: Color;
   zLevel: number;
-  character: string;
+  appearance: Appearance2D;
 }
 
 export const PLAYER_ENTITY = "purple";
