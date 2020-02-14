@@ -3,6 +3,7 @@ import ICamera from "../camera/ICamera";
 import * as THREE from "three";
 import Camera3D from "../camera/Camera3D";
 import dataStore from "../../../redux/store";
+import GridRenderer3D from "./GridRenderer3D";
 
 class Canvas3D implements ICanvas {
   private _camera: ICamera;
@@ -10,6 +11,7 @@ class Canvas3D implements ICanvas {
   private _renderer: THREE.WebGLRenderer;
   private _containerElement: HTMLElement | null;
   private _initialised: boolean = false;
+  private _gridRender: GridRenderer3D;
 
   constructor(camera: ICamera) {
     this._camera = camera;
@@ -18,6 +20,8 @@ class Canvas3D implements ICanvas {
     this._containerElement = document.getElementById("game");
 
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    this._gridRender = new GridRenderer3D(this);
 
     if (this._containerElement) {
       this._renderer.setSize(
@@ -32,10 +36,10 @@ class Canvas3D implements ICanvas {
   render(): void {
     if (!this._initialised) {
       // Add environment
-      this.addEnvironment();
+      this._gridRender.addEnvironment();
 
       // Add entities
-      this.addEntities();
+      this._gridRender.addEntities();
 
       this._initialised = true;
     }
@@ -43,32 +47,7 @@ class Canvas3D implements ICanvas {
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
-  private addEntities() {
-    let entityArray = dataStore.getState().map.entities;
-    console.log("Adding entities:");
-    for (let i = 0; i < entityArray.length; i++) {
-      console.log("Adding entity");
-      this.addCube(entityArray[i].mapCoord.x, entityArray[i].mapCoord.y, 1);
-    }
-  }
-
-  private addEnvironment() {
-    let envArray = dataStore.getState().map.environment;
-
-    for (let x = 0; x < envArray[0].length; x++) {
-      for (let y = 0; y < envArray.length; y++) {
-        let envType = dataStore
-          .getState()
-          .map.environmentTypes.find(val => val.id === envArray[y][x]);
-
-        if (envType) {
-          this.addCube(x, y, envType.zLevel);
-        }
-      }
-    }
-  }
-
-  private addCube(x: number, y: number, zLevel: number) {
+  public addCube(x: number, y: number, zLevel: number) {
     let xOffset = -1;
     let yOffset = 0.5;
     let boxSize = 0.05;
@@ -79,16 +58,24 @@ class Canvas3D implements ICanvas {
     mesh.position.set(x * boxSize + xOffset, -y * boxSize + yOffset, zLevel * boxSize);
     this._scene.add(mesh);
   }
+
   getCanvasWidth(): number {
-    //throw new Error("Method not implemented.");
-    return 0;
+    if (this._containerElement) {
+      return this._containerElement.clientWidth;
+    } else {
+      return 0;
+    }
   }
+
   getCanvasHeight(): number {
-    //throw new Error("Method not implemented.");
-    return 0;
+    if (this._containerElement) {
+      return this._containerElement.clientHeight;
+    } else {
+      return 0;
+    }
   }
+
   getCamera(): ICamera {
-    // throw new Error("Method not implemented.");
     return this._camera;
   }
 }
