@@ -27,25 +27,24 @@ class MapRenderComponent extends GameComponent {
 
     if (this.mapStore.getMap()) {
       //Init empty object array
-      for (let x = 0; x < this.mapStore.getMap()!.length; x++) {
-        this.mapContent.push([]);
-        for (let y = 0; y < this.mapStore.getMap()![0].length; y++) {
-          this.mapContent[x].push(null);
-        }
-      }
-
+      // for (let x = 0; x < this.mapStore.getMap()!.length; x++) {
+      //   this.mapContent.push([]);
+      //   for (let y = 0; y < this.mapStore.getMap()![0].length; y++) {
+      //     this.mapContent[x].push(null);
+      //   }
+      // }
       // Create map objects
-      for (let x = 0; x < this.mapStore.getMap()![0].length; x++) {
-        for (let y = 0; y < this.mapStore.getMap()!.length; y++) {
-          if (
-            this.mapStore
-              .getEntities()
-              ?.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
-          ) {
-            canvas.addTile(this.createRenderObject(y, x));
-          }
-        }
-      }
+      // for (let x = 0; x < this.mapStore.getMap()![0].length; x++) {
+      //   for (let y = 0; y < this.mapStore.getMap()!.length; y++) {
+      //     if (
+      //       this.mapStore
+      //         .getEntities()
+      //         ?.findIndex(val => val.mapCoord.equals(new Vector2D(x, y))) === -1
+      //     ) {
+      //       canvas.addTile(this.createRenderObject(y, x));
+      //     }
+      //   }
+      // }
     }
   }
 
@@ -55,18 +54,18 @@ class MapRenderComponent extends GameComponent {
     }
   }
 
-  public clearMap() {
-    for (let x = 0; x < this.mapContent[0].length; x++) {
-      for (let y = 0; y < this.mapContent.length; y++) {
-        this.removeRenderObj(x, y);
-      }
-    }
-  }
+  // public clearMap() {
+  //   for (let x = 0; x < this.mapContent[0].length; x++) {
+  //     for (let y = 0; y < this.mapContent.length; y++) {
+  //       this.removeRenderObj(x, y);
+  //     }
+  //   }
+  // }
 
-  private removeRenderObj(x: number, y: number) {
-    this.canvas?.removeTile(this.mapContent[y][x]);
-    this.mapContent[y][x] = null;
-  }
+  // private removeRenderObj(x: number, y: number) {
+  //   this.canvas?.removeTile(this.mapContent[y][x]);
+  //   this.mapContent[y][x] = null;
+  // }
 
   public set position(newPos: Vector2D) {
     this._position = newPos;
@@ -76,33 +75,33 @@ class MapRenderComponent extends GameComponent {
     return this._position;
   }
 
-  private createRenderObject(x: number, y: number) {
-    if (this.mapStore.getMap()) {
-      let pos = this.getMapPos(y, x);
-      //let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
+  // private createRenderObject(x: number, y: number) {
+  //   if (this.mapStore.getMap()) {
+  //     let pos = this.getMapPos(y, x);
+  //     //let mapTypes: EnvironmentType[] = dataStore.getState().map.environmentTypes;
 
-      //let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
-      let envType = new DataStoreService().getEnvironmentOf(new Vector2D(x, y));
+  //     //let envType = mapTypes.find(val => val.id === this.mapStore.getMap()![x][y]);
+  //     let envType = new DataStoreService().getEnvironmentOf(new Vector2D(x, y));
 
-      let box: Tile2D | null = null;
+  //     let box: Tile2D | null = null;
 
-      if (envType) {
-        box = new Tile2D(
-          pos,
-          new Vector2D(50, 50),
-          envType.zLevel,
-          envType.appearance.backgroundColor,
-          envType.appearance.textColor,
-          envType.appearance.character
-        );
+  //     if (envType) {
+  //       box = new Tile2D(
+  //         pos,
+  //         new Vector2D(50, 50),
+  //         envType.zLevel,
+  //         envType.appearance.backgroundColor,
+  //         envType.appearance.textColor,
+  //         envType.appearance.character
+  //       );
 
-        this.mapContent[x][y] = box;
-      }
+  //       this.mapContent[x][y] = box;
+  //     }
 
-      return box;
-    }
-    return null;
-  }
+  //     return box;
+  //   }
+  //   return null;
+  // }
 
   public getMapPos(x: number, y: number) {
     return new Vector2D(this._position.x + x * 52, this._position.y + y * 52);

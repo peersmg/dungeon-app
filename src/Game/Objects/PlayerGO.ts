@@ -2,7 +2,6 @@ import GameObject from "../Engine/GameObject";
 import { IEntityStore } from "../service/IEntityStore";
 import Vector2D from "../Engine/Utils/Vector2D";
 import InputManager from "../Engine/InputManager";
-import Tile2D from "../Engine/Utils/Tile2D";
 import TransformComponent from "../components/TransformComponent";
 import { IMapStore } from "../service/IMapStore";
 import ObjectManager from "../Engine/ObjectManager";
@@ -45,10 +44,6 @@ class PlayerGO extends GameObject {
     }, "mouseup");
 
     canvas.getCamera().setFocus(this.transform);
-
-    canvas.addTile(
-      new Tile2D(this.transform.position, new Vector2D(50, 50), 1, "#2C4694", "white", "@")
-    );
   }
 
   private getDirectionFromKey(e: KeyboardEvent) {

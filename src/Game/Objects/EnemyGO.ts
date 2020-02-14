@@ -43,7 +43,6 @@ class EnemyGO extends GameObject {
       "orange",
       ";"
     );
-    this.canvas.addTile(this.renderTile);
 
     this.addComponent(canvas, new RandomMovementComponent(this));
   }
@@ -58,7 +57,6 @@ class EnemyGO extends GameObject {
 
   destroy() {
     super.destroy();
-    this.canvas?.removeTile(this.renderTile);
   }
 }
 

@@ -16,9 +16,6 @@ class MapGO extends GameObject {
     let mapLoadComp = new MapLoadComponent(this);
     this.addComponent(canvas, mapLoadComp);
     mapLoadComp.loadMap();
-
-    this.boxGrid = new MapRenderComponent(this);
-    this.addComponent(canvas, this.boxGrid);
   }
 }
 

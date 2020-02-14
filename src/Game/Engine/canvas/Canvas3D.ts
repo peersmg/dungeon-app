@@ -1,10 +1,8 @@
 import ICanvas from "./ICanvas";
-import Tile2D from "../Utils/Tile2D";
 import ICamera from "../camera/ICamera";
 import * as THREE from "three";
 import Camera3D from "../camera/Camera3D";
 import dataStore from "../../../redux/store";
-import { EnvironmentType } from "../../TileTypes";
 
 class Canvas3D implements ICanvas {
   private _camera: ICamera;
@@ -61,7 +59,7 @@ class Canvas3D implements ICanvas {
       for (let y = 0; y < envArray.length; y++) {
         let envType = dataStore
           .getState()
-          .map.environmentTypes.find(val => val.id == envArray[y][x]);
+          .map.environmentTypes.find(val => val.id === envArray[y][x]);
 
         if (envType) {
           this.addCube(x, y, envType.zLevel);
@@ -80,23 +78,6 @@ class Canvas3D implements ICanvas {
     let mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(x * boxSize + xOffset, -y * boxSize + yOffset, zLevel * boxSize);
     this._scene.add(mesh);
-  }
-
-  addTile(newBox: Tile2D | null): void {
-    // if (newBox) {
-    //   let geometry = new THREE.BoxGeometry(0.05, 0.05, 0.05);
-    //   let material = new THREE.MeshNormalMaterial();
-    //   let mesh = new THREE.Mesh(geometry, material);
-    //   mesh.position.set(
-    //     (newBox.position.x / 52) * 0.05 - 2,
-    //     -(newBox.position.y / 52) * 0.05 + 2,
-    //     newBox.zLevel * 0.05
-    //   );
-    //   this._scene.add(mesh);
-    // }
-  }
-  removeTile(tileToRemove: Tile2D | null): void {
-    //throw new Error("Method not implemented.");
   }
   getCanvasWidth(): number {
     //throw new Error("Method not implemented.");

@@ -1,6 +1,5 @@
 import Vector2D from "../Utils/Vector2D";
 import dataStore from "../../../redux/store";
-import { Environment } from "../../TileTypes";
 import Canvas2D from "./Canvas2D";
 
 class GridRenderer2D {
@@ -17,7 +16,7 @@ class GridRenderer2D {
       for (let y = 0; y < envArray.length; y++) {
         let envType = dataStore
           .getState()
-          .map.environmentTypes.find(val => val.id == envArray[y][x]);
+          .map.environmentTypes.find(val => val.id === envArray[y][x]);
         if (envType) {
           this._canvas.setFillStyle(envType.appearance.backgroundColor);
           this._canvas.drawBox(new Vector2D(x * 52, y * 52), new Vector2D(50, 50));

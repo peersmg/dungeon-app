@@ -33,16 +33,6 @@ class ItemGO extends GameObject implements ICollectable {
         character: "♥"
       }
     });
-
-    this.renderTile = new Tile2D(
-      this.transform.position,
-      new Vector2D(50, 50),
-      1,
-      "#1a0000",
-      "red",
-      "♥"
-    );
-    canvas.addTile(this.renderTile);
   }
 
   collect(collectorId: number) {
@@ -60,7 +50,6 @@ class ItemGO extends GameObject implements ICollectable {
 
   destroy() {
     super.destroy();
-    this.canvas?.removeTile(this.renderTile);
   }
 }
 

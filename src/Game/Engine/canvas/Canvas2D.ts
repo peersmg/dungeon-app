@@ -1,5 +1,4 @@
 import Vector2D from "../Utils/Vector2D";
-import Tile2D from "../Utils/Tile2D";
 
 import { Color } from "../Utils/Color";
 import ICanvas from "./ICanvas";
@@ -13,9 +12,7 @@ class Canvas2D implements ICanvas {
 
   private containerElement: HTMLElement | null = null;
 
-  //private camera: Vector2D = new Vector2D(0, 0);
   private _camera: ICamera;
-  private boxes: Tile2D[] = [];
 
   private gridRender: GridRenderer2D;
 
@@ -38,38 +35,10 @@ class Canvas2D implements ICanvas {
     this.clearCanvas();
     this.drawBackgound("black");
 
-    //this.drawBoxes();
     this.gridRender.drawBoxes();
     this.gridRender.drawEntities();
 
     this._camera.update(this);
-  }
-
-  private drawBoxes() {
-    if (this.boxes) {
-      this.boxes.forEach(box => {
-        this.setFillStyle(box.bgColor);
-        this.drawBox(box.position, box.size);
-        this.drawTextToWorld(
-          box.char,
-          box.position.clone().add(box.size.clone().divide(2)),
-          box.txtColor
-        );
-      });
-    }
-  }
-
-  public addTile(newBox: Tile2D | null) {
-    if (newBox) {
-      // this.boxes.push(newBox);
-    }
-  }
-
-  public removeTile(tileToRemove: Tile2D | null) {
-    if (tileToRemove) {
-      // let num = this.boxes.indexOf(tileToRemove);
-      // this.boxes.splice(num, 1);
-    }
   }
 
   private generateCanvas() {
