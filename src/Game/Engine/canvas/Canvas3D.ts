@@ -33,6 +33,7 @@ class Canvas3D implements ICanvas {
     this._scene.add(ambientLight);
     let directionalLight = new THREE.DirectionalLight(0xffffff);
     directionalLight.position.z = 2;
+    directionalLight.position.y = 0.5;
     directionalLight.position.x = 3;
     this._scene.add(directionalLight);
 
