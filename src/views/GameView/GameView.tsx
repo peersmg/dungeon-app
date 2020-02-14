@@ -11,14 +11,27 @@ import Camera3D from "../../Game/Engine/camera/Camera3D";
 const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [gameRef] = useState<Game>(new Game());
   const [requestFrame, setRequestFrame] = useState<number>(-1);
+  const defaultCanvas = "2D";
 
   useEffect(() => {
-    //let canvasComponent: ICanvas = new Canvas2D(new Camera2D());
-    let canvasComponent: ICanvas = new Canvas3D(new Camera3D());
+    let canvasComponent: ICanvas;
+
     console.log("Setting up game...");
+
+    if (defaultCanvas === "2D") {
+      canvasComponent = new Canvas2D(new Camera2D());
+      gameRef._canvasMode = "2D";
+    } else {
+      canvasComponent = new Canvas3D(new Camera3D());
+      gameRef._canvasMode = "3D";
+    }
 
     if (canvasComponent) {
       gameRef.begin(canvasComponent);
+      document.addEventListener("keyup", (e: KeyboardEvent) => {
+        keyPress(e);
+      });
+
       setRequestFrame(requestAnimationFrame(updateGame));
     }
 
@@ -33,6 +46,18 @@ const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
     gameRef.tick();
 
     requestAnimationFrame(updateGame);
+  }
+
+  function keyPress(e: KeyboardEvent) {
+    if (e.keyCode === 32) {
+      console.log("Space pressed!");
+      if (gameRef._canvasMode === "2D") {
+        gameRef.setCanvas(new Canvas3D(new Camera3D()), "3D");
+      } else {
+        console.log("Creating 2D canvas");
+        gameRef.setCanvas(new Canvas2D(new Camera2D()), "2D");
+      }
+    }
   }
 
   return (

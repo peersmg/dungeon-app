@@ -5,6 +5,7 @@ interface ICanvas {
   getCanvasWidth(): number;
   getCanvasHeight(): number;
   getCamera(): ICamera;
+  remove(): void;
 }
 
 export default ICanvas;

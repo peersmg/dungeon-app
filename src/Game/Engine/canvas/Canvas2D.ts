@@ -31,6 +31,10 @@ class Canvas2D implements ICanvas {
     }
   }
 
+  remove(): void {
+    this._canvasCtx?.canvas.remove();
+  }
+
   public render() {
     this.clearCanvas();
     this.drawBackgound("black");

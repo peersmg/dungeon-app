@@ -46,6 +46,9 @@ class Canvas3D implements ICanvas {
       this._containerElement?.appendChild(this._renderer.domElement);
     }
   }
+  remove(): void {
+    this._renderer.domElement.remove();
+  }
 
   render(): void {
     if (!this._initialised) {

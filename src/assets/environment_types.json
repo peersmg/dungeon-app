@@ -4,7 +4,7 @@
     "name": "Floor",
     "zLevel": 0,
     "appearance": {
-      "backgroundColor": "MidnightBlue",
+      "backgroundColor": "blue",
       "textColor": "white",
       "character": "■"
     }
@@ -14,7 +14,7 @@
     "name": "Wall",
     "zLevel": 1,
     "appearance": {
-      "backgroundColor": "MidnightBlue",
+      "backgroundColor": "blue",
       "textColor": "black",
       "character": "#"
     }

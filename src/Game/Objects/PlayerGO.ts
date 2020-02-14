@@ -12,13 +12,13 @@ import ICanvas from "../Engine/canvas/ICanvas";
 class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
-  canvas: ICanvas;
+  canvas: ICanvas | null;
 
   constructor(canvas: ICanvas, entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(52, 52)));
     this.entityStore = entityStore;
     this.mapStore = mapStore;
-    this.canvas = canvas;
+    this.canvas = ObjectManager.getInstance().canvas;
   }
 
   start(): void {
@@ -42,7 +42,12 @@ class PlayerGO extends GameObject {
       this.playerAction(this.getDirectionFromMouse(e));
     }, "mouseup");
 
-    this.canvas.getCamera().setFocus(this.transform);
+    this.canvas?.getCamera().setFocus(this.transform);
+  }
+
+  update() {
+    this.canvas = ObjectManager.getInstance().canvas;
+    this.canvas?.getCamera().setFocus(this.transform);
   }
 
   private getDirectionFromKey(e: KeyboardEvent) {

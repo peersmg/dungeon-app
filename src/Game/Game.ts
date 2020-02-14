@@ -22,6 +22,8 @@ class Game {
   gameView: View = new View(0, 0);
   deltaTimeHistory: number[] = [];
 
+  _canvasMode: string = "";
+
   begin(canvas: ICanvas) {
     this.loadGame();
 
@@ -44,6 +46,13 @@ class Game {
     ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(7, 6)));
     ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(15, 2)));
     ObjectManager.getInstance().addObject(new EnemyGO(new DataStoreService(), new Vector2D(2, 15)));
+  }
+
+  setCanvas(newCanvas: ICanvas, canvasMode: string) {
+    this.canvas?.remove();
+    this.canvas = newCanvas;
+    this._canvasMode = canvasMode;
+    ObjectManager.getInstance().canvas = newCanvas;
   }
 
   tick() {
