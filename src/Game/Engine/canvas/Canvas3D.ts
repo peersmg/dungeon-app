@@ -5,6 +5,7 @@ import Camera3D from "../camera/Camera3D";
 import GridRenderer3D from "./GridRenderer3D";
 import Vector2D from "../Utils/Vector2D";
 import { isNullOrUndefined } from "util";
+import { Color } from "../Utils/Color";
 
 class Canvas3D implements ICanvas {
   private _camera: ICamera;
@@ -27,6 +28,13 @@ class Canvas3D implements ICanvas {
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
 
     this._gridRender = new GridRenderer3D(this);
+
+    let ambientLight = new THREE.AmbientLight(0x404040);
+    this._scene.add(ambientLight);
+    let directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.z = 2;
+    directionalLight.position.x = 3;
+    this._scene.add(directionalLight);
 
     if (this._containerElement) {
       this._renderer.setSize(
@@ -52,9 +60,9 @@ class Canvas3D implements ICanvas {
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
-  public addCube(x: number, y: number, zLevel: number): THREE.Mesh {
+  public addCube(x: number, y: number, zLevel: number, color: Color): THREE.Mesh {
     let geometry = new THREE.BoxGeometry(this._boxSize, this._boxSize, this._boxSize);
-    let material = new THREE.MeshNormalMaterial();
+    let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(color) });
     let mesh = new THREE.Mesh(geometry, material);
 
     let pos = this.gridToWorldPos(new Vector2D(x, y), zLevel);

@@ -45,7 +45,12 @@ class GridRenderer3D {
           // New entity not in old entity list
           if (!this._entityMeshMap.has(newEnt.objectId)) {
             // Add newEnt
-            let newMesh = this._canvas.addCube(newEnt.mapCoord.x, newEnt.mapCoord.y, 1);
+            let newMesh = this._canvas.addCube(
+              newEnt.mapCoord.x,
+              newEnt.mapCoord.y,
+              1,
+              newEnt.appearance.backgroundColor
+            );
             this._entityMeshMap.set(newEnt.objectId, newMesh);
           }
         }
@@ -76,7 +81,12 @@ class GridRenderer3D {
     let entityArray = dataStore.getState().map.entities;
 
     for (let i = 0; i < entityArray.length; i++) {
-      let newMesh = this._canvas.addCube(entityArray[i].mapCoord.x, entityArray[i].mapCoord.y, 1);
+      let newMesh = this._canvas.addCube(
+        entityArray[i].mapCoord.x,
+        entityArray[i].mapCoord.y,
+        1,
+        entityArray[i].appearance.backgroundColor
+      );
       this._entityMeshMap.set(entityArray[i].objectId, newMesh);
     }
 
@@ -95,7 +105,7 @@ class GridRenderer3D {
           .map.environmentTypes.find(val => val.id === envArray[y][x]);
 
         if (envType) {
-          this._canvas.addCube(x, y, envType.zLevel);
+          this._canvas.addCube(x, y, envType.zLevel, envType.appearance.backgroundColor);
         }
       }
     }
