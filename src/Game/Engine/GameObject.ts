@@ -1,7 +1,6 @@
 import GameComponent from "./GameComponent";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "./Utils/Vector2D";
-import ICanvas from "./canvas/ICanvas";
 
 abstract class GameObject {
   private static objectCount: number = 0;
@@ -17,7 +16,7 @@ abstract class GameObject {
     GameObject.objectCount++;
   }
 
-  abstract start(canvas: ICanvas): void;
+  abstract start(): void;
 
   update(deltaTime: number): void {
     this.components.forEach(component => {
@@ -25,8 +24,8 @@ abstract class GameObject {
     });
   }
 
-  addComponent(canvas: ICanvas, newComponent: GameComponent): void {
-    newComponent.start(canvas);
+  addComponent(newComponent: GameComponent): void {
+    newComponent.start();
     this.components.push(newComponent);
   }
 

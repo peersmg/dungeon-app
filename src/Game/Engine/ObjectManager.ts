@@ -25,7 +25,7 @@ class ObjectManager {
 
   public addObject(newObject: GameObject) {
     if (newObject && this.canvas) {
-      newObject.start(this.canvas);
+      newObject.start();
       this.objects.set(newObject.id, newObject);
     }
   }

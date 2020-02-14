@@ -6,21 +6,17 @@ import { EntityTag } from "../../redux/types";
 import Tile2D from "../Engine/Utils/Tile2D";
 import ICollectable from "../ICollectable";
 import ObjectManager from "../Engine/ObjectManager";
-import ICanvas from "../Engine/canvas/ICanvas";
 
 class ItemGO extends GameObject implements ICollectable {
   entityStore: IEntityStore;
   renderTile: Tile2D | null = null;
-  canvas: ICanvas | null = null;
 
   constructor(entityStore: IEntityStore) {
     super(new TransformComponent(new Vector2D(104, 156)));
     this.entityStore = entityStore;
   }
 
-  start(canvas: ICanvas): void {
-    this.canvas = canvas;
-
+  start(): void {
     this.entityStore.addEntity({
       objectId: this.id,
       tag: EntityTag.ITEM,

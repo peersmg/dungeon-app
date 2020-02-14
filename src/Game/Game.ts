@@ -33,7 +33,7 @@ class Game {
 
     // PLAYER
     ObjectManager.getInstance().addObject(
-      new PlayerGO(new DataStoreService(), new DataStoreService())
+      new PlayerGO(canvas, new DataStoreService(), new DataStoreService())
     );
 
     // ITEMS

@@ -22,9 +22,7 @@ class MapRenderComponent extends GameComponent {
     }
   }
 
-  start(canvas: ICanvas): void {
-    this.canvas = canvas;
-
+  start(): void {
     if (this.mapStore.getMap()) {
       //Init empty object array
       // for (let x = 0; x < this.mapStore.getMap()!.length; x++) {

@@ -20,7 +20,7 @@ class EnemyGO extends GameObject {
     this.initMapPos = initMapPos;
   }
 
-  start(canvas: ICanvas): void {
+  start(): void {
     this.entityStore.addEntity({
       objectId: this.id,
       tag: EntityTag.ENEMY,
@@ -34,7 +34,6 @@ class EnemyGO extends GameObject {
       }
     });
 
-    this.canvas = canvas;
     this.renderTile = new Tile2D(
       this.transform.position,
       new Vector2D(50, 50),
@@ -44,7 +43,7 @@ class EnemyGO extends GameObject {
       ";"
     );
 
-    this.addComponent(canvas, new RandomMovementComponent(this));
+    this.addComponent(new RandomMovementComponent(this));
   }
 
   update() {

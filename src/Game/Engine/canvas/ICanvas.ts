@@ -1,4 +1,3 @@
-import Tile2D from "../Utils/Tile2D";
 import ICamera from "../camera/ICamera";
 
 interface ICanvas {
