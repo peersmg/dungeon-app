@@ -61,6 +61,7 @@ class Canvas3D implements ICanvas {
       this._initialised = true;
     }
 
+    this._camera.update(this);
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
