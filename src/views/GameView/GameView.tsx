@@ -11,19 +11,20 @@ import Camera3D from "../../Game/Engine/camera/Camera3D";
 const GameView: React.FC<GameStateProp> = (props: GameStateProp) => {
   const [gameRef] = useState<Game>(new Game());
   const [requestFrame, setRequestFrame] = useState<number>(-1);
+  const defaultCanvas = "2D";
 
   useEffect(() => {
     let canvasComponent: ICanvas;
 
     console.log("Setting up game...");
 
-    // if (DEFAULT_CANVAS === "2D") {
-    //   canvasComponent = new Canvas2D(new Camera2D());
-    //   gameRef._canvasMode = "2D";
-    // } else {
-    canvasComponent = new Canvas3D(new Camera3D());
-    gameRef._canvasMode = "3D";
-    // }
+    if (defaultCanvas === "2D") {
+      canvasComponent = new Canvas2D(new Camera2D());
+      gameRef._canvasMode = "2D";
+    } else {
+      canvasComponent = new Canvas3D(new Camera3D());
+      gameRef._canvasMode = "3D";
+    }
 
     if (canvasComponent) {
       gameRef.begin(canvasComponent);
