@@ -27,10 +27,13 @@ class EnemyGO extends GameObject {
       mapCoord: this.initMapPos,
       health: 100,
       strength: 5,
-      appearance: {
+      appearance2D: {
         backgroundColor: "#2C4694",
         textColor: "orange",
         character: ";"
+      },
+      appearance3D: {
+        baseColor: "red"
       }
     });
 

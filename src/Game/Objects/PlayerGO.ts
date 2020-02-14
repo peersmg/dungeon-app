@@ -28,10 +28,13 @@ class PlayerGO extends GameObject {
       mapCoord: new Vector2D(1, 1),
       health: 100,
       strength: 20,
-      appearance: {
+      appearance2D: {
         backgroundColor: "#2C4694",
         textColor: "white",
         character: "@"
+      },
+      appearance3D: {
+        baseColor: "green"
       }
     });
 

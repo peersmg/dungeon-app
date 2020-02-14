@@ -3,50 +3,65 @@
     "id": 3,
     "name": "Floor",
     "zLevel": 0,
-    "appearance": {
-      "backgroundColor": "blue",
+    "appearance2D": {
+      "backgroundColor": "MidnightBlue",
       "textColor": "white",
       "character": "■"
+    },
+    "appearance3D": {
+      "baseColor": "grey"
     }
   },
   {
     "id": 1,
     "name": "Wall",
     "zLevel": 1,
-    "appearance": {
-      "backgroundColor": "blue",
+    "appearance2D": {
+      "backgroundColor": "MidnightBlue",
       "textColor": "black",
       "character": "#"
+    },
+    "appearance3D": {
+      "baseColor": "grey"
     }
   },
   {
     "id": 2,
     "name": "Water",
     "zLevel": -1,
-    "appearance": {
+    "appearance2D": {
       "backgroundColor": "#00030d",
       "textColor": "blue",
       "character": "~"
+    },
+    "appearance3D": {
+      "baseColor": "blue"
     }
   },
   {
     "id": 0,
     "name": "ShortGrass",
     "zLevel": 0,
-    "appearance": {
+    "appearance2D": {
       "backgroundColor": "#000200",
       "textColor": "green",
       "character": "."
+    },
+    "appearance3D": {
+      "baseColor": "#000200"
     }
   },
   {
     "id": 4,
     "name": "LongGrass",
     "zLevel": 0,
-    "appearance": {
+    "appearance2D": {
       "backgroundColor": "#000500",
       "textColor": "green",
       "character": "\""
+    },
+    "appearance3D": {
+      "baseColor": "green"
     }
   }
 ]

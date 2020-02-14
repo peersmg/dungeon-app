@@ -18,12 +18,12 @@ class GridRenderer2D {
           .getState()
           .map.environmentTypes.find(val => val.id === envArray[y][x]);
         if (envType) {
-          this._canvas.setFillStyle(envType.appearance.backgroundColor);
+          this._canvas.setFillStyle(envType.appearance2D.backgroundColor);
           this._canvas.drawBox(new Vector2D(x * 52, y * 52), new Vector2D(50, 50));
           this._canvas.drawTextToWorld(
-            envType.appearance.character,
+            envType.appearance2D.character,
             new Vector2D(x * 52 + 25, y * 52 + 25),
-            envType.appearance.textColor
+            envType.appearance2D.textColor
           );
         }
       }
@@ -34,15 +34,15 @@ class GridRenderer2D {
     let entityArray = dataStore.getState().map.entities;
 
     for (let i = 0; i < entityArray.length; i++) {
-      this._canvas.setFillStyle(entityArray[i].appearance.backgroundColor);
+      this._canvas.setFillStyle(entityArray[i].appearance2D.backgroundColor);
       this._canvas.drawBox(
         new Vector2D(entityArray[i].mapCoord.x * 52, entityArray[i].mapCoord.y * 52),
         new Vector2D(50, 50)
       );
       this._canvas.drawTextToWorld(
-        entityArray[i].appearance.character,
+        entityArray[i].appearance2D.character,
         new Vector2D(entityArray[i].mapCoord.x * 52 + 25, entityArray[i].mapCoord.y * 52 + 25),
-        entityArray[i].appearance.textColor
+        entityArray[i].appearance2D.textColor
       );
     }
   }

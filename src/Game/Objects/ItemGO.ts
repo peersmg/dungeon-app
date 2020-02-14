@@ -23,10 +23,13 @@ class ItemGO extends GameObject implements ICollectable {
       mapCoord: new Vector2D(2, 3),
       health: 100,
       strength: 5,
-      appearance: {
+      appearance2D: {
         backgroundColor: "#1a0000",
         textColor: "red",
         character: "♥"
+      },
+      appearance3D: {
+        baseColor: "orange"
       }
     });
   }

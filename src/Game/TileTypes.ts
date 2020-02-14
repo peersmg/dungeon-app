@@ -12,13 +12,18 @@ export type Appearance2D = {
   character: string;
 };
 
+export type Appearance3D = {
+  baseColor: Color;
+};
+
 export type Environment = 0 | 1 | 2;
 
 export interface EnvironmentType {
   id: number;
   name: string;
   zLevel: number;
-  appearance: Appearance2D;
+  appearance2D: Appearance2D;
+  appearance3D: Appearance3D;
 }
 
 export const PLAYER_ENTITY = "purple";

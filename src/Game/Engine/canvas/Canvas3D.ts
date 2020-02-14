@@ -90,8 +90,8 @@ class Canvas3D implements ICanvas {
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
-  public addCube(x: number, y: number, zLevel: number, color: Color): THREE.Mesh {
-    let geometry = new THREE.BoxGeometry(this._boxSize, this._boxSize, this._boxSize);
+  public addCube(x: number, y: number, zLevel: number, color: Color, boxSize: number): THREE.Mesh {
+    let geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
     let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(color) });
     let mesh = new THREE.Mesh(geometry, material);
 

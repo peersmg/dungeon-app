@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from "react-redux";
 import Vector2D from "../Game/Engine/Utils/Vector2D";
-import { Environment, EnvironmentType, Appearance2D } from "../Game/TileTypes";
+import { Environment, EnvironmentType, Appearance2D, Appearance3D } from "../Game/TileTypes";
 
 export interface GameStats {
   FPS: number;
@@ -18,7 +18,8 @@ export interface GameEntity {
   mapCoord: Vector2D;
   health: number;
   strength: number;
-  appearance: Appearance2D;
+  appearance2D: Appearance2D;
+  appearance3D: Appearance3D;
 }
 
 export interface GameMap {

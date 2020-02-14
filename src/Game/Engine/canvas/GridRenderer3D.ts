@@ -49,7 +49,8 @@ class GridRenderer3D {
               newEnt.mapCoord.x,
               newEnt.mapCoord.y,
               1,
-              newEnt.appearance.backgroundColor
+              newEnt.appearance2D.backgroundColor,
+              0.04
             );
             this._entityMeshMap.set(newEnt.objectId, newMesh);
           }
@@ -85,7 +86,8 @@ class GridRenderer3D {
         entityArray[i].mapCoord.x,
         entityArray[i].mapCoord.y,
         1,
-        entityArray[i].appearance.backgroundColor
+        entityArray[i].appearance3D.baseColor,
+        0.04
       );
       this._entityMeshMap.set(entityArray[i].objectId, newMesh);
     }
@@ -105,7 +107,7 @@ class GridRenderer3D {
           .map.environmentTypes.find(val => val.id === envArray[y][x]);
 
         if (envType) {
-          this._canvas.addCube(x, y, envType.zLevel, envType.appearance.backgroundColor);
+          this._canvas.addCube(x, y, envType.zLevel, envType.appearance3D.baseColor, 0.05);
         }
       }
     }
