@@ -2,7 +2,6 @@ import GameObject from "../Engine/GameObject";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { IEntityStore } from "../service/IEntityStore";
-import Tile2D from "../Engine/Utils/Tile2D";
 import RandomMovementComponent from "../components/RandomMovementComponent";
 import ObjectManager from "../Engine/ObjectManager";
 import { EntityTag } from "../../redux/types";
@@ -11,7 +10,6 @@ import ICanvas from "../Engine/canvas/ICanvas";
 class EnemyGO extends GameObject {
   entityStore: IEntityStore;
   canvas: ICanvas | null = null;
-  renderTile: Tile2D | null = null;
   initMapPos: Vector2D;
 
   constructor(entityStore: IEntityStore, initMapPos: Vector2D) {
@@ -36,15 +34,6 @@ class EnemyGO extends GameObject {
         baseColor: "red"
       }
     });
-
-    this.renderTile = new Tile2D(
-      this.transform.position,
-      new Vector2D(50, 50),
-      1,
-      "#2C4694",
-      "orange",
-      ";"
-    );
 
     this.addComponent(new RandomMovementComponent(this));
   }

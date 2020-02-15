@@ -3,13 +3,11 @@ import { IEntityStore } from "../service/IEntityStore";
 import TransformComponent from "../components/TransformComponent";
 import Vector2D from "../Engine/Utils/Vector2D";
 import { EntityTag } from "../../redux/types";
-import Tile2D from "../Engine/Utils/Tile2D";
 import ICollectable from "../ICollectable";
 import ObjectManager from "../Engine/ObjectManager";
 
 class ItemGO extends GameObject implements ICollectable {
   entityStore: IEntityStore;
-  renderTile: Tile2D | null = null;
 
   constructor(entityStore: IEntityStore) {
     super(new TransformComponent(new Vector2D(104, 156)));
