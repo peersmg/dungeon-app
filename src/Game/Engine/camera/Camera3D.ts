@@ -16,7 +16,7 @@ class Camera3D implements ICamera {
   private moveSpeed = 0.05;
 
   constructor() {
-    this._camera.position.z = 1;
+    this._camera.position.z = 0.6;
     this._camera.rotateX(0.5);
   }
 
@@ -27,7 +27,7 @@ class Camera3D implements ICamera {
         1
       );
 
-      targetPos.setY(targetPos.y - 0.5);
+      targetPos.setY(targetPos.y - 0.3);
 
       let curPos = this._camera.position;
       let directionVec = curPos

@@ -26,15 +26,25 @@ class Canvas3D implements ICanvas {
     this._containerElement = document.getElementById("game");
 
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
+    this._renderer.shadowMapEnabled = true;
+    this._renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this._gridRender = new GridRenderer3D(this);
 
     let ambientLight = new THREE.AmbientLight(0x404040);
     this._scene.add(ambientLight);
+
     let directionalLight = new THREE.DirectionalLight(0xffffff);
     directionalLight.position.z = 2;
     directionalLight.position.y = 0.5;
     directionalLight.position.x = 3;
+    directionalLight.castShadow = true;
+    //Set up shadow properties for the light
+    directionalLight.shadow.mapSize.width = 32767;
+    directionalLight.shadow.mapSize.height = 32767;
+
+    directionalLight.shadow.camera.near = 0.5;
+    directionalLight.shadow.camera.far = 10;
     this._scene.add(directionalLight);
 
     if (this._containerElement) {
@@ -94,6 +104,8 @@ class Canvas3D implements ICanvas {
     let geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
     let material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
     let mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     let pos = this.gridToWorldPos(new Vector2D(x, y), zLevel);
     mesh.position.set(pos.x, pos.y, pos.z);
