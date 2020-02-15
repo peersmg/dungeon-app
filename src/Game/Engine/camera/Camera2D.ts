@@ -8,7 +8,7 @@ class Camera2D implements ICamera {
   private _viewPos = new Vector2D(0, 0);
   private targetViewPos = new Vector2D(0, 0);
   private focusTransform: TransformComponent | null = null;
-
+  private _initialised = false;
   private moveSpeed = 0.1;
 
   public getViewPos() {
@@ -18,6 +18,11 @@ class Camera2D implements ICamera {
   public update(canvas: ICanvas) {
     if (this.focusTransform && canvas) {
       this.updateFocus(canvas);
+    }
+
+    if (!this._initialised && this.focusTransform && canvas) {
+      this._viewPos = this.targetViewPos.clone();
+      this._initialised = true;
     }
 
     if (this._viewPos !== this.targetViewPos) {

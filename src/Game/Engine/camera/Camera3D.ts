@@ -15,6 +15,7 @@ class Camera3D implements ICamera {
   private focusTransform: TransformComponent | null = null;
   private moveSpeed = 0.5;
   private cameraOffset = -5;
+  private _initialised = false;
 
   constructor() {
     this._camera.position.z = 10;
@@ -41,8 +42,14 @@ class Camera3D implements ICamera {
         curPos.y + directionVec.y * this.moveSpeed
       );
 
-      this._camera.position.setX(updatedVec.x);
-      this._camera.position.setY(updatedVec.y);
+      if (!this._initialised) {
+        this._camera.position.setX(targetPos.x);
+        this._camera.position.setY(targetPos.y);
+        this._initialised = true;
+      } else {
+        this._camera.position.setX(updatedVec.x);
+        this._camera.position.setY(updatedVec.y);
+      }
     }
   }
 

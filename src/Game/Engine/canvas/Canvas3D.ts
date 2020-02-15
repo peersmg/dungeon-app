@@ -26,7 +26,7 @@ class Canvas3D implements ICanvas {
     this._containerElement = document.getElementById("game");
 
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
-    this._renderer.shadowMapEnabled = true;
+    this._renderer.shadowMap.enabled = true;
     this._renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this._gridRender = new GridRenderer3D(this);
