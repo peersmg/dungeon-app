@@ -1,7 +1,7 @@
 import ICamera from "../camera/ICamera";
 
 interface ICanvas {
-  render(): void;
+  render(deltaTime: number): void;
   getCanvasWidth(): number;
   getCanvasHeight(): number;
   getCamera(): ICamera;

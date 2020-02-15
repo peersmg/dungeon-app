@@ -41,7 +41,7 @@ class RandomMovementComponent extends GameComponent {
   }
 
   private randMove() {
-    let rand = lUtil.random(4, false);
+    let rand = lUtil.random(3, false);
 
     switch (rand) {
       case 0:

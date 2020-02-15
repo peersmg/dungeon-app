@@ -87,7 +87,7 @@ class Canvas3D implements ICanvas {
     this._renderer.domElement.remove();
   }
 
-  render(): void {
+  render(deltaTime: number): void {
     if (!this._initialised) {
       // Add environment
       this._gridRender.addEnvironment();
@@ -98,6 +98,7 @@ class Canvas3D implements ICanvas {
       this._initialised = true;
     }
 
+    this._gridRender.update(deltaTime);
     this._camera.update(this);
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }

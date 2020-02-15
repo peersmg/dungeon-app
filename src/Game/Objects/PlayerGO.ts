@@ -13,6 +13,10 @@ class PlayerGO extends GameObject {
   entityStore: IEntityStore;
   mapStore: IMapStore;
   canvas: ICanvas | null;
+  deltaTime: number = 0;
+
+  timeDelay: number = 0.2;
+  actionTimer: number = 0;
 
   constructor(canvas: ICanvas, entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(52, 52)));
@@ -48,9 +52,12 @@ class PlayerGO extends GameObject {
     this.canvas?.getCamera().setFocus(this.transform);
   }
 
-  update() {
+  update(deltaTime: number) {
     this.canvas = ObjectManager.getInstance().canvas;
     this.canvas?.getCamera().setFocus(this.transform);
+    this.deltaTime = deltaTime;
+
+    this.actionTimer -= deltaTime;
   }
 
   private getDirectionFromKey(e: KeyboardEvent) {
@@ -89,6 +96,10 @@ class PlayerGO extends GameObject {
   }
 
   private playerAction(direction: Vector2D | null) {
+    if (this.actionTimer > 0) {
+      return;
+    }
+
     if (direction) {
       let currentMapPos = this.entityStore.getEntity(this.id)?.mapCoord;
       let targetPos = currentMapPos?.clone().add(direction);
@@ -99,6 +110,7 @@ class PlayerGO extends GameObject {
         } else {
           this.movePlayer(direction);
         }
+        this.actionTimer = this.timeDelay;
       }
     }
   }

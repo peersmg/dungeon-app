@@ -62,8 +62,8 @@ class Game {
 
     dataStore.dispatch(updateFps(fps));
 
-    this.canvas?.render();
-    ObjectManager.getInstance().updateAll(this.deltaTime);
+    this.canvas?.render(this.deltaTime / 1000);
+    ObjectManager.getInstance().updateAll(this.deltaTime / 1000);
   }
 
   private loadGame() {

@@ -2,6 +2,12 @@ import dataStore from "../../../redux/store";
 import Canvas3D from "./Canvas3D";
 import { GameEntity } from "../../../redux/types";
 import { cloneDeep } from "lodash";
+import { Vector3 } from "three";
+
+interface MeshMove {
+  targetPosition: Vector3;
+  mesh: THREE.Mesh;
+}
 
 class GridRenderer3D {
   private _canvas: Canvas3D;
@@ -11,9 +17,38 @@ class GridRenderer3D {
   private _initialised: boolean = false;
   private _boxSize: number = 1;
 
+  private _meshMove: MeshMove[] = [];
+
+  private _meshMoveSpeed: number = 12;
+
   constructor(canvas: Canvas3D) {
     this._canvas = canvas;
     this._entityMeshMap = new Map();
+  }
+
+  public update(deltaTime: number) {
+    this._meshMove.forEach((meshToMove, index, array) => {
+      let curPos = meshToMove.mesh.position.clone();
+      let directionVec = curPos
+        .clone()
+        .sub(meshToMove.targetPosition)
+        .negate();
+
+      if (directionVec.length() < 0.01) {
+        meshToMove.mesh.position.set(
+          meshToMove.targetPosition.x,
+          meshToMove.targetPosition.y,
+          curPos.z
+        );
+        array.splice(index, 1);
+      } else {
+        meshToMove.mesh.position.set(
+          curPos.x + directionVec.x * (this._meshMoveSpeed * deltaTime),
+          curPos.y + directionVec.y * (this._meshMoveSpeed * deltaTime),
+          curPos.z
+        );
+      }
+    });
   }
 
   private initialiseEntityListner() {
@@ -62,15 +97,26 @@ class GridRenderer3D {
       newState.forEach(newEnt => {
         if (
           this._oldEntityState.find(
-            oldEnt => newEnt.objectId === oldEnt.objectId && newEnt.mapCoord !== oldEnt.mapCoord
+            oldEnt =>
+              newEnt.objectId === oldEnt.objectId && !newEnt.mapCoord.equals(oldEnt.mapCoord)
           )
         ) {
           // Entity moved
           if (this._entityMeshMap.has(newEnt.objectId)) {
-            // Add newEnt
             let meshToMove = this._entityMeshMap.get(newEnt.objectId)!;
-            let newPos = this._canvas.gridToWorldPos(newEnt.mapCoord, 1);
-            meshToMove.position.set(newPos.x, newPos.y, newPos.z);
+
+            // Check if entity already moving
+            let existingMove: number = this._meshMove.findIndex(
+              val => val.mesh.id === meshToMove.id
+            );
+            if (existingMove !== -1) {
+              this._meshMove.splice(existingMove, 1);
+              console.log("Already moving!");
+            }
+
+            // Add entity to move list
+            let newPos = this._canvas.gridToWorldPos(newEnt.mapCoord, 1).clone();
+            this._meshMove.push({ targetPosition: newPos, mesh: meshToMove });
           }
         }
       });
