@@ -9,6 +9,7 @@ class GridRenderer3D {
 
   private _oldEntityState: GameEntity[] = [];
   private _initialised: boolean = false;
+  private _boxSize: number = 1;
 
   constructor(canvas: Canvas3D) {
     this._canvas = canvas;
@@ -50,7 +51,7 @@ class GridRenderer3D {
               newEnt.mapCoord.y,
               1,
               newEnt.appearance2D.backgroundColor,
-              0.04
+              this._boxSize * 0.9
             );
             this._entityMeshMap.set(newEnt.objectId, newMesh);
           }
@@ -87,7 +88,7 @@ class GridRenderer3D {
         entityArray[i].mapCoord.y,
         1,
         entityArray[i].appearance3D.baseColor,
-        0.04
+        this._boxSize * 0.9
       );
       this._entityMeshMap.set(entityArray[i].objectId, newMesh);
     }
@@ -107,7 +108,14 @@ class GridRenderer3D {
           .map.environmentTypes.find(val => val.id === envArray[y][x]);
 
         if (envType) {
-          this._canvas.addCube(x, y, envType.zLevel, envType.appearance3D.baseColor, 0.05);
+          this._canvas.addCube(
+            x,
+            y,
+            envType.zLevel,
+            envType.appearance3D.baseColor,
+            this._boxSize,
+            envType.zLevel === -1 ? false : true
+          );
         }
       }
     }

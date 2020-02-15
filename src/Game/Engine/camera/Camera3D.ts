@@ -10,13 +10,14 @@ class Camera3D implements ICamera {
     60,
     window.innerWidth / window.innerHeight,
     0.0001,
-    10
+    50
   );
   private focusTransform: TransformComponent | null = null;
-  private moveSpeed = 0.05;
+  private moveSpeed = 0.5;
+  private cameraOffset = -5;
 
   constructor() {
-    this._camera.position.z = 0.6;
+    this._camera.position.z = 10;
     this._camera.rotateX(0.5);
   }
 
@@ -27,7 +28,7 @@ class Camera3D implements ICamera {
         1
       );
 
-      targetPos.setY(targetPos.y - 0.3);
+      targetPos.setY(targetPos.y + this.cameraOffset);
 
       let curPos = this._camera.position;
       let directionVec = curPos

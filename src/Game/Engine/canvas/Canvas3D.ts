@@ -17,7 +17,7 @@ class Canvas3D implements ICanvas {
 
   private _xOffset = -1;
   private _yOffset = 0.5;
-  private _boxSize = 0.05;
+  private _boxSize = 1;
 
   constructor(camera: ICamera) {
     this._camera = camera;
@@ -35,17 +35,20 @@ class Canvas3D implements ICanvas {
     this._scene.add(ambientLight);
 
     let directionalLight = new THREE.DirectionalLight(0xffffff);
-    directionalLight.position.z = 2;
-    directionalLight.position.y = 0.5;
-    directionalLight.position.x = 3;
+    directionalLight.position.z = 30;
+    directionalLight.position.y = 10;
+    directionalLight.position.x = 50;
     directionalLight.castShadow = true;
     //Set up shadow properties for the light
-    directionalLight.shadow.mapSize.width = 32767;
-    directionalLight.shadow.mapSize.height = 32767;
+    directionalLight.shadow.mapSize.width = 20480;
+    directionalLight.shadow.mapSize.height = 20480;
+    directionalLight.shadow.camera.scale.multiplyScalar(15);
 
     directionalLight.shadow.camera.near = 0.5;
-    directionalLight.shadow.camera.far = 10;
+    directionalLight.shadow.camera.far = 500;
+
     this._scene.add(directionalLight);
+    this._scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
 
     if (this._containerElement) {
       this._renderer.setSize(
@@ -100,11 +103,18 @@ class Canvas3D implements ICanvas {
     this._renderer.render(this._scene, (this._camera as Camera3D).get3DCamera());
   }
 
-  public addCube(x: number, y: number, zLevel: number, color: Color, boxSize: number): THREE.Mesh {
+  public addCube(
+    x: number,
+    y: number,
+    zLevel: number,
+    color: Color,
+    boxSize: number,
+    castShadow: boolean = true
+  ): THREE.Mesh {
     let geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
     let material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
     let mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
+    mesh.castShadow = castShadow;
     mesh.receiveShadow = true;
 
     let pos = this.gridToWorldPos(new Vector2D(x, y), zLevel);
