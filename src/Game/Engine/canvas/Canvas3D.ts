@@ -48,7 +48,6 @@ class Canvas3D implements ICanvas {
     directionalLight.shadow.camera.far = 500;
 
     this._scene.add(directionalLight);
-    this._scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
 
     if (this._containerElement) {
       this._renderer.setSize(
@@ -132,8 +131,8 @@ class Canvas3D implements ICanvas {
 
   public gridToWorldPos(gridPos: Vector2D, zLevel: number): THREE.Vector3 {
     return new THREE.Vector3(
-      gridPos.x * this._boxSize + this._xOffset,
-      -gridPos.y * this._boxSize + this._yOffset,
+      gridPos.x * (this._boxSize + 0.1) + this._xOffset,
+      -gridPos.y * (this._boxSize + 0.1) + this._yOffset,
       zLevel * this._boxSize
     );
   }
