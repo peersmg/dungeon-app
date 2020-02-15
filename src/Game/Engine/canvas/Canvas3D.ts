@@ -92,7 +92,7 @@ class Canvas3D implements ICanvas {
 
   public addCube(x: number, y: number, zLevel: number, color: Color, boxSize: number): THREE.Mesh {
     let geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
-    let material = new THREE.MeshPhongMaterial({ color: new THREE.Color(color) });
+    let material = new THREE.MeshLambertMaterial({ color: new THREE.Color(color) });
     let mesh = new THREE.Mesh(geometry, material);
 
     let pos = this.gridToWorldPos(new Vector2D(x, y), zLevel);

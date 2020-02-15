@@ -17,7 +17,7 @@ class Camera3D implements ICamera {
 
   constructor() {
     this._camera.position.z = 1;
-    this._camera.rotateX(0.2);
+    this._camera.rotateX(0.5);
   }
 
   update(canvas: ICanvas): void {
@@ -26,6 +26,8 @@ class Camera3D implements ICamera {
         this.focusTransform.position.clone().divide(52),
         1
       );
+
+      targetPos.setY(targetPos.y - 0.5);
 
       let curPos = this._camera.position;
       let directionVec = curPos
