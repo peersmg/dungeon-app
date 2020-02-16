@@ -15,11 +15,11 @@ class PlayerGO extends GameObject {
   canvas: ICanvas | null;
   deltaTime: number = 0;
 
-  actionCooldownLimit: number = 0.3;
+  actionCooldownLimit: number = 0.1;
   actionCooldown: number = 0;
 
-  entityCooldownLimit: number = 0.3;
-  entityCooldown: number = 0.3;
+  entityCooldownLimit: number = 0.1;
+  entityCooldown: number = 0.1;
   entityUpdateQueued: boolean = false;
 
   constructor(canvas: ICanvas, entityStore: IEntityStore, mapStore: IMapStore) {
