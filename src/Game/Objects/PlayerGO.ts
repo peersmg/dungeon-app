@@ -15,8 +15,12 @@ class PlayerGO extends GameObject {
   canvas: ICanvas | null;
   deltaTime: number = 0;
 
-  timeDelay: number = 0.2;
-  actionTimer: number = 0;
+  actionCooldownLimit: number = 0.3;
+  actionCooldown: number = 0;
+
+  entityCooldownLimit: number = 0.3;
+  entityCooldown: number = 0.3;
+  entityUpdateQueued: boolean = false;
 
   constructor(canvas: ICanvas, entityStore: IEntityStore, mapStore: IMapStore) {
     super(new TransformComponent(new Vector2D(52, 52)));
@@ -57,7 +61,15 @@ class PlayerGO extends GameObject {
     this.canvas?.getCamera().setFocus(this.transform);
     this.deltaTime = deltaTime;
 
-    this.actionTimer -= deltaTime;
+    if (this.entityUpdateQueued) {
+      this.entityCooldown -= deltaTime;
+      if (this.entityCooldown <= 0) {
+        ObjectManager.getInstance().updateEntities();
+        this.entityCooldown = this.entityCooldownLimit;
+        this.entityUpdateQueued = false;
+      }
+    }
+    this.actionCooldown -= deltaTime;
   }
 
   private getDirectionFromKey(e: KeyboardEvent) {
@@ -96,7 +108,7 @@ class PlayerGO extends GameObject {
   }
 
   private playerAction(direction: Vector2D | null) {
-    if (this.actionTimer > 0) {
+    if (this.actionCooldown > 0) {
       return;
     }
 
@@ -110,7 +122,7 @@ class PlayerGO extends GameObject {
         } else {
           this.movePlayer(direction);
         }
-        this.actionTimer = this.timeDelay;
+        this.actionCooldown = this.actionCooldownLimit;
       }
     }
   }
@@ -145,7 +157,7 @@ class PlayerGO extends GameObject {
   private attackEntity(entity: GameEntity) {
     entity.health -= this.entityStore.getEntity(this.id)!.strength;
     this.entityStore.updateEntity(entity);
-    ObjectManager.getInstance().updateEntities();
+    this.entityUpdateQueued = true;
   }
 
   private movePlayer(direction: Vector2D | null) {
@@ -163,7 +175,7 @@ class PlayerGO extends GameObject {
         });
         this.transform.position.add(direction.multiply(52));
 
-        ObjectManager.getInstance().updateEntities();
+        this.entityUpdateQueued = true;
       }
     }
   }
