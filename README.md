@@ -1,3 +1,8 @@
+# Game
+
+Game is hosted at https://dungeon-app.herokuapp.com/. Press space to enter 3D mode.
+
+# Development
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
