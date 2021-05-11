@@ -14,7 +14,7 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-router": "^5.1.4",
     "cypress": "^3.8.3",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
